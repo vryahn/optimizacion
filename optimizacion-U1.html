@@ -243,6 +243,20 @@ border:1px solid var(--border);box-shadow:var(--shadow)}
 padding:2.1rem .95rem .95rem;font:.8rem/1.55 var(--mono)}
 .caja::before{content:attr(data-lang);position:absolute;top:0;left:0;z-index:1;
 font:700 .6rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:.6rem .85rem}
+details.pred{margin:1.3rem 0}
+details.pred>summary{cursor:pointer;list-style:none;font:600 .8rem var(--sans);
+color:#8FBF9F;background:#1A1416;border:1px solid #2B2226;border-radius:12px;padding:.7rem .95rem}
+details.pred>summary::-webkit-details-marker{display:none}
+details.pred>summary::before{content:"\203A";display:inline-block;margin-right:.5rem;
+transition:transform .18s ease}
+details.pred[open]>summary{border-radius:12px 12px 0 0;border-bottom:0}
+details.pred[open]>summary::before{transform:rotate(90deg)}
+details.pred[open]>.caja{margin-top:0;border-radius:0 0 12px 12px}
+details.pred[open]>.caja::before{content:""}
+a.ref{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+a.ref:hover{border-bottom-style:solid}
+.repaso-cta{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
+.repaso-cta .nota{margin:0}
 .caja.codigo,.caja.salida{background:#1A1416;border-color:#2B2226;color:#F4F1EE}
 .caja.codigo::before{color:#D9A567}
 .caja.salida::before{color:#8FBF9F}
@@ -424,6 +438,7 @@ border-radius:2px}
 </div>
 <details class="nota"><summary>Cómo se calculan estos tiempos, y qué no prometen</summary><p>Los calcula el generador de esta guía contando lo que hay en cada bloque, con tasas <b>provisionales</b>: 100 palabras/min de prosa nueva, 160 de repaso, 4 min por bloque de código, 1 min por bloque de salida, 2 min por figura y 1.5 min por pregunta de quiz. Son una conjetura declarada, no una medición. Miden el tiempo de <b>recorrer</b> el material: no incluyen releer lo que no cuajó, ni las lecturas del curso, ni pelearse con un error de instalación. Anota tu tiempo real en cada bloque (se guarda en este navegador, sin cuentas ni servidor) y las unidades siguientes se estimarán con <i>tu</i> tasa.</p></details>
 <p class="nota" id="real-total"></p>
+<p class="repaso-cta"><button type="button" class="calificar" id="repaso-btn" hidden>Repaso rápido · 10 preguntas</button><span class="nota" id="repaso-info"></span></p>
 </section>
 <section class="plan">
 <h2>Plan de estudio · 5 sesiones de 53-60 min (ruta completa)</h2>
@@ -434,6 +449,7 @@ border-radius:2px}
 <li><span class="n">4</span><div><span class="dur">55 min</span><span class="det">desde <a href="#b5-7-como-se-arma-el-script-los-8-bloques">7. Cómo se arma el script: los 8 bloques</a> hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 7 secciones</span></div></li>
 <li><span class="n">5</span><div><span class="dur">53 min</span><span class="det">desde <a href="#b6-intro">Refuerza · el quiz que da puntos</a> hasta Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 13 secciones</span></div></li>
 </ol></section>
+<section class="bloque" id="repaso" hidden><div class="cab"><div class="bn" aria-hidden="true">&#8635;</div><div><h2>Repaso rápido</h2><div class="meta"><span class="chip">10 preguntas de toda la unidad, primero las que has fallado, el resto al azar</span></div></div></div><div id="repaso-cuerpo"></div></section>
 <main>
 <section class="bloque" id="b1"><div class="cab">
 <div class="bn" aria-hidden="true">1</div><div>
@@ -493,7 +509,7 @@ foro.</li>
 un desplegable que dice «ábrelo DESPUÉS de intentarlo». No es adorno: el
 material está escrito para que primero produzcas algo tuyo y luego compares.
 Abrirlo antes te ahorra media hora y te cuesta la mitad del aprendizaje.</li>
-<li><strong>Las referencias entre bloques se ven así:</strong> «El tema» §9 significa «esto ya
+<li><strong>Las referencias entre bloques se ven así:</strong> <a class="ref" href="#b2-9-glosario-de-bolsillo">«El tema» §9</a> significa «esto ya
 está explicado en el bloque 2, sección 9; ve a leerlo si no te suena». Los
 nombres entre comillas angulares son bloques de esta misma página, no archivos
 aparte.</li>
@@ -656,8 +672,9 @@ for nombre, precio, capacidad in mochilas:
 print(&quot;Mejor opcion factible:&quot;, mejor)
 </code></pre></div>
 <p>Salida esperada:</p>
-<div class="caja salida" data-lang="salida"><pre><code>Mejor opcion factible: (&#x27;B&#x27;, 950, 28)
+<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>Mejor opcion factible: (&#x27;B&#x27;, 950, 28)
 </code></pre></div>
+</details>
 <p>Fíjate en el mapa entre código y vocabulario:</p>
 <div class="tabla"><table><thead>
 <tr>
@@ -1050,7 +1067,7 @@ que se disfraza en un quiz</strong>.</p>
 <h4>Trampa 1 · Factible ≠ óptimo</h4>
 <ul>
 <li><strong>Factible</strong> = cumple todas las restricciones. <strong>Óptimo</strong> = es factible <em>y</em>
-tiene el mejor valor objetivo («El tema» §2.4 y <code>§2.5</code>). Todo óptimo es
+tiene el mejor valor objetivo (<a class="ref" href="#b2-2-las-cuatro-piezas-del-vocabulario-minimo">«El tema» §2.4</a> y <code>§2.5</code>). Todo óptimo es
 factible; casi ningún factible es óptimo.</li>
 <li><strong>Disfraz típico:</strong> una opción con valor objetivo buenísimo que rompe un
 límite. Nunca es la respuesta. <em>Las restricciones dicen quién entra al
@@ -1058,7 +1075,7 @@ concurso; la función objetivo dice quién gana</em> — y quien no entra no gan
 </ul>
 <h4>Trampa 2 · Maximizar f = minimizar −f (y nada más)</h4>
 <ul>
-<li>Maximizar <code>f(x)</code> es lo mismo que <strong>minimizar <code>-f(x)</code></strong> («El tema» §4). La
+<li>Maximizar <code>f(x)</code> es lo mismo que <strong>minimizar <code>-f(x)</code></strong> (<a class="ref" href="#b2-4-como-leer-una-formula-de-optimizacion">«El tema» §4</a>). La
 <code>x</code> ganadora es la misma; lo único que cambia es el <strong>signo del valor óptimo</strong>:
 si el máximo de <code>f</code> es 390.51 en <code>x*</code>, el mínimo de <code>-f</code> es −390.51 en ese
 mismo <code>x*</code>.</li>
@@ -1071,12 +1088,12 @@ maximizar <code>f</code>, pero exige <code>f</code> siempre positiva (en <code>f
 <h4>Trampa 3 · Mínimo local ≠ mínimo global</h4>
 <ul>
 <li><strong>Local</strong> = el fondo de <em>un</em> valle. <strong>Global</strong> = el fondo del valle <em>más hondo</em>
-(«El tema» §6). Todo global es local; al revés no.</li>
+(<a class="ref" href="#b2-6-minimos-maximos-local-y-global">«El tema» §6</a>). Todo global es local; al revés no.</li>
 <li><strong>Disfraz típico:</strong> &quot;convergió, luego es el global&quot;. Falso salvo que el problema
 sea <strong>convexo</strong> — un método de gradiente solo mira su vecindad, como alguien
 bajando en la niebla. La única garantía de esta unidad es esa.</li>
 <li>Corolario: si cambias el punto inicial y sale otra respuesta, <strong>no es un bug</strong>,
-es la firma de un problema no convexo («El tema» §7).</li>
+es la firma de un problema no convexo (<a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a>).</li>
 </ul>
 <h4>Trampa 4 · Restricción activa ≠ inactiva</h4>
 <ul>
@@ -1094,7 +1111,7 @@ problema se dispara, sí cambia. Ejemplo, ejecutado: <code>f(x) = x²(20−x)/20
 a <code>x ≤ 10</code> tiene su óptimo en <code>x* = 0</code> con 10 de holgura —inactiva de manual—,
 pero sin esa restricción <code>f</code> baja sin fondo (en <code>x = 60</code> ya vale −7200). Es un
 caso de borde; en un quiz de esta unidad la respuesta esperada es la de arriba.</li>
-<li>Caso numérico ya trabajado en «Actividad B» §6.4: tope de 60 por canal, óptimo en
+<li>Caso numérico ya trabajado en <a class="ref" href="#b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model">«Actividad B» §6.4</a>: tope de 60 por canal, óptimo en
 59.02 → el tope es <strong>inactivo</strong>. Baja el tope a 50 y se vuelve <strong>activo</strong>: el
 canal se pega al 50 y la respuesta cambia.</li>
 <li><strong>Disfraz típico:</strong> &quot;la que se cumple es inactiva&quot;. Falso: <em>todas</em> se cumplen
@@ -1174,7 +1191,7 @@ pegadas: <em>sin restricciones</em> y <em>función suave</em>.</li>
 <h3 id="b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos-">Trampa 7 · La que se midió: <code>éxito = True</code> y 752 pesos de error</h3>
 <p>Ésta no se pregunta en un quiz de conceptos y por eso casi nadie la sabe. Sale de
 correr la Actividad B de verdad. Aquí va el resumen con las cifras; la historia
-completa, con el código y las tres comprobaciones, está en «Actividad B» §9.3.</p>
+completa, con el código y las tres comprobaciones, está en <a class="ref" href="#b5-9-el-analisis-critico-instruccion-6">«Actividad B» §9.3</a>.</p>
 <p><strong>Qué pasó.</strong> El mismo modelo, el mismo método (<code>SLSQP</code>), la misma tolerancia
 (<code>ftol=1e-9</code>). Solo cambió <strong>la unidad de las variables</strong>:</p>
 <div class="tabla"><table><thead>
@@ -2054,12 +2071,13 @@ print(np.sqrt(a))   # raiz cuadrada de CADA elemento
 print(np.sum(a))    # suma todos y devuelve UN numero
 </code></pre></div>
 <p>Salida real:</p>
-<div class="caja salida" data-lang="salida"><pre><code>[60. 40. 30.]
+<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>[60. 40. 30.]
 [60. 40. 30.]
 [900. 400. 225.]
 [5.47722558 4.47213595 3.87298335]
 65.0
 </code></pre></div>
+</details>
 <p>Compáralo con lo que harías sin numpy: <code>[x*2 for x in lista]</code>, o un <code>for</code> con un
 acumulador. Hace lo mismo. La diferencia es que scipy <strong>espera arrays</strong>, así que
 conviene hablar su idioma.</p>
@@ -2083,8 +2101,9 @@ califica no puede reproducir el tuyo.</p>
 print(rng.uniform(5.0, 60.0, size=3))
 </code></pre></div>
 <p>Salida real, y va a ser esta misma cada vez que lo corras:</p>
-<div class="caja salida" data-lang="salida"><pre><code>[47.56758267 29.13831419 52.2228856 ]
+<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>[47.56758267 29.13831419 52.2228856 ]
 </code></pre></div>
+</details>
 <p>Declara la semilla en el informe. Es la diferencia entre un resultado y una
 anécdota.</p>
 <hr />
@@ -2109,11 +2128,12 @@ print(&quot;exito       :&quot;, res.success)
 print(&quot;iteraciones :&quot;, res.nit)
 </code></pre></div>
 <p>Salida real:</p>
-<div class="caja salida" data-lang="salida"><pre><code>x encontrada: 3.0
+<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>x encontrada: 3.0
 f minima    : 1.0
 exito       : True
 iteraciones : 2
 </code></pre></div>
+</details>
 <p>Fíjate en dos detalles del ejemplo, porque son fuente de errores:</p>
 <ul>
 <li><strong>La función recibe una lista, no un número.</strong> Aunque solo haya una variable,
@@ -2129,7 +2149,7 @@ iteraciones : 2
 y devuelve un número. <code>minimize</code> siempre <strong>minimiza</strong>. Si tu problema es de
 maximizar, escribe una función que devuelva <strong>el negativo</strong> de lo que quieres
 subir; el valor de <code>x</code> que sale es el mismo, y para reportar el valor bueno le
-quitas el signo. Esto ya estaba en «El tema» §4: maximizar es minimizar el
+quitas el signo. Esto ya estaba en <a class="ref" href="#b2-4-como-leer-una-formula-de-optimizacion">«El tema» §4</a>: maximizar es minimizar el
 negativo.</p>
 </li>
 <li><p><strong><code>x0</code></strong> — el <strong>punto inicial</strong>: desde dónde empieza a buscar. Debe ser una
@@ -2160,7 +2180,7 @@ escriben como diccionarios:</p>
 confundes: en <code>&quot;eq&quot;</code> la función debe valer <strong>cero</strong> cuando la restricción se
 cumple; en <code>&quot;ineq&quot;</code> debe valer <strong>cero o más</strong>. Por eso &quot;la suma debe ser 100&quot;
 se escribe <code>suma - 100</code>, y &quot;x0 no pasa de 50&quot; se escribe <code>50 - x0</code>. Es la misma
-convención de escribir todo contra cero que ya viste en «El tema» §2.3, con
+convención de escribir todo contra cero que ya viste en <a class="ref" href="#b2-2-las-cuatro-piezas-del-vocabulario-minimo">«El tema» §2.3</a>, con
 un detalle: scipy usa <code>≥ 0</code>, mientras que los libros escriben <code>g(x) ≤ 0</code>. Es el
 mismo contenido con el signo volteado.</p>
 <p><code>lambda x: ...</code> es solo una forma corta de escribir un <code>def</code> de una línea. Si
@@ -2262,7 +2282,7 @@ es la pregunta que la gente olvida y la que salva la instrucción 6.</li>
 contestar tres cosas encadenadas: <em>(a)</em> por qué la cantidad que quieres mejorar
 depende de tu decisión y no del azar; <em>(b)</em> por qué los límites son restricciones
 duras y no preferencias; <em>(c)</em> de qué tipo es el problema resultante según la
-clasificación de «El tema» §5 — continuo o discreto, lineal o no lineal, con o
+clasificación de <a class="ref" href="#b2-5-tipos-de-problemas-clasificacion">«El tema» §5</a> — continuo o discreto, lineal o no lineal, con o
 sin restricciones, convexo o no. Ese último punto no es adorno burocrático:
 <strong>decir de qué tipo es el problema es lo que justifica el método que elegiste</strong>
 en la instrucción 4.</p>
@@ -2316,19 +2336,19 @@ completo).</p>
 <p><strong>Restricciones de caja:</strong> <code>5 ≤ xi ≤ 60</code> para i = 1, 2, 3.</p>
 </blockquote>
 <p>Y en la forma estándar de minimización que usan los libros y que espera scipy
-(«El tema» §4):</p>
+(<a class="ref" href="#b2-4-como-leer-una-formula-de-optimizacion">«El tema» §4</a>):</p>
 <div class="formula"><math display="block"><mrow><msub><mo>min</mo><mrow><mi>x</mi></mrow></msub><mspace width="0.278em" /><mo>&#x02212;</mo><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mn>30</mn><msqrt><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow></msqrt><mo>&#x0002B;</mo><mn>20</mn><msqrt><mrow><msub><mi>x</mi><mn>2</mn></msub></mrow></msqrt><mo>&#x0002B;</mo><mn>15</mn><msqrt><mrow><msub><mi>x</mi><mn>3</mn></msub></mrow></msqrt><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow><mspace width="1em" /><mtext>sujeto&#x000A0;a</mtext><mspace width="1em" /><munderover><mo>&#x02211;</mo><mrow><mi>i</mi><mo>&#x0003D;</mo><mn>1</mn></mrow><mrow><mn>3</mn></mrow></munderover><msub><mi>x</mi><mi>i</mi></msub><mo>&#x02212;</mo><mn>100</mn><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="2em" /><mn>5</mn><mo>&#x02264;</mo><msub><mi>x</mi><mi>i</mi></msub><mo>&#x02264;</mo><mn>60</mn></mrow></math></div>
 <p>En texto plano, por si lo ves sin renderizar:
 <code>min -(30*sqrt(x1) + 20*sqrt(x2) + 15*sqrt(x3)) sujeto a x1+x2+x3-100 = 0, 5 &lt;= xi &lt;= 60</code>.</p>
 <p>El signo menos delante del paréntesis es lo único que hace falta para convertir
-&quot;maximizar clientes&quot; en &quot;minimizar algo&quot;: es la equivalencia de «El tema» §4.</p>
+&quot;maximizar clientes&quot; en &quot;minimizar algo&quot;: es la equivalencia de <a class="ref" href="#b2-4-como-leer-una-formula-de-optimizacion">«El tema» §4</a>.</p>
 <p><strong>De qué tipo es este problema</strong> (esto es lo que justifica el método): es
 <strong>continuo</strong> (los pesos admiten decimales), <strong>no lineal</strong> (hay raíces, no solo
 sumas y multiplicaciones por constantes), <strong>con restricciones</strong> (una de igualdad
 y seis de caja) y <strong>convexo</strong>. Lo de convexo merece una línea: la raíz cuadrada
 es una curva que se aplana, así que su negativo es un tazón; sumar tazones da un
 tazón, y la región factible es un pedazo plano recortado por límites rectos. Por
-la regla de «El tema» §6 — <strong>en un problema convexo todo mínimo local es el
+la regla de <a class="ref" href="#b2-6-minimos-maximos-local-y-global">«El tema» §6</a> — <strong>en un problema convexo todo mínimo local es el
 mínimo global</strong> — cualquier método que baje bien llega a la respuesta verdadera,
 y no hay que preocuparse por el punto inicial. Eso es exactamente lo que la
 sección 8 comprueba con 200 arranques distintos.</p>
@@ -2464,9 +2484,10 @@ print(&quot;partes iguales :&quot;, round(clientes([33.34, 33.33, 33.33]), 4))
 print(&quot;mas al buscador:&quot;, round(clientes([60.0, 25.0, 15.0]), 4))
 </code></pre></div>
 <p>Salida real:</p>
-<div class="caja salida" data-lang="salida"><pre><code>partes iguales : 375.2849
+<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>partes iguales : 375.2849
 mas al buscador: 390.4738
 </code></pre></div>
+</details>
 <p>Ya aprendiste algo antes de optimizar nada: mover dinero hacia el canal más
 productivo mejora el resultado (de 375.3 a 390.5), y una corazonada humana
 razonable llega <strong>cerca</strong>. Guarda ese número: en la sección 8 verás que el óptimo
@@ -2532,7 +2553,7 @@ código y es lo primero que un revisor mira.</p>
 <p>Estos son los números que produce el script del apéndice, ejecutado de verdad en
 este entorno (Python 3.9.6, numpy 2.0.2, scipy 1.13.1, semilla 42). Si corres el
 apéndice tal cual, esto es lo que debe salirte:</p>
-<div class="caja salida" data-lang="salida"><pre><code>=== RESULTADO NUMERICO (SLSQP) ===
+<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>=== RESULTADO NUMERICO (SLSQP) ===
 exito          : True
 iteraciones    : 11
 eval. objetivo : 44
@@ -2560,6 +2581,7 @@ mejora relativa (%)        : 4.06
 corridas fallidas          : 0
 peor desviacion (miles)    : 1.442e-04
 </code></pre></div>
+</details>
 <p>Cómo se lee cada bloque, que es justo lo que va comentado en tu informe:</p>
 <ul>
 <li><strong>La solución.</strong> 59.02, 26.23 y 14.75 miles de pesos. Suma 100. El buscador se
@@ -2571,7 +2593,7 @@ igualdad se cumple sin holgura. Los seis límites de caja también.</li>
 <strong>9 centavos</strong> sobre 100 mil pesos. El error relativo del objetivo es 8.3e-13:
 trece decimales correctos. Aquí es donde se contesta la pregunta que siempre
 aparece: <strong>la respuesta numérica no coincide con la analítica hasta el último
-decimal, y eso es normal</strong>, no un bug — es lo que «El tema» §7 explica sobre
+decimal, y eso es normal</strong>, no un bug — es lo que <a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a> explica sobre
 redondeo y tolerancia. La diferencia es del tamaño de la tolerancia pedida, que
 es exactamente lo esperado.</li>
 <li><strong>La mejora sobre repartir en partes iguales es de 15.23 clientes, un 4.06%.</strong>
@@ -2995,7 +3017,7 @@ print(&quot;tiempo de las 200 (s)      :&quot;, round(t_multi, 4))
 <h4>A.3 La salida completa, tal como sale</h4>
 <p>Guardada en el repositorio como <code>1B_codigo/salida_1B.txt</code>. Los tiempos varían
 según la máquina; todo lo demás debe coincidir dígito por dígito.</p>
-<div class="caja salida" data-lang="salida"><pre><code>numpy 2.0.2 | scipy 1.13.1
+<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>numpy 2.0.2 | scipy 1.13.1
 
 === RESULTADO NUMERICO (SLSQP) ===
 exito          : True
@@ -3031,6 +3053,7 @@ corridas fallidas          : 0
 peor desviacion (miles)    : 1.442e-04
 tiempo de las 200 (s)      : 0.4093
 </code></pre></div>
+</details>
 <h4>A.4 Esqueleto del informe, sección por sección</h4>
 <p>Esto <strong>no es un texto para copiar</strong>: es el molde con lo que va en cada sección y
 cuánto espacio darle. Redáctalo con tus palabras y con tu problema.</p>
@@ -3191,17 +3214,17 @@ métodos empiezan en la Unidad 2). Así que las preguntas solo pueden venir de t
 moldes:</p>
 <ol>
 <li><strong>Definición directa.</strong> &quot;¿Qué es la región factible?&quot; Se contestan con el
-glosario de «El tema» §9. Son las fáciles.</li>
+glosario de <a class="ref" href="#b2-9-glosario-de-bolsillo">«El tema» §9</a>. Son las fáciles.</li>
 <li><strong>Clasificación.</strong> Te describen un problema y te preguntan de qué tipo es:
 continuo o discreto, lineal o no lineal, con o sin restricciones, mono o
-multiobjetivo, convexo o no. Se contestan con «El tema» §5 y <code>§6</code>.</li>
+multiobjetivo, convexo o no. Se contestan con <a class="ref" href="#b2-5-tipos-de-problemas-clasificacion">«El tema» §5</a> y <code>§6</code>.</li>
 <li><strong>Distinción entre dos cosas parecidas.</strong> Aquí es donde se pierden puntos. Las
 seis parejas que se confunden están en el bloque 3.</li>
 </ol>
 <p><strong>Cómo estudiar en 40 minutos, si tienes poco tiempo</strong> (recomendación, no
 requisito):</p>
 <ul>
-<li>10 min: lee la tabla del glosario «El tema» §9 de arriba a abajo, tapando la
+<li>10 min: lee la tabla del glosario <a class="ref" href="#b2-9-glosario-de-bolsillo">«El tema» §9</a> de arriba a abajo, tapando la
 columna derecha.</li>
 <li>10 min: lee las seis trampas conceptuales del bloque 3.</li>
 <li>20 min: contesta el banco de abajo y luego lee las explicaciones.</li>
@@ -3236,7 +3259,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q2" id="b6s3-0-q2-o1" data-ok="1"><label for="b6s3-0-q2-o1"><b>b)</b> <span>minimizar <code>-G(x)</code>.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q2" id="b6s3-0-q2-o2"><label for="b6s3-0-q2-o2"><b>c)</b> <span>maximizar <code>1/G(x)</code>.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q2" id="b6s3-0-q2-o3"><label for="b6s3-0-q2-o3"><b>d)</b> <span>minimizar <code>|G(x)|</code>.</span></label></div>
-<div class="explicacion" hidden><strong>(b) minimizar <code>-G(x)</code>.</strong> Es la equivalencia de «El tema» §4: la <code>x</code> ganadora es la misma y solo cambia el signo del valor. <strong>(a)</strong> invierte el sentido del problema. <strong>(c)</strong> <code>1/G</code> <strong>invierte</strong> el orden: con <code>G &gt; 0</code>, maximizar <code>1/G</code> equivale a <strong>minimizar</strong> <code>G</code>, o sea el problema al revés (con <code>G = 2</code> y <code>G = 5</code>, <code>1/G</code> vale 0.5 y 0.2, así que elige el 2); y si <code>G</code> puede valer 0, <code>1/G</code> ni siquiera está definida. <strong>(d)</strong> el valor absoluto borra el signo, así que una ganancia de −50 y una de +50 se volverían indistinguibles.</div>
+<div class="explicacion" hidden><strong>(b) minimizar <code>-G(x)</code>.</strong> Es la equivalencia de <a class="ref" href="#b2-4-como-leer-una-formula-de-optimizacion">«El tema» §4</a>: la <code>x</code> ganadora es la misma y solo cambia el signo del valor. <strong>(a)</strong> invierte el sentido del problema. <strong>(c)</strong> <code>1/G</code> <strong>invierte</strong> el orden: con <code>G &gt; 0</code>, maximizar <code>1/G</code> equivale a <strong>minimizar</strong> <code>G</code>, o sea el problema al revés (con <code>G = 2</code> y <code>G = 5</code>, <code>1/G</code> vale 0.5 y 0.2, así que elige el 2); y si <code>G</code> puede valer 0, <code>1/G</code> ni siquiera está definida. <strong>(d)</strong> el valor absoluto borra el signo, así que una ganancia de −50 y una de +50 se volverían indistinguibles.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q3">
 <legend><span class="num">3</span><span class="txt">En el óptimo de un problema, una restricción de desigualdad se llama <strong>activa</strong> cuando:</span></legend>
@@ -3260,7 +3283,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q5" id="b6s3-0-q5-o1" data-ok="1"><label for="b6s3-0-q5-o1"><b>b)</b> <span>el problema probablemente no es convexo y cada arranque cayó en un valle distinto.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q5" id="b6s3-0-q5-o2"><label for="b6s3-0-q5-o2"><b>c)</b> <span>la tolerancia está mal puesta y hay que bajarla.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q5" id="b6s3-0-q5-o3"><label for="b6s3-0-q5-o3"><b>d)</b> <span>el problema es infactible.</span></label></div>
-<div class="explicacion" hidden><strong>(b) el problema probablemente no es convexo.</strong> «El tema» §7: el punto inicial importa cuando hay varios valles, y eso es la naturaleza del problema, no un defecto del código. <strong>(a)</strong> es la conclusión apresurada típica. <strong>(c)</strong> bajar la tolerancia refina cada respuesta pero no las une. <strong>(d)</strong> infactible significaría que no hay ninguna solución, y aquí hubo dos.</div>
+<div class="explicacion" hidden><strong>(b) el problema probablemente no es convexo.</strong> <a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a>: el punto inicial importa cuando hay varios valles, y eso es la naturaleza del problema, no un defecto del código. <strong>(a)</strong> es la conclusión apresurada típica. <strong>(c)</strong> bajar la tolerancia refina cada respuesta pero no las une. <strong>(d)</strong> infactible significaría que no hay ninguna solución, y aquí hubo dos.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q6">
 <legend><span class="num">6</span><span class="txt">¿Cuál es la consecuencia práctica más importante de que un problema sea convexo?</span></legend>
@@ -3284,7 +3307,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q8" id="b6s3-0-q8-o1"><label for="b6s3-0-q8-o1"><b>b)</b> <span>discreto y lineal.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q8" id="b6s3-0-q8-o2"><label for="b6s3-0-q8-o2"><b>c)</b> <span>continuo y no lineal.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q8" id="b6s3-0-q8-o3" data-ok="1"><label for="b6s3-0-q8-o3"><b>d)</b> <span>discreto y no lineal.</span></label></div>
-<div class="explicacion" hidden><strong>(d) discreto y no lineal.</strong> Son dos etiquetas independientes y hay que revisarlas por separado. <strong>Discreto</strong> porque ni los camiones ni las rutas admiten decimales. <strong>No lineal</strong> por el producto entre dos variables de decisión (camiones y rutas se deciden las dos): en cuanto se multiplican dos decisiones entre sí, deja de ser lineal («El tema» §5). El error típico es ver &quot;sumas y multiplicaciones&quot; y decir lineal sin fijarse en <em>qué</em> se multiplica con qué.</div>
+<div class="explicacion" hidden><strong>(d) discreto y no lineal.</strong> Son dos etiquetas independientes y hay que revisarlas por separado. <strong>Discreto</strong> porque ni los camiones ni las rutas admiten decimales. <strong>No lineal</strong> por el producto entre dos variables de decisión (camiones y rutas se deciden las dos): en cuanto se multiplican dos decisiones entre sí, deja de ser lineal (<a class="ref" href="#b2-5-tipos-de-problemas-clasificacion">«El tema» §5</a>). El error típico es ver &quot;sumas y multiplicaciones&quot; y decir lineal sin fijarse en <em>qué</em> se multiplica con qué.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q9">
 <legend><span class="num">9</span><span class="txt">¿Qué papel juega cada pieza en un problema de optimización?</span></legend>
@@ -3300,7 +3323,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q10" id="b6s3-0-q10-o1" data-ok="1"><label for="b6s3-0-q10-o1"><b>b)</b> <span>la diferencia, del tamaño de la tolerancia, es el comportamiento normal de un método numérico.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q10" id="b6s3-0-q10-o2"><label for="b6s3-0-q10-o2"><b>c)</b> <span>la fórmula exacta está mal deducida.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q10" id="b6s3-0-q10-o3"><label for="b6s3-0-q10-o3"><b>d)</b> <span>el problema no era convexo.</span></label></div>
-<div class="explicacion" hidden><strong>(b) es el comportamiento normal.</strong> «El tema» §7: la computadora redondea en cada operación y los redondeos se acumulan; una diferencia del tamaño de la tolerancia es esperada. <strong>(a)</strong> cambiar de método daría otra diferencia igual de pequeña. <strong>(c)</strong> y <strong>(d)</strong> inventan un problema donde no lo hay. Ojo con el reverso, que sí es grave y está en la trampa 7 del bloque 3: una diferencia <strong>grande</strong> con <code>éxito = True</code> tampoco es imposible, y ahí el culpable suele ser la escala de las variables.</div>
+<div class="explicacion" hidden><strong>(b) es el comportamiento normal.</strong> <a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a>: la computadora redondea en cada operación y los redondeos se acumulan; una diferencia del tamaño de la tolerancia es esperada. <strong>(a)</strong> cambiar de método daría otra diferencia igual de pequeña. <strong>(c)</strong> y <strong>(d)</strong> inventan un problema donde no lo hay. Ojo con el reverso, que sí es grave y está en la trampa 7 del bloque 3: una diferencia <strong>grande</strong> con <code>éxito = True</code> tampoco es imposible, y ahí el culpable suele ser la escala de las variables.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q11">
 <legend><span class="num">11</span><span class="txt">Si <code>x*</code> es la solución óptima y <code>f</code> la función objetivo, entonces <code>f(x*)</code> es:</span></legend>
@@ -3308,7 +3331,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q11" id="b6s3-0-q11-o1" data-ok="1"><label for="b6s3-0-q11-o1"><b>b)</b> <span>el valor óptimo, es decir el número que produce la decisión ganadora.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q11" id="b6s3-0-q11-o2"><label for="b6s3-0-q11-o2"><b>c)</b> <span>el gradiente en el óptimo.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q11" id="b6s3-0-q11-o3"><label for="b6s3-0-q11-o3"><b>d)</b> <span>la región factible.</span></label></div>
-<div class="explicacion" hidden><strong>(b) el valor óptimo.</strong> «El tema» §2.5: <code>x*</code> es la <strong>decisión</strong> ganadora y <code>f(x*)</code> es el <strong>número</strong> que produce. Si la mejor mochila es la B con 28 litros, <code>x*</code> es &quot;mochila B&quot; y <code>f(x*)</code> es 28. <strong>(a)</strong> los confunde, que es el error frecuente; <strong>(c)</strong> y <strong>(d)</strong> son objetos distintos.</div>
+<div class="explicacion" hidden><strong>(b) el valor óptimo.</strong> <a class="ref" href="#b2-2-las-cuatro-piezas-del-vocabulario-minimo">«El tema» §2.5</a>: <code>x*</code> es la <strong>decisión</strong> ganadora y <code>f(x*)</code> es el <strong>número</strong> que produce. Si la mejor mochila es la B con 28 litros, <code>x*</code> es &quot;mochila B&quot; y <code>f(x*)</code> es 28. <strong>(a)</strong> los confunde, que es el error frecuente; <strong>(c)</strong> y <strong>(d)</strong> son objetos distintos.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q12">
 <legend><span class="num">12</span><span class="txt">&quot;Gasta menos de 500 pesos y compra la mochila que cuesta 1200.&quot; Este problema es:</span></legend>
@@ -3316,7 +3339,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q12" id="b6s3-0-q12-o1"><label for="b6s3-0-q12-o1"><b>b)</b> <span>multiobjetivo.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q12" id="b6s3-0-q12-o2" data-ok="1"><label for="b6s3-0-q12-o2"><b>c)</b> <span>infactible: ninguna opción cumple todas las restricciones, así que no hay solución óptima.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q12" id="b6s3-0-q12-o3"><label for="b6s3-0-q12-o3"><b>d)</b> <span>discreto, y la respuesta es la mochila de 1200 por ser la única.</span></label></div>
-<div class="explicacion" hidden><strong>(c) infactible.</strong> No existe ninguna opción que cumpla las dos restricciones a la vez, así que la región factible está vacía y no hay solución óptima («El tema» §2.4). <strong>(d)</strong> es la tentación de &quot;algo hay que contestar&quot;: una opción que viola una restricción no es candidata, ni siquiera siendo la única. <strong>(a)</strong> y <strong>(b)</strong> describen propiedades que aquí no vienen al caso.</div>
+<div class="explicacion" hidden><strong>(c) infactible.</strong> No existe ninguna opción que cumpla las dos restricciones a la vez, así que la región factible está vacía y no hay solución óptima (<a class="ref" href="#b2-2-las-cuatro-piezas-del-vocabulario-minimo">«El tema» §2.4</a>). <strong>(d)</strong> es la tentación de &quot;algo hay que contestar&quot;: una opción que viola una restricción no es candidata, ni siquiera siendo la única. <strong>(a)</strong> y <strong>(b)</strong> describen propiedades que aquí no vienen al caso.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q13">
 <legend><span class="num">13</span><span class="txt"><strong>Verdadero o falso.</strong> Todo mínimo global es también un mínimo local.</span></legend>
@@ -3334,37 +3357,37 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <legend><span class="num">15</span><span class="txt"><strong>Verdadero o falso.</strong> Quitar del planteamiento una restricción inactiva cambia la solución óptima.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q15" id="b6s3-0-q15-o0"><label for="b6s3-0-q15-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q15" id="b6s3-0-q15-o1" data-ok="1"><label for="b6s3-0-q15-o1"><b>b)</b> <span>Falso.</span></label></div>
-<div class="explicacion" hidden><strong>Falso.</strong> Inactiva significa exactamente que al óptimo le sobra holgura frente a ese límite. Si la borras, el punto óptimo sigue siendo factible y sigue siendo el mejor: nada se mueve. La que sí cambia la respuesta al quitarla es la <strong>activa</strong>. Cuidado con el reflejo de &quot;si está escrita, para algo sirve&quot;: sirve para otros valores de los datos, no para este óptimo («Actividad B» §6.4 tiene el caso numérico). Ojo con la letra chica de la trampa 4: esto vale mientras el problema siga acotado sin la restricción, que es el caso en todo lo que verás en esta unidad.</div>
+<div class="explicacion" hidden><strong>Falso.</strong> Inactiva significa exactamente que al óptimo le sobra holgura frente a ese límite. Si la borras, el punto óptimo sigue siendo factible y sigue siendo el mejor: nada se mueve. La que sí cambia la respuesta al quitarla es la <strong>activa</strong>. Cuidado con el reflejo de &quot;si está escrita, para algo sirve&quot;: sirve para otros valores de los datos, no para este óptimo (<a class="ref" href="#b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model">«Actividad B» §6.4</a> tiene el caso numérico). Ojo con la letra chica de la trampa 4: esto vale mientras el problema siga acotado sin la restricción, que es el caso en todo lo que verás en esta unidad.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q16">
 <legend><span class="num">16</span><span class="txt"><strong>Verdadero o falso.</strong> Una restricción de igualdad deja un rango de valores permitidos.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q16" id="b6s3-0-q16-o0"><label for="b6s3-0-q16-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q16" id="b6s3-0-q16-o1" data-ok="1"><label for="b6s3-0-q16-o1"><b>b)</b> <span>Falso.</span></label></div>
-<div class="explicacion" hidden><strong>Falso.</strong> Es al revés: la de <strong>desigualdad</strong> deja rango (&quot;gasta 1000 o menos&quot;), la de <strong>igualdad</strong> obliga a un valor exacto (&quot;usa exactamente 40 horas&quot;) y no deja holgura («El tema» §2.3).</div>
+<div class="explicacion" hidden><strong>Falso.</strong> Es al revés: la de <strong>desigualdad</strong> deja rango (&quot;gasta 1000 o menos&quot;), la de <strong>igualdad</strong> obliga a un valor exacto (&quot;usa exactamente 40 horas&quot;) y no deja holgura (<a class="ref" href="#b2-2-las-cuatro-piezas-del-vocabulario-minimo">«El tema» §2.3</a>).</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q17">
 <legend><span class="num">17</span><span class="txt"><strong>Verdadero o falso.</strong> Durante el entrenamiento de un modelo, los hiperparámetros son variables de decisión que el optimizador va ajustando.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q17" id="b6s3-0-q17-o0"><label for="b6s3-0-q17-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q17" id="b6s3-0-q17-o1" data-ok="1"><label for="b6s3-0-q17-o1"><b>b)</b> <span>Falso.</span></label></div>
-<div class="explicacion" hidden><strong>Falso.</strong> Un hiperparámetro se fija <strong>antes</strong> de entrenar y el entrenamiento no lo mueve («El tema» §8). Matiz que vale la pena tener claro: cuando <em>ajustas hiperparámetros</em>, planteas un <strong>segundo problema de optimización</strong>, externo al entrenamiento, y ahí sí los hiperparámetros son las variables de decisión. Dentro del entrenamiento, no.</div>
+<div class="explicacion" hidden><strong>Falso.</strong> Un hiperparámetro se fija <strong>antes</strong> de entrenar y el entrenamiento no lo mueve (<a class="ref" href="#b2-8-por-que-esto-importa-en-ciencia-de-datos">«El tema» §8</a>). Matiz que vale la pena tener claro: cuando <em>ajustas hiperparámetros</em>, planteas un <strong>segundo problema de optimización</strong>, externo al entrenamiento, y ahí sí los hiperparámetros son las variables de decisión. Dentro del entrenamiento, no.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q18">
 <legend><span class="num">18</span><span class="txt"><strong>Verdadero o falso.</strong> Entrenar un modelo de aprendizaje automático es, en el fondo, minimizar una función de pérdida moviendo los parámetros del modelo.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q18" id="b6s3-0-q18-o0" data-ok="1"><label for="b6s3-0-q18-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q18" id="b6s3-0-q18-o1"><label for="b6s3-0-q18-o1"><b>b)</b> <span>Falso.</span></label></div>
-<div class="explicacion" hidden><strong>Verdadero.</strong> Es la traducción completa de «El tema» §8: parámetros del modelo = variables de decisión, función de pérdida = función objetivo, entrenar = minimizar.</div>
+<div class="explicacion" hidden><strong>Verdadero.</strong> Es la traducción completa de <a class="ref" href="#b2-8-por-que-esto-importa-en-ciencia-de-datos">«El tema» §8</a>: parámetros del modelo = variables de decisión, función de pérdida = función objetivo, entrenar = minimizar.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q19">
 <legend><span class="num">19</span><span class="txt"><strong>Verdadero o falso.</strong> En un problema <strong>con</strong> restricciones, el óptimo siempre está en un punto donde el gradiente vale cero.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q19" id="b6s3-0-q19-o0"><label for="b6s3-0-q19-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q19" id="b6s3-0-q19-o1" data-ok="1"><label for="b6s3-0-q19-o1"><b>b)</b> <span>Falso.</span></label></div>
-<div class="explicacion" hidden><strong>Falso.</strong> Trampa 6. Con restricciones el óptimo puede caer en el <strong>borde</strong> de la región factible, donde el suelo sigue inclinado. El reparto de publicidad de «Actividad B» es justo ese caso: el óptimo gasta el presupuesto <strong>completo</strong> (la corrida imprime <code>suma - presupuesto : 0.000e+00</code>), así que esa restricción está activa y ahí el terreno no es plano — dar un peso más a cualquier canal seguiría subiendo los clientes, pero ya no hay peso que dar. Cuidado con el ejemplo de la mochila de «El tema» §3: ése <strong>no</strong> sirve para ilustrar esto, porque la ganadora cuesta 950 de un presupuesto de 1000 y le sobra holgura. La versión verdadera de esta afirmación necesita dos condiciones: <em>sin restricciones</em> y <em>función suave</em>.</div>
+<div class="explicacion" hidden><strong>Falso.</strong> Trampa 6. Con restricciones el óptimo puede caer en el <strong>borde</strong> de la región factible, donde el suelo sigue inclinado. El reparto de publicidad de «Actividad B» es justo ese caso: el óptimo gasta el presupuesto <strong>completo</strong> (la corrida imprime <code>suma - presupuesto : 0.000e+00</code>), así que esa restricción está activa y ahí el terreno no es plano — dar un peso más a cualquier canal seguiría subiendo los clientes, pero ya no hay peso que dar. Cuidado con el ejemplo de la mochila de <a class="ref" href="#b2-3-todo-junto-en-python">«El tema» §3</a>: ése <strong>no</strong> sirve para ilustrar esto, porque la ganadora cuesta 950 de un presupuesto de 1000 y le sobra holgura. La versión verdadera de esta afirmación necesita dos condiciones: <em>sin restricciones</em> y <em>función suave</em>.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q20">
 <legend><span class="num">20</span><span class="txt"><strong>Verdadero o falso.</strong> Los métodos basados en gradiente funcionan igual de bien cuando las variables de decisión son discretas.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q20" id="b6s3-0-q20-o0"><label for="b6s3-0-q20-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q20" id="b6s3-0-q20-o1" data-ok="1"><label for="b6s3-0-q20-o1"><b>b)</b> <span>Falso.</span></label></div>
-<div class="explicacion" hidden><strong>Falso.</strong> Un método de gradiente necesita que exista pendiente, y entre dos valores discretos no hay pendiente que medir («El tema» §7). Por eso los problemas discretos usan otra familia de métodos.</div>
+<div class="explicacion" hidden><strong>Falso.</strong> Un método de gradiente necesita que exista pendiente, y entre dos valores discretos no hay pendiente que medir (<a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a>). Por eso los problemas discretos usan otra familia de métodos.</div>
 </fieldset>
 <div class="quiz-barra"><button type="button" class="calificar">Calificar</button><button type="button" class="reiniciar">Reiniciar</button><output class="marcador" role="status"></output></div>
 </form>
@@ -3380,7 +3403,7 @@ veinte una por una, por lo que necesitas saber para contestarlas:</p>
 distinto disfraz.</li>
 <li><strong>7 preguntas</strong> no se pueden contestar con el bloque 3 <strong>en absoluto</strong>, porque
 hablan de cosas que ahí no aparecen: la 8 y la 16 (clasificar y tipos de
-restricción, «El tema» §5 y §2.3), la 10 y la 20 (redondeo y métodos de
+restricción, <a class="ref" href="#b2-5-tipos-de-problemas-clasificacion">«El tema» §5</a> y §2.3), la 10 y la 20 (redondeo y métodos de
 gradiente, §7), la 12 (región factible vacía, §2.4) y la 17 y la 18
 (hiperparámetros y entrenar un modelo, §8).</li>
 </ul>
@@ -3423,7 +3446,7 @@ preguntas de distinción, y más fácil en las de definición, que casi no hay.<
 <tr>
   <td>18-20</td>
   <td>Dominas las seis trampas y las siete de vocabulario que aquí se preguntan. Nada más.</td>
-  <td>Repasa el glosario de «El tema» §9 y la clasificación de <code>§5</code>, que este banco apenas muestrea.</td>
+  <td>Repasa el glosario de <a class="ref" href="#b2-9-glosario-de-bolsillo">«El tema» §9</a> y la clasificación de <code>§5</code>, que este banco apenas muestrea.</td>
 </tr>
 <tr>
   <td>14-17</td>
@@ -3440,7 +3463,7 @@ preguntas de distinción, y más fácil en las de definición, que casi no hay.<
 
 <h3 id="b6-checklist-antes-de-contestar-el-quiz">Checklist antes de contestar el quiz</h3>
 <ul>
-<li>[ ] Leí el glosario de «El tema» §9 completo.</li>
+<li>[ ] Leí el glosario de <a class="ref" href="#b2-9-glosario-de-bolsillo">«El tema» §9</a> completo.</li>
 <li>[ ] Contesté las 20 preguntas antes de pulsar <em>Calificar</em>.</li>
 <li>[ ] De las que fallé, leí <strong>por qué fallan las otras opciones</strong>, no solo cuál
 era la correcta.</li>
@@ -3533,7 +3556,7 @@ que entendiste la unidad. Enuncia explícitamente:</p>
 <li><strong>Región factible</strong>: qué opciones sobreviven a esos límites.</li>
 </ul>
 <p>Y cierra con la clasificación: continuo o discreto, lineal o no lineal, con o sin
-restricciones («El tema» §5). Esa frase de clasificación es la que separa una
+restricciones (<a class="ref" href="#b2-5-tipos-de-problemas-clasificacion">«El tema» §5</a>). Esa frase de clasificación es la que separa una
 aportación de maestría de una de curso introductorio.</p>
 <p><strong>Parte 3 · La segunda pregunta, con un contraejemplo tuyo (≈60 palabras).</strong> No
 contestes &quot;es importante definir bien el problema porque si no, la solución no
@@ -3543,7 +3566,7 @@ respuesta absurda sale. Ese es el corazón de una buena aportación y casi nadie
 hace.</p>
 <p><strong>Parte 4 · El enlace con la lectura o con la materia (≈30 palabras).</strong> Una
 línea que conecte con Nocedal &amp; Wright (pp. 1-15) o Antoniou &amp; Lu (pp. 1-76), o
-con un uso en ciencia de datos («El tema» §8: entrenar un modelo es minimizar
+con un uso en ciencia de datos (<a class="ref" href="#b2-8-por-que-esto-importa-en-ciencia-de-datos">«El tema» §8</a>: entrenar un modelo es minimizar
 una función de pérdida). Demuestra que leíste, no solo que pensaste.</p>
 <p><strong>Parte 5 · La pregunta abierta al grupo (≈20 palabras).</strong> Una pregunta genuina,
 no retórica, que un compañero pueda contestar con algo que él sepa y tú no.
@@ -3601,7 +3624,7 @@ admite las dos lecturas y la elección es defendible en ambos sentidos. &quot;Ho
 estudio&quot; es continuo si aceptas 2.5 horas y discreto si solo asignas bloques de
 una hora. Declara cuál escogiste <strong>y qué te cuesta</strong>: lo discreto es más honesto
 con la realidad pero cierra la puerta a los métodos basados en gradiente
-(«El tema» §7); lo continuo abre esos métodos pero puede darte una respuesta
+(<a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a>); lo continuo abre esos métodos pero puede darte una respuesta
 que después hay que redondear, y el redondeo no siempre es óptimo. Decir esa
 última frase es lo que hace sustantiva la aportación.</p>
 <p><strong>Decisión 3 · Qué pieza rompes en el contraejemplo de la parte 3.</strong> Hay tres
@@ -3786,8 +3809,17 @@ function pintaVencimientos(){
     caja.hidden=false;
     caja.querySelector('b').textContent=v.replace('/',' de ');
   }
-  d.querySelectorAll('.quiz').forEach(function(f){
-    var qs=f.querySelectorAll('.pregunta');
+  // Memoria de fallos por pregunta: {id: veces falladas}. La alimenta cada
+  // calificacion y la consume el repaso rapido (falladas primero).
+  function fallas(){try{return JSON.parse(guardado(KEY+'fallas'))||{};}catch(e){return {};}}
+  function anota(id,ok){
+    var f=fallas();
+    if(ok){ if(f[id]) f[id]=Math.max(0,f[id]-1); if(!f[id]) delete f[id]; }
+    else f[id]=(f[id]||0)+1;
+    guarda(KEY+'fallas',JSON.stringify(f));
+  }
+  function iniciaQuiz(f){
+    var qs=f.querySelectorAll('.pregunta'),repaso=f.hasAttribute('data-repaso');
     function avance(){
       var n=f.querySelectorAll('input:checked').length;
       f.querySelector('.avance').textContent=n+' de '+qs.length+' respondidas';
@@ -3805,12 +3837,17 @@ function pintaVencimientos(){
           else if(i.checked) o.classList.add('errada');
         });
         q.querySelector('.explicacion').hidden=false;
-        if(marcada&&marcada.dataset.ok) bien++;
+        var ok=!!(marcada&&marcada.dataset.ok);
+        if(ok) bien++;
+        if(marcada) anota(q.getAttribute('data-orig')||q.id,ok);
       });
       f.querySelector('.marcador').textContent=bien+' de '+qs.length+' correctas';
-      var previo=guardado(KEY+'mejor');
-      if(!previo||bien>parseInt(previo.split('/')[0],10)) guarda(KEY+'mejor',bien+'/'+qs.length);
-      pintaMejor();
+      if(!repaso){
+        var previo=guardado(KEY+'mejor');
+        if(!previo||bien>parseInt(previo.split('/')[0],10)) guarda(KEY+'mejor',bien+'/'+qs.length);
+        pintaMejor();
+      }
+      pintaRepaso();
     });
     f.querySelector('.reiniciar').addEventListener('click',function(){
       f.reset();
@@ -3820,8 +3857,50 @@ function pintaVencimientos(){
       avance();
     });
     avance();
-  });
+  }
+  d.querySelectorAll('.quiz').forEach(iniciaQuiz);
   pintaMejor();
+
+  var btn=d.getElementById('repaso-btn'),info=d.getElementById('repaso-info'),
+      sec=d.getElementById('repaso'),banco=d.querySelectorAll('main .pregunta');
+  function pintaRepaso(){
+    if(!btn||!banco.length) return;
+    btn.hidden=false;
+    var n=Object.keys(fallas()).length;
+    info.textContent=n?('Llevas '+n+' pregunta'+(n===1?'':'s')+' con fallos pendientes.'):
+      'Todas las preguntas de la unidad, barajadas.';
+  }
+  function armaRepaso(){
+    var f=fallas(),lista=[].slice.call(banco);
+    for(var i=lista.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=lista[i];lista[i]=lista[j];lista[j]=t;}
+    lista.sort(function(a,b){return (f[b.id]||0)-(f[a.id]||0);});
+    lista=lista.slice(0,10);
+    var form=d.createElement('form');
+    form.className='quiz';form.setAttribute('data-repaso','1');
+    form.innerHTML='<div class="quiz-cab"><output class="avance" aria-live="polite"></output>'
+      +'<div class="quiz-prog" aria-hidden="true"><i></i></div></div>';
+    lista.forEach(function(q,k){
+      var c=q.cloneNode(true),id='rep-'+q.id;
+      c.setAttribute('data-orig',q.id);c.id=id;
+      c.querySelector('.num').textContent=k+1;
+      c.querySelectorAll('.opcion').forEach(function(o){
+        var i=o.querySelector('input'),l=o.querySelector('label');
+        o.classList.remove('correcta','errada');
+        i.checked=false;i.name=id;i.id=id+'-'+i.id.split('-').pop();l.htmlFor=i.id;
+      });
+      c.querySelector('.explicacion').hidden=true;
+      form.appendChild(c);
+    });
+    form.insertAdjacentHTML('beforeend','<div class="quiz-barra">'
+      +'<button type="button" class="calificar">Calificar</button>'
+      +'<button type="button" class="reiniciar">Reiniciar</button>'
+      +'<output class="marcador" role="status"></output></div>');
+    var cuerpo=d.getElementById('repaso-cuerpo');
+    cuerpo.innerHTML='';cuerpo.appendChild(form);
+    iniciaQuiz(form);
+    sec.hidden=false;sec.scrollIntoView({behavior:'smooth'});
+  }
+  if(btn){btn.addEventListener('click',armaRepaso);pintaRepaso();}
 
   var reales=d.querySelectorAll('input.real');
   function total(){
