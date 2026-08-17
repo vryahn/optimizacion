@@ -255,6 +255,25 @@ details.pred[open]>.caja{margin-top:0;border-radius:0 0 12px 12px}
 details.pred[open]>.caja::before{content:""}
 a.ref{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
 a.ref:hover{border-bottom-style:solid}
+.estado{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.9rem 0 1.6rem}
+.estado button{font:600 .72rem var(--sans);letter-spacing:.02em;padding:.3rem .75rem;border-radius:999px;
+cursor:pointer;background:var(--surface);color:var(--text-dim);border:1px solid var(--border);
+transition:border-color .18s ease,color .18s ease,background .18s ease}
+.estado button:hover{border-color:var(--accent);color:var(--accent)}
+.estado button[data-v=ok][aria-pressed=true]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.estado button[data-v=rep][aria-pressed=true]{background:var(--mal-soft);border-color:var(--mal);color:var(--mal)}
+.estado button[data-v=mias][aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.estado textarea{flex-basis:100%;width:100%;box-sizing:border-box;margin-top:.4rem;padding:.7rem .9rem;
+font:.9rem/1.5 var(--sans);color:var(--text);background:var(--surface);border:1px solid var(--border-2);
+border-radius:12px;resize:vertical}
+.seguro{display:inline-flex;gap:.4rem;align-items:center;font-size:.76rem;color:var(--text-dim);
+margin:.3rem 0 0 .2rem;cursor:pointer}
+.seguro input{accent-color:var(--accent)}
+.pregunta.seguro-mal legend .num{background:var(--mal);color:var(--surface)}
+ol.sesiones li .fecha{margin-left:auto;flex:none;font:600 .74rem var(--sans);color:var(--text-dim);
+white-space:nowrap}
+ol.sesiones li.hoy .fecha{color:var(--accent)}
+ol.sesiones li.pasada{opacity:.6}
 .repaso-cta{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
 .repaso-cta .nota{margin:0}
 .caja.codigo,.caja.salida{background:#1A1416;border-color:#2B2226;color:#F4F1EE}
@@ -438,17 +457,21 @@ border-radius:2px}
 </div>
 <details class="nota"><summary>Cómo se calculan estos tiempos, y qué no prometen</summary><p>Los calcula el generador de esta guía contando lo que hay en cada bloque, con tasas <b>provisionales</b>: 100 palabras/min de prosa nueva, 160 de repaso, 4 min por bloque de código, 1 min por bloque de salida, 2 min por figura y 1.5 min por pregunta de quiz. Son una conjetura declarada, no una medición. Miden el tiempo de <b>recorrer</b> el material: no incluyen releer lo que no cuajó, ni las lecturas del curso, ni pelearse con un error de instalación. Anota tu tiempo real en cada bloque (se guarda en este navegador, sin cuentas ni servidor) y las unidades siguientes se estimarán con <i>tu</i> tasa.</p></details>
 <p class="nota" id="real-total"></p>
+<p class="nota" id="reanudar" hidden>Ibas en <a href="#"></a>. <span class="cuenta-ok"></span></p>
+<p class="nota" id="para-repasar" hidden>Marcadas para repasar: <span></span></p>
 <p class="repaso-cta"><button type="button" class="calificar" id="repaso-btn" hidden>Repaso rápido · 10 preguntas</button><span class="nota" id="repaso-info"></span></p>
 </section>
 <section class="plan">
 <h2>Plan de estudio · 5 sesiones de 53-60 min (ruta completa)</h2>
 <ol class="sesiones">
-<li><span class="n">1</span><div><span class="dur">57 min</span><span class="det">desde <a href="#b1-intro">Qué vas a poder hacer al terminar</a> hasta Las seis trampas conceptuales · 16 secciones</span></div></li>
-<li><span class="n">2</span><div><span class="dur">54 min</span><span class="det">desde <a href="#b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos-">Trampa 7 · La que se midió: <code>éxito = True</code> y 752 pesos de error</a> hasta Actividad B · plantear y resolver con la computadora · 13 secciones</span></div></li>
-<li><span class="n">3</span><div><span class="dur">1 h 00 min</span><span class="det">desde <a href="#b5-1-que-te-piden-en-palabras-llanas">1. Qué te piden, en palabras llanas</a> hasta 6. El problema de ejemplo de esta nota y su modelo matemático · 6 secciones</span></div></li>
-<li><span class="n">4</span><div><span class="dur">55 min</span><span class="det">desde <a href="#b5-7-como-se-arma-el-script-los-8-bloques">7. Cómo se arma el script: los 8 bloques</a> hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 7 secciones</span></div></li>
-<li><span class="n">5</span><div><span class="dur">53 min</span><span class="det">desde <a href="#b6-intro">Refuerza · el quiz que da puntos</a> hasta Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 13 secciones</span></div></li>
-</ol></section>
+<li data-sesion="1"><span class="n">1</span><div><span class="dur">57 min</span><span class="det">desde <a href="#b1-intro">Qué vas a poder hacer al terminar</a> hasta Las seis trampas conceptuales · 16 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="2"><span class="n">2</span><div><span class="dur">54 min</span><span class="det">desde <a href="#b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos-">Trampa 7 · La que se midió: <code>éxito = True</code> y 752 pesos de error</a> hasta Actividad B · plantear y resolver con la computadora · 13 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="3"><span class="n">3</span><div><span class="dur">1 h 00 min</span><span class="det">desde <a href="#b5-1-que-te-piden-en-palabras-llanas">1. Qué te piden, en palabras llanas</a> hasta 6. El problema de ejemplo de esta nota y su modelo matemático · 6 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="4"><span class="n">4</span><div><span class="dur">55 min</span><span class="det">desde <a href="#b5-7-como-se-arma-el-script-los-8-bloques">7. Cómo se arma el script: los 8 bloques</a> hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 7 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="5"><span class="n">5</span><div><span class="dur">53 min</span><span class="det">desde <a href="#b6-intro">Refuerza · el quiz que da puntos</a> hasta Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 13 secciones</span></div><span class="fecha"></span></li>
+</ol>
+<p class="nota" id="plan-nota"></p>
+</section>
 <section class="bloque" id="repaso" hidden><div class="cab"><div class="bn" aria-hidden="true">&#8635;</div><div><h2>Repaso rápido</h2><div class="meta"><span class="chip">10 preguntas de toda la unidad, primero las que has fallado, el resto al azar</span></div></div></div><div id="repaso-cuerpo"></div></section>
 <main>
 <section class="bloque" id="b1"><div class="cab">
@@ -492,6 +515,7 @@ libros: <code>res.success == True</code> y aun así 752 pesos de error, por una 
 medible que está en el bloque 3.</li>
 </ol>
 
+<div class="estado" data-sec="b1-las-siete-cosas-que-vas-a-saber-hacer"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b1-como-esta-armada-y-por-donde-entrar">Cómo está armada, y por dónde entrar</h3>
 <p>Siete bloques. Cada uno abre con su tiempo estimado y con un campo para que
 anotes cuánto tardaste de verdad.</p>
@@ -515,6 +539,7 @@ nombres entre comillas angulares son bloques de esta misma página, no archivos
 aparte.</li>
 </ul>
 
+<div class="estado" data-sec="b1-como-esta-armada-y-por-donde-entrar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b1-lo-que-esta-guia-no-es">Lo que esta guía no es</h3>
 <p>No es un resumen del libro ni una segunda explicación de la clase. Es material
 de trabajo, y trae dos cosas que no vas a encontrar en las lecturas: la lista de
@@ -524,6 +549,7 @@ califica solo y te explica por qué falla cada opción, no solo cuál era la bue
 <p>Tampoco es el quiz oficial ni una filtración de él. El banco del bloque 6
 declara exactamente qué mide y qué no.</p>
 
+<div class="estado" data-sec="b1-lo-que-esta-guia-no-es"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 </section>
 <section class="bloque fuera" id="b2"><div class="cab">
 <div class="bn" aria-hidden="true">2</div><div>
@@ -565,6 +591,7 @@ todas las opciones permitidas, aquella que hace que cierta cantidad medible sea
 lo más grande o lo más pequeña posible.</p>
 <hr />
 
+<div class="estado" data-sec="b2-1-que-significa-optimizar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b2-2-las-cuatro-piezas-del-vocabulario-minimo">2. Las cuatro piezas del vocabulario mínimo</h3>
 <p>Estas cuatro palabras aparecen en todo lo demás. Vale la pena aprenderlas bien.</p>
 <h4>2.1 Variables de decisión</h4>
@@ -648,6 +675,7 @@ mochila es la B con 28 litros, la solución óptima es &quot;mochila B&quot; y e
 óptimo es 28.</p>
 <hr />
 
+<div class="estado" data-sec="b2-2-las-cuatro-piezas-del-vocabulario-minimo"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b2-3-todo-junto-en-python">3. Todo junto, en Python</h3>
 <p>Este código resuelve el problema de la mochila probando todas las opciones. Es
 ejecutable tal cual y usa solo listas, <code>for</code> e <code>if</code>.</p>
@@ -715,6 +743,7 @@ decimales, porque hay infinitas opciones y no puedes recorrerlas con un <code>fo
 De ahí nace toda la maquinaria del curso.</p>
 <hr />
 
+<div class="estado" data-sec="b2-3-todo-junto-en-python"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b2-4-como-leer-una-formula-de-optimizacion">4. Cómo leer una fórmula de optimización</h3>
 <p>Los libros escriben el problema completo en tres renglones. Se ve así:</p>
 <div class="formula"><math display="block"><mrow><msub><mo>min</mo><mrow><mi>x</mi></mrow></msub><mspace width="0.278em" /><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mspace width="1em" /><mtext>sujeto&#x000A0;a</mtext><mspace width="1em" /><msub><mi>g</mi><mi>i</mi></msub><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02264;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="2em" /><msub><mi>h</mi><mi>j</mi></msub><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>0</mn></mrow></math></div>
@@ -754,6 +783,7 @@ mismo que minimizar &quot;menos la ganancia&quot;. Por eso los libros escriben t
 minimización: no pierden generalidad y ahorran la mitad de las páginas.</p>
 <hr />
 
+<div class="estado" data-sec="b2-4-como-leer-una-formula-de-optimizacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b2-5-tipos-de-problemas-clasificacion">5. Tipos de problemas (clasificación)</h3>
 <p>Clasificar un problema no es burocracia: <strong>el tipo determina qué método puedes
 usar</strong>. Es como saber si un archivo es CSV o JPG antes de elegir la librería.</p>
@@ -788,6 +818,7 @@ ganador sino un conjunto de buenos compromisos.</li>
 <p><strong>Por la forma del &quot;paisaje&quot; de la función objetivo:</strong> ver la sección siguiente.</p>
 <hr />
 
+<div class="estado" data-sec="b2-5-tipos-de-problemas-clasificacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b2-6-minimos-maximos-local-y-global">6. Mínimos, máximos, local y global</h3>
 <p>Imagina la función objetivo como <strong>un terreno con montañas y valles</strong>. Cada punto
 del terreno es una decisión posible. La altura del terreno en ese punto es el
@@ -840,6 +871,7 @@ alguien logra reformular un problema para que sea convexo, ese es el avance
 importante.</p>
 <hr />
 
+<div class="estado" data-sec="b2-6-minimos-maximos-local-y-global"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b2-7-resolver-en-papel-vs-resolver-con-la-computado">7. Resolver en papel vs. resolver con la computadora</h3>
 <p>Hay dos formas de encontrar el óptimo, y conviene no confundirlas.</p>
 <p><strong>Solución analítica.</strong> Se resuelve con lápiz y papel, usando reglas
@@ -882,6 +914,7 @@ y esos redondeos se acumulan. Que la diferencia sea del tamaño de la tolerancia
 es normal y esperado, no un bug.</p>
 <hr />
 
+<div class="estado" data-sec="b2-7-resolver-en-papel-vs-resolver-con-la-computado"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b2-8-por-que-esto-importa-en-ciencia-de-datos">8. Por qué esto importa en ciencia de datos</h3>
 <p>Un modelo de ciencia de datos, en el fondo, es un problema de optimización. La
 traducción es directa:</p>
@@ -917,6 +950,7 @@ de ciencia de datos: no es un tema paralelo al aprendizaje automático, es el
 motor que hay debajo.</p>
 <hr />
 
+<div class="estado" data-sec="b2-8-por-que-esto-importa-en-ciencia-de-datos"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b2-9-glosario-de-bolsillo">9. Glosario de bolsillo</h3>
 <div class="tabla"><table><thead>
 <tr>
@@ -1044,6 +1078,7 @@ motor que hay debajo.</p>
 </tbody>
 </table></div>
 
+<div class="estado" data-sec="b2-9-glosario-de-bolsillo"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 </section>
 <section class="bloque" id="b3"><div class="cab">
 <div class="bn" aria-hidden="true">3</div><div>
@@ -1188,6 +1223,7 @@ pegadas: <em>sin restricciones</em> y <em>función suave</em>.</li>
 </tbody>
 </table></div>
 
+<div class="estado" data-sec="b3-las-seis-trampas-conceptuales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos-">Trampa 7 · La que se midió: <code>éxito = True</code> y 752 pesos de error</h3>
 <p>Ésta no se pregunta en un quiz de conceptos y por eso casi nadie la sabe. Sale de
 correr la Actividad B de verdad. Aquí va el resumen con las cifras; la historia
@@ -1269,6 +1305,7 @@ ambos. Ninguna bandera del optimizador detecta este fallo.</li>
 </li>
 </ol>
 
+<div class="estado" data-sec="b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos-"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 </section>
 <section class="bloque fuera" id="b4"><div class="cab">
 <div class="bn" aria-hidden="true">4</div><div>
@@ -1318,6 +1355,7 @@ burbujas.</li>
 <p>Sobre el punto 5, ve la sección 8.</p>
 <hr />
 
+<div class="estado" data-sec="b4-1-que-te-piden-en-palabras-llanas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q">2. Mapa conceptual vs. mapa mental: la diferencia que cuesta puntos</h3>
 <p>Mucha gente entrega un mapa mental creyendo que es un mapa conceptual. No son lo
 mismo y la actividad pide el segundo.</p>
@@ -1367,6 +1405,7 @@ sección 5 te muestra uno ya armado y te dice dónde están los otros cinco.</li
 </ul>
 <hr />
 
+<div class="estado" data-sec="b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b4-3-que-conceptos-deben-aparecer">3. Qué conceptos deben aparecer</h3>
 <p>Estos son los conceptos fundamentales de la optimización matemática, agrupados en
 las cinco ramas que estructuran el tema. Todos están explicados en «El tema».</p>
@@ -1405,6 +1444,7 @@ mismo en la sección 4; el apéndice al final de esta nota te las da completas p
 si quieres comparar después de intentarlo.</p>
 <hr />
 
+<div class="estado" data-sec="b4-3-que-conceptos-deben-aparecer"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b4-4-como-se-relacionan-esta-es-la-parte-importante">4. Cómo se relacionan (esta es la parte importante)</h3>
 <p>Con la convención ya explicada en la sección 2 (una proposición es un concepto
 origen + una flecha con verbo + un destino que se lee como frase) y con la lista
@@ -1476,6 +1516,7 @@ los que aparecen en el apéndice; no es obligatorio, pero hace que ese rincón d
 mapa sea tuyo.</p>
 <hr />
 
+<div class="estado" data-sec="b4-4-como-se-relacionan-esta-es-la-parte-importante"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b4-5-los-enlaces-cruzados-donde-se-gana-la-califica">5. Los enlaces cruzados (donde se gana la calificación)</h3>
 <p>Un enlace cruzado une dos ramas distintas. Demuestra comprensión, no memoria.
 Dibújalos con otro color o con línea punteada para que se distingan del resto.</p>
@@ -1495,6 +1536,7 @@ exactitud, y no pone en riesgo ninguna de las cinco instrucciones oficiales
 <p>Con tres de los seis tu mapa ya se lee como un sistema y no como una lista.</p>
 <hr />
 
+<div class="estado" data-sec="b4-5-los-enlaces-cruzados-donde-se-gana-la-califica"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b4-6-ejemplo-trabajado-un-mapa-conceptual-sobre-otr">6. Ejemplo trabajado: un mapa conceptual sobre otro tema</h3>
 <p>Para que veas la <strong>forma</strong> sin copiar el <strong>contenido</strong>, aquí va un mapa
 conceptual completo sobre el <strong>ciclo del agua</strong>. Fíjate en la estructura, no en
@@ -1550,6 +1592,7 @@ definiciones va aparte).</li>
 </ul>
 <hr />
 
+<div class="estado" data-sec="b4-6-ejemplo-trabajado-un-mapa-conceptual-sobre-otr"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b4-7-como-construirlo-paso-a-paso">7. Cómo construirlo, paso a paso</h3>
 <p><strong>Paso 1 — Vuelve a leer.</strong> Repasa «El tema»: con eso solo, el mapa se arma
 completo. Las lecturas oficiales de la unidad (Nocedal &amp; Wright, <em>Numerical
@@ -1614,6 +1657,7 @@ la vista previa de la herramienta. Revisa que no haya texto cortado, que se lea
 al 100% de zoom y que las flechas no se crucen encima de las etiquetas.</p>
 <hr />
 
+<div class="estado" data-sec="b4-7-como-construirlo-paso-a-paso"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b4-8-con-que-te-van-a-calificar-la-lista-de-cotejo-">8. Con qué te van a calificar — la lista de cotejo oficial</h3>
 <p>Esta es la lista de cotejo oficial de la actividad, tal como aparece en el
 enunciado:</p>
@@ -1695,6 +1739,7 @@ dejar la entrega sin calificar.</li>
 </ul>
 <hr />
 
+<div class="estado" data-sec="b4-8-con-que-te-van-a-calificar-la-lista-de-cotejo-"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b4-9-checklist-antes-de-entregar">9. Checklist antes de entregar</h3>
 <p>Cada elemento indica, entre corchetes, qué criterio de la lista de cotejo
 (sección 8) respalda.</p>
@@ -1744,6 +1789,7 @@ mapa cumple cada uno.</li>
 </ul>
 <hr />
 
+<div class="estado" data-sec="b4-9-checklist-antes-de-entregar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <details class="spoiler" id="b4-apendice-solucion-de-referencia-abrelo-despues-d"><summary>Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 9 min</summary><div class="cuerpo">
 <p>Aquí están las 48 flechas completas del mapa —42 dentro de las ramas (A.1) más
 los 6 enlaces cruzados (A.2)—, tal como podrían quedar
@@ -1951,6 +1997,7 @@ informe que dice &quot;todo salió perfecto&quot; está incompleto.</li>
 <p>Sobre la instrucción 8, ve la sección 11.</p>
 <hr />
 
+<div class="estado" data-sec="b5-1-que-te-piden-en-palabras-llanas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-2-que-se-entrega-exactamente-y-como-se-reparte">2. Qué se entrega exactamente y cómo se reparte</h3>
 <p><strong>Son dos archivos.</strong> La instrucción 7 los nombra: el informe en PDF y el archivo
 de código (<code>.py</code> o <code>.ipynb</code>, tú eliges). Si subes solo uno, la entrega está
@@ -2051,6 +2098,7 @@ corre de arriba abajo sin depender de una celda que ejecutaste hace media hora y
 ya borraste.</p>
 <hr />
 
+<div class="estado" data-sec="b5-2-que-se-entrega-exactamente-y-como-se-reparte"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-3-herramientas-nuevas-numpy-en-20-lineas">3. Herramientas nuevas: numpy en 20 líneas</h3>
 <p><code>numpy</code> es una librería para hacer cuentas con <strong>listas de números completas de
 un solo golpe</strong>, en vez de una por una con un <code>for</code>. Eso es todo lo que necesitas
@@ -2108,6 +2156,7 @@ print(rng.uniform(5.0, 60.0, size=3))
 anécdota.</p>
 <hr />
 
+<div class="estado" data-sec="b5-3-herramientas-nuevas-numpy-en-20-lineas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-4-herramientas-nuevas-scipy-optimize-minimize">4. Herramientas nuevas: <code>scipy.optimize.minimize</code></h3>
 <p><code>scipy.optimize</code> es el módulo que trae los algoritmos de optimización ya
 programados. Su función principal se llama <code>minimize</code>, y hace exactamente lo que
@@ -2238,6 +2287,7 @@ detenerse antes de tiempo por una tolerancia mal puesta. La verificación de
 verdad es la de la sección 8.</p>
 <hr />
 
+<div class="estado" data-sec="b5-4-herramientas-nuevas-scipy-optimize-minimize"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-5-como-elegir-y-plantear-tu-problema-el-molde-de">5. Cómo elegir y plantear tu problema — el molde de cinco preguntas</h3>
 <p>Esta es la parte que la instrucción 1 deja en tus manos. El error más común es
 elegir un problema demasiado grande y no terminarlo. El segundo más común es
@@ -2288,6 +2338,7 @@ sin restricciones, convexo o no. Ese último punto no es adorno burocrático:
 en la instrucción 4.</p>
 <hr />
 
+<div class="estado" data-sec="b5-5-como-elegir-y-plantear-tu-problema-el-molde-de"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model">6. El problema de ejemplo de esta nota y su modelo matemático</h3>
 <p>Todo lo que sigue usa un problema concreto para que veas la forma. <strong>No lo
 copies</strong>: es material de demostración, y el apéndice trae su solución completa.
@@ -2389,6 +2440,7 @@ configuración que se usa hoy) o un segundo método de scipy. No te penaliza: es
 exactamente el bloque 7 del script.</p>
 <hr />
 
+<div class="estado" data-sec="b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-7-como-se-arma-el-script-los-8-bloques">7. Cómo se arma el script: los 8 bloques</h3>
 <p>Tu archivo <code>.py</code> (o <code>.ipynb</code>) se organiza en <strong>8 bloques</strong>, en este orden. Cada
 bloque lleva un comentario de encabezado con su número y su nombre: eso es lo que
@@ -2500,6 +2552,7 @@ propio script completo. <strong>Hazlo antes de abrir el apéndice</strong>: ahí
 ejemplo, entero y con su salida, para comparar contra el tuyo — no para copiarlo.</p>
 <hr />
 
+<div class="estado" data-sec="b5-7-como-se-arma-el-script-los-8-bloques"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-8-que-resultados-reportar-y-con-que-cifras-compr">8. Qué resultados reportar y con qué cifras comprobarlos</h3>
 <p>La instrucción 5 dice &quot;comenta los resultados&quot; y la 7 pide una sección de
 &quot;análisis del resultado&quot;. Esto es lo que va ahí. <strong>Reportar solo el <code>res.x</code> es la
@@ -2608,6 +2661,7 @@ reportable.</li>
 </ul>
 <hr />
 
+<div class="estado" data-sec="b5-8-que-resultados-reportar-y-con-que-cifras-compr"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-9-el-analisis-critico-instruccion-6">9. El análisis crítico (instrucción 6)</h3>
 <p>La instrucción 6 hace tres preguntas: <strong>¿es eficiente?, ¿es aplicable?, ¿qué
 mejorarías?</strong> Se contestan una por una, con evidencia. Lo que sigue son las
@@ -2747,6 +2801,7 @@ pasa si cambias el punto inicial?, ¿qué pasa si aprietas o aflojas la toleranc
 respondida con una corrida y un número, es análisis crítico.</p>
 <hr />
 
+<div class="estado" data-sec="b5-9-el-analisis-critico-instruccion-6"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-10-tus-tres-decisiones-personales">10. Tus tres decisiones personales</h3>
 <p>Estas son las tres decisiones que hacen que tu entrega no se parezca a la de
 nadie más. Ninguna pone en riesgo el cumplimiento de las ocho instrucciones
@@ -2794,6 +2849,7 @@ material extra para la comparación de la instrucción 6. No es requisito y come
 espacio de las tres cuartillas.)</em></p>
 <hr />
 
+<div class="estado" data-sec="b5-10-tus-tres-decisiones-personales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-11-con-que-te-van-a-calificar">11. Con qué te van a calificar</h3>
 <p><strong>Aviso importante y honesto: la lista de cotejo oficial de 1B no está en nuestra
 fuente.</strong> La instrucción 8 dice &quot;considera los criterios de evaluación&quot;, y en la
@@ -2815,6 +2871,7 @@ dentro del informe lo dice la tabla de cinco secciones de la sección 2. Las dos
 son recomendación de esta nota, no la rúbrica oficial.</p>
 <hr />
 
+<div class="estado" data-sec="b5-11-con-que-te-van-a-calificar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b5-12-checklist-antes-de-entregar">12. Checklist antes de entregar</h3>
 <p>Cada renglón dice, entre corchetes, qué instrucción oficial (sección 1)
 respalda. Las ocho instrucciones aparecen entre corchetes al menos una vez: este
@@ -2883,6 +2940,7 @@ cumple cada criterio. [8]</li>
 </ul>
 <hr />
 
+<div class="estado" data-sec="b5-12-checklist-antes-de-entregar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <details class="spoiler" id="b5-apendice-solucion-de-referencia-abrelo-despues-d"><summary>Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 16 min</summary><div class="cuerpo">
 <p>Aquí está el script completo del problema de ejemplo, su salida real y un esqueleto
 de informe. Ábrelo <strong>solo después</strong> de haber escrito tu propia versión con la
@@ -3207,6 +3265,7 @@ ansiedad.</li>
 <em>Numerical Optimization</em>, pp. 1-15; Antoniou &amp; Lu, <em>The Optimization Problem</em>,
 en <em>Practical Optimization</em>, pp. 1-76.</p>
 
+<div class="estado" data-sec="b6-que-te-piden-exactamente"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b6-como-se-estudia-para-un-quiz-de-esta-unidad">Cómo se estudia para un quiz de esta unidad</h3>
 <p>Un quiz de opción múltiple y verdadero/falso sobre la Unidad 1 no puede pedirte
 resolver nada: la unidad es de <strong>conceptos y formulación</strong>, no de métodos (los
@@ -3235,6 +3294,7 @@ más que saber por qué otra es cierta, porque las opciones cambian y los concep
 no. Por eso cada pregunta de aquí revela su razonamiento completo al calificar,
 incluidas las opciones que descartaste.</p>
 
+<div class="estado" data-sec="b6-como-se-estudia-para-un-quiz-de-esta-unidad"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b6-banco-de-20-preguntas-de-practica">Banco de 20 preguntas de práctica</h3>
 <p><strong>12 de opción múltiple</strong> (cuatro opciones, una sola correcta) y <strong>8 de verdadero
 o falso</strong>. Están escritas con el mismo estilo de trampa que describe el bloque 3.
@@ -3251,6 +3311,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q1" id="b6s3-0-q1-o1" data-ok="1"><label for="b6s3-0-q1-o1"><b>b)</b> <span>S.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q1" id="b6s3-0-q1-o2"><label for="b6s3-0-q1-o2"><b>c)</b> <span>T.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q1" id="b6s3-0-q1-o3"><label for="b6s3-0-q1-o3"><b>d)</b> <span>No hay solución óptima porque ninguna ruta es a la vez la más barata y la más rápida.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q1-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(b) S.</strong> La función objetivo es el tiempo y hay que minimizarlo, pero antes hay que filtrar por factibilidad: el presupuesto de 200 deja fuera a R, que cuesta 250. Entre las factibles, S (35 min) le gana a T (40 min). <em>Por qué fallan las otras:</em> <strong>(a)</strong> es la trampa 1 en estado puro — R tiene el mejor tiempo pero no entra al concurso. <strong>(c)</strong> T es factible pero peor. <strong>(d)</strong> confunde este problema con uno multiobjetivo; aquí el costo es restricción, no segundo objetivo, y por eso sí hay un ganador único.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q2">
@@ -3259,6 +3320,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q2" id="b6s3-0-q2-o1" data-ok="1"><label for="b6s3-0-q2-o1"><b>b)</b> <span>minimizar <code>-G(x)</code>.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q2" id="b6s3-0-q2-o2"><label for="b6s3-0-q2-o2"><b>c)</b> <span>maximizar <code>1/G(x)</code>.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q2" id="b6s3-0-q2-o3"><label for="b6s3-0-q2-o3"><b>d)</b> <span>minimizar <code>|G(x)|</code>.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q2-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(b) minimizar <code>-G(x)</code>.</strong> Es la equivalencia de <a class="ref" href="#b2-4-como-leer-una-formula-de-optimizacion">«El tema» §4</a>: la <code>x</code> ganadora es la misma y solo cambia el signo del valor. <strong>(a)</strong> invierte el sentido del problema. <strong>(c)</strong> <code>1/G</code> <strong>invierte</strong> el orden: con <code>G &gt; 0</code>, maximizar <code>1/G</code> equivale a <strong>minimizar</strong> <code>G</code>, o sea el problema al revés (con <code>G = 2</code> y <code>G = 5</code>, <code>1/G</code> vale 0.5 y 0.2, así que elige el 2); y si <code>G</code> puede valer 0, <code>1/G</code> ni siquiera está definida. <strong>(d)</strong> el valor absoluto borra el signo, así que una ganancia de −50 y una de +50 se volverían indistinguibles.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q3">
@@ -3267,6 +3329,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q3" id="b6s3-0-q3-o1"><label for="b6s3-0-q3-o1"><b>b)</b> <span>se cumple en el punto óptimo.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q3" id="b6s3-0-q3-o2" data-ok="1"><label for="b6s3-0-q3-o2"><b>c)</b> <span>se cumple con igualdad en el punto óptimo, es decir el óptimo la toca.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q3" id="b6s3-0-q3-o3"><label for="b6s3-0-q3-o3"><b>d)</b> <span>se viola en el punto óptimo.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q3-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(c) se cumple con igualdad en el óptimo.</strong> Trampa 4. <strong>(b)</strong> es el distractor fuerte: <em>todas</em> las restricciones se cumplen en un punto factible, activas e inactivas por igual; lo distintivo es cumplirse <strong>justo en el límite</strong>. <strong>(a)</strong> confunde estar escrita con apretar. <strong>(d)</strong> si se violara, el punto no sería factible y no podría ser óptimo.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q4">
@@ -3275,6 +3338,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q4" id="b6s3-0-q4-o1"><label for="b6s3-0-q4-o1"><b>b)</b> <span>El coeficiente 30.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q4" id="b6s3-0-q4-o2" data-ok="1"><label for="b6s3-0-q4-o2"><b>c)</b> <span>Los miles de pesos asignados al canal 1.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q4" id="b6s3-0-q4-o3"><label for="b6s3-0-q4-o3"><b>d)</b> <span>El número de clientes nuevos obtenidos.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q4-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(c) los miles de pesos asignados al canal 1.</strong> Trampa 5, y la prueba de tres segundos la resuelve: el dinero por canal es lo único que se decide. <strong>(a)</strong> el presupuesto y <strong>(b)</strong> el coeficiente 30 son <strong>parámetros conocidos</strong> que vienen de los contratos y del histórico. <strong>(d)</strong> los clientes nuevos son el <strong>valor de la función objetivo</strong>: se observan al final, no se eligen.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q5">
@@ -3283,6 +3347,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q5" id="b6s3-0-q5-o1" data-ok="1"><label for="b6s3-0-q5-o1"><b>b)</b> <span>el problema probablemente no es convexo y cada arranque cayó en un valle distinto.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q5" id="b6s3-0-q5-o2"><label for="b6s3-0-q5-o2"><b>c)</b> <span>la tolerancia está mal puesta y hay que bajarla.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q5" id="b6s3-0-q5-o3"><label for="b6s3-0-q5-o3"><b>d)</b> <span>el problema es infactible.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q5-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(b) el problema probablemente no es convexo.</strong> <a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a>: el punto inicial importa cuando hay varios valles, y eso es la naturaleza del problema, no un defecto del código. <strong>(a)</strong> es la conclusión apresurada típica. <strong>(c)</strong> bajar la tolerancia refina cada respuesta pero no las une. <strong>(d)</strong> infactible significaría que no hay ninguna solución, y aquí hubo dos.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q6">
@@ -3291,6 +3356,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q6" id="b6s3-0-q6-o1"><label for="b6s3-0-q6-o1"><b>b)</b> <span>No necesita restricciones.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q6" id="b6s3-0-q6-o2" data-ok="1"><label for="b6s3-0-q6-o2"><b>c)</b> <span>Basta con encontrar un mínimo local, porque es el global.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q6" id="b6s3-0-q6-o3"><label for="b6s3-0-q6-o3"><b>d)</b> <span>Siempre tiene solución analítica exacta.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q6-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(c) basta con encontrar un mínimo local.</strong> Es la frase central de la unidad. <strong>(a)</strong> la velocidad es un efecto secundario agradable, no la consecuencia conceptual. <strong>(b)</strong> los problemas convexos pueden tener restricciones sin problema. <strong>(d)</strong> la convexidad no regala fórmula cerrada; el ejemplo de «Actividad B» es convexo y su fórmula exacta vino de otro lado.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q7">
@@ -3299,6 +3365,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q7" id="b6s3-0-q7-o1"><label for="b6s3-0-q7-o1"><b>b)</b> <span>un mínimo local.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q7" id="b6s3-0-q7-o2" data-ok="1"><label for="b6s3-0-q7-o2"><b>c)</b> <span>un punto estacionario, que puede ser mínimo, máximo o punto silla.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q7" id="b6s3-0-q7-o3"><label for="b6s3-0-q7-o3"><b>d)</b> <span>un punto infactible.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q7-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(c) un punto estacionario.</strong> Trampa 6. Gradiente cero es <em>condición necesaria</em> para un mínimo interior, no suficiente: también la cumplen los máximos y los puntos silla. <strong>(a)</strong> y <strong>(b)</strong> afirman de más; <strong>(d)</strong> no tiene relación, la factibilidad depende de las restricciones.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q8">
@@ -3307,6 +3374,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q8" id="b6s3-0-q8-o1"><label for="b6s3-0-q8-o1"><b>b)</b> <span>discreto y lineal.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q8" id="b6s3-0-q8-o2"><label for="b6s3-0-q8-o2"><b>c)</b> <span>continuo y no lineal.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q8" id="b6s3-0-q8-o3" data-ok="1"><label for="b6s3-0-q8-o3"><b>d)</b> <span>discreto y no lineal.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q8-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(d) discreto y no lineal.</strong> Son dos etiquetas independientes y hay que revisarlas por separado. <strong>Discreto</strong> porque ni los camiones ni las rutas admiten decimales. <strong>No lineal</strong> por el producto entre dos variables de decisión (camiones y rutas se deciden las dos): en cuanto se multiplican dos decisiones entre sí, deja de ser lineal (<a class="ref" href="#b2-5-tipos-de-problemas-clasificacion">«El tema» §5</a>). El error típico es ver &quot;sumas y multiplicaciones&quot; y decir lineal sin fijarse en <em>qué</em> se multiplica con qué.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q9">
@@ -3315,6 +3383,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q9" id="b6s3-0-q9-o1" data-ok="1"><label for="b6s3-0-q9-o1"><b>b)</b> <span>Las restricciones definen la región factible y la función objetivo ordena a sus miembros.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q9" id="b6s3-0-q9-o2"><label for="b6s3-0-q9-o2"><b>c)</b> <span>Ambas ordenan las opciones.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q9" id="b6s3-0-q9-o3"><label for="b6s3-0-q9-o3"><b>d)</b> <span>Ambas definen la región factible.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q9-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(b).</strong> Restricciones definen la región factible; función objetivo ordena. <strong>(a)</strong> es exactamente la inversión de papeles, y es el distractor que hay que reconocer al vuelo. <strong>(c)</strong> y <strong>(d)</strong> borran la distinción, que es lo que hace que un problema sea un problema de optimización y no una simple consulta.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q10">
@@ -3323,6 +3392,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q10" id="b6s3-0-q10-o1" data-ok="1"><label for="b6s3-0-q10-o1"><b>b)</b> <span>la diferencia, del tamaño de la tolerancia, es el comportamiento normal de un método numérico.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q10" id="b6s3-0-q10-o2"><label for="b6s3-0-q10-o2"><b>c)</b> <span>la fórmula exacta está mal deducida.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q10" id="b6s3-0-q10-o3"><label for="b6s3-0-q10-o3"><b>d)</b> <span>el problema no era convexo.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q10-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(b) es el comportamiento normal.</strong> <a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a>: la computadora redondea en cada operación y los redondeos se acumulan; una diferencia del tamaño de la tolerancia es esperada. <strong>(a)</strong> cambiar de método daría otra diferencia igual de pequeña. <strong>(c)</strong> y <strong>(d)</strong> inventan un problema donde no lo hay. Ojo con el reverso, que sí es grave y está en la trampa 7 del bloque 3: una diferencia <strong>grande</strong> con <code>éxito = True</code> tampoco es imposible, y ahí el culpable suele ser la escala de las variables.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q11">
@@ -3331,6 +3401,7 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q11" id="b6s3-0-q11-o1" data-ok="1"><label for="b6s3-0-q11-o1"><b>b)</b> <span>el valor óptimo, es decir el número que produce la decisión ganadora.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q11" id="b6s3-0-q11-o2"><label for="b6s3-0-q11-o2"><b>c)</b> <span>el gradiente en el óptimo.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q11" id="b6s3-0-q11-o3"><label for="b6s3-0-q11-o3"><b>d)</b> <span>la región factible.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q11-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(b) el valor óptimo.</strong> <a class="ref" href="#b2-2-las-cuatro-piezas-del-vocabulario-minimo">«El tema» §2.5</a>: <code>x*</code> es la <strong>decisión</strong> ganadora y <code>f(x*)</code> es el <strong>número</strong> que produce. Si la mejor mochila es la B con 28 litros, <code>x*</code> es &quot;mochila B&quot; y <code>f(x*)</code> es 28. <strong>(a)</strong> los confunde, que es el error frecuente; <strong>(c)</strong> y <strong>(d)</strong> son objetos distintos.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q12">
@@ -3339,59 +3410,69 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="opcion"><input type="radio" name="b6s3-0-q12" id="b6s3-0-q12-o1"><label for="b6s3-0-q12-o1"><b>b)</b> <span>multiobjetivo.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q12" id="b6s3-0-q12-o2" data-ok="1"><label for="b6s3-0-q12-o2"><b>c)</b> <span>infactible: ninguna opción cumple todas las restricciones, así que no hay solución óptima.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q12" id="b6s3-0-q12-o3"><label for="b6s3-0-q12-o3"><b>d)</b> <span>discreto, y la respuesta es la mochila de 1200 por ser la única.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q12-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>(c) infactible.</strong> No existe ninguna opción que cumpla las dos restricciones a la vez, así que la región factible está vacía y no hay solución óptima (<a class="ref" href="#b2-2-las-cuatro-piezas-del-vocabulario-minimo">«El tema» §2.4</a>). <strong>(d)</strong> es la tentación de &quot;algo hay que contestar&quot;: una opción que viola una restricción no es candidata, ni siquiera siendo la única. <strong>(a)</strong> y <strong>(b)</strong> describen propiedades que aquí no vienen al caso.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q13">
 <legend><span class="num">13</span><span class="txt"><strong>Verdadero o falso.</strong> Todo mínimo global es también un mínimo local.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q13" id="b6s3-0-q13-o0" data-ok="1"><label for="b6s3-0-q13-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q13" id="b6s3-0-q13-o1"><label for="b6s3-0-q13-o1"><b>b)</b> <span>Falso.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q13-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>Verdadero.</strong> El fondo del valle más hondo también es el fondo de <em>un</em> valle: si te paras ahí, cualquier paso sube. La implicación va en un solo sentido — global ⇒ local, nunca al revés (trampa 3).</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q14">
 <legend><span class="num">14</span><span class="txt"><strong>Verdadero o falso.</strong> Si un método basado en gradiente se detiene porque el terreno está plano, encontró el mínimo global.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q14" id="b6s3-0-q14-o0"><label for="b6s3-0-q14-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q14" id="b6s3-0-q14-o1" data-ok="1"><label for="b6s3-0-q14-o1"><b>b)</b> <span>Falso.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q14-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>Falso.</strong> Solo hay garantía de global si el problema es <strong>convexo</strong>. Un método de gradiente mira su vecindad, como alguien bajando una montaña en la niebla; detenerse solo significa que localmente ya no baja.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q15">
 <legend><span class="num">15</span><span class="txt"><strong>Verdadero o falso.</strong> Quitar del planteamiento una restricción inactiva cambia la solución óptima.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q15" id="b6s3-0-q15-o0"><label for="b6s3-0-q15-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q15" id="b6s3-0-q15-o1" data-ok="1"><label for="b6s3-0-q15-o1"><b>b)</b> <span>Falso.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q15-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>Falso.</strong> Inactiva significa exactamente que al óptimo le sobra holgura frente a ese límite. Si la borras, el punto óptimo sigue siendo factible y sigue siendo el mejor: nada se mueve. La que sí cambia la respuesta al quitarla es la <strong>activa</strong>. Cuidado con el reflejo de &quot;si está escrita, para algo sirve&quot;: sirve para otros valores de los datos, no para este óptimo (<a class="ref" href="#b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model">«Actividad B» §6.4</a> tiene el caso numérico). Ojo con la letra chica de la trampa 4: esto vale mientras el problema siga acotado sin la restricción, que es el caso en todo lo que verás en esta unidad.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q16">
 <legend><span class="num">16</span><span class="txt"><strong>Verdadero o falso.</strong> Una restricción de igualdad deja un rango de valores permitidos.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q16" id="b6s3-0-q16-o0"><label for="b6s3-0-q16-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q16" id="b6s3-0-q16-o1" data-ok="1"><label for="b6s3-0-q16-o1"><b>b)</b> <span>Falso.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q16-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>Falso.</strong> Es al revés: la de <strong>desigualdad</strong> deja rango (&quot;gasta 1000 o menos&quot;), la de <strong>igualdad</strong> obliga a un valor exacto (&quot;usa exactamente 40 horas&quot;) y no deja holgura (<a class="ref" href="#b2-2-las-cuatro-piezas-del-vocabulario-minimo">«El tema» §2.3</a>).</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q17">
 <legend><span class="num">17</span><span class="txt"><strong>Verdadero o falso.</strong> Durante el entrenamiento de un modelo, los hiperparámetros son variables de decisión que el optimizador va ajustando.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q17" id="b6s3-0-q17-o0"><label for="b6s3-0-q17-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q17" id="b6s3-0-q17-o1" data-ok="1"><label for="b6s3-0-q17-o1"><b>b)</b> <span>Falso.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q17-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>Falso.</strong> Un hiperparámetro se fija <strong>antes</strong> de entrenar y el entrenamiento no lo mueve (<a class="ref" href="#b2-8-por-que-esto-importa-en-ciencia-de-datos">«El tema» §8</a>). Matiz que vale la pena tener claro: cuando <em>ajustas hiperparámetros</em>, planteas un <strong>segundo problema de optimización</strong>, externo al entrenamiento, y ahí sí los hiperparámetros son las variables de decisión. Dentro del entrenamiento, no.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q18">
 <legend><span class="num">18</span><span class="txt"><strong>Verdadero o falso.</strong> Entrenar un modelo de aprendizaje automático es, en el fondo, minimizar una función de pérdida moviendo los parámetros del modelo.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q18" id="b6s3-0-q18-o0" data-ok="1"><label for="b6s3-0-q18-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q18" id="b6s3-0-q18-o1"><label for="b6s3-0-q18-o1"><b>b)</b> <span>Falso.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q18-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>Verdadero.</strong> Es la traducción completa de <a class="ref" href="#b2-8-por-que-esto-importa-en-ciencia-de-datos">«El tema» §8</a>: parámetros del modelo = variables de decisión, función de pérdida = función objetivo, entrenar = minimizar.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q19">
 <legend><span class="num">19</span><span class="txt"><strong>Verdadero o falso.</strong> En un problema <strong>con</strong> restricciones, el óptimo siempre está en un punto donde el gradiente vale cero.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q19" id="b6s3-0-q19-o0"><label for="b6s3-0-q19-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q19" id="b6s3-0-q19-o1" data-ok="1"><label for="b6s3-0-q19-o1"><b>b)</b> <span>Falso.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q19-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>Falso.</strong> Trampa 6. Con restricciones el óptimo puede caer en el <strong>borde</strong> de la región factible, donde el suelo sigue inclinado. El reparto de publicidad de «Actividad B» es justo ese caso: el óptimo gasta el presupuesto <strong>completo</strong> (la corrida imprime <code>suma - presupuesto : 0.000e+00</code>), así que esa restricción está activa y ahí el terreno no es plano — dar un peso más a cualquier canal seguiría subiendo los clientes, pero ya no hay peso que dar. Cuidado con el ejemplo de la mochila de <a class="ref" href="#b2-3-todo-junto-en-python">«El tema» §3</a>: ése <strong>no</strong> sirve para ilustrar esto, porque la ganadora cuesta 950 de un presupuesto de 1000 y le sobra holgura. La versión verdadera de esta afirmación necesita dos condiciones: <em>sin restricciones</em> y <em>función suave</em>.</div>
 </fieldset>
 <fieldset class="pregunta" id="b6s3-0-q20">
 <legend><span class="num">20</span><span class="txt"><strong>Verdadero o falso.</strong> Los métodos basados en gradiente funcionan igual de bien cuando las variables de decisión son discretas.</span></legend>
 <div class="opcion"><input type="radio" name="b6s3-0-q20" id="b6s3-0-q20-o0"><label for="b6s3-0-q20-o0"><b>a)</b> <span>Verdadero.</span></label></div>
 <div class="opcion"><input type="radio" name="b6s3-0-q20" id="b6s3-0-q20-o1" data-ok="1"><label for="b6s3-0-q20-o1"><b>b)</b> <span>Falso.</span></label></div>
+<label class="seguro"><input type="checkbox" name="b6s3-0-q20-seg"> estaba seguro</label>
 <div class="explicacion" hidden><strong>Falso.</strong> Un método de gradiente necesita que exista pendiente, y entre dos valores discretos no hay pendiente que medir (<a class="ref" href="#b2-7-resolver-en-papel-vs-resolver-con-la-computado">«El tema» §7</a>). Por eso los problemas discretos usan otra familia de métodos.</div>
 </fieldset>
 <div class="quiz-barra"><button type="button" class="calificar">Calificar</button><button type="button" class="reiniciar">Reiniciar</button><output class="marcador" role="status"></output></div>
 </form>
 
+<div class="estado" data-sec="b6-banco-de-20-preguntas-de-practica"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b6-que-mide-tu-puntaje-y-que-no-mide">Qué mide tu puntaje y qué no mide</h3>
 <p>Esta escala es <strong>recomendación de esta guía, no escala oficial</strong>, y conviene leer
 antes lo que sigue, porque un 20/20 aquí promete menos de lo que parece.</p>
@@ -3461,6 +3542,7 @@ preguntas de distinción, y más fácil en las de definición, que casi no hay.<
 </tbody>
 </table></div>
 
+<div class="estado" data-sec="b6-que-mide-tu-puntaje-y-que-no-mide"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b6-checklist-antes-de-contestar-el-quiz">Checklist antes de contestar el quiz</h3>
 <ul>
 <li>[ ] Leí el glosario de <a class="ref" href="#b2-9-glosario-de-bolsillo">«El tema» §9</a> completo.</li>
@@ -3472,6 +3554,7 @@ era la correcta.</li>
 <li>[ ] Contesté el quiz en la plataforma antes del <strong>2026-08-18</strong>.</li>
 </ul>
 
+<div class="estado" data-sec="b6-checklist-antes-de-contestar-el-quiz"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 </section>
 <section class="bloque fuera" id="b7"><div class="cab">
 <div class="bn" aria-hidden="true">7</div><div>
@@ -3541,6 +3624,7 @@ cada respuesta a un compañero (recomendación, no requisito oficial). Por debaj
 de 180 no caben las cinco partes de la plantilla; por encima de 250 el foro se
 vuelve ilegible y nadie te responde.</p>
 
+<div class="estado" data-sec="b7-que-hace-sustantiva-una-aportacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b7-la-plantilla-de-cinco-partes">La plantilla de cinco partes</h3>
 <p>Cinco bloques, en este orden. Cada uno con su función y su extensión aproximada.</p>
 <p><strong>Parte 1 · El caso, con números (≈50 palabras).</strong> Un problema cotidiano tuyo,
@@ -3577,6 +3661,7 @@ lo es.</p>
 plantilla exactamente y la puedes usar para calibrar el tono; <strong>no la copies</strong>,
 porque tu grupo comparte este material y dos textos gemelos se notan.</p>
 
+<div class="estado" data-sec="b7-la-plantilla-de-cinco-partes"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b7-como-responder-a-otro-participante">Cómo responder a otro participante</h3>
 <p>Responder bien es más barato que aportar bien y cuenta igual. Tres movimientos,
 en este orden, en 60 a 120 palabras:</p>
@@ -3606,6 +3691,7 @@ de maestría espera.</p>
 <p>El apéndice trae una réplica de muestra construida con la jugada de
 &quot;reclasificación&quot;.</p>
 
+<div class="estado" data-sec="b7-como-responder-a-otro-participante"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b7-tus-tres-decisiones-personales">Tus tres decisiones personales</h3>
 <p>Tres alumnos con este mismo material deben publicar tres aportaciones
 distinguibles. Estas son las tres palancas. Anótalas antes de escribir: son
@@ -3645,6 +3731,7 @@ una decisión (trampa 5 del bloque 3).</li>
 <p>Las tres son igual de válidas; la (c) es la menos usada y la que más lucimiento
 da, porque es la que un compañero puede discutir.</p>
 
+<div class="estado" data-sec="b7-tus-tres-decisiones-personales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <h3 id="b7-checklist-antes-de-publicar-en-el-foro">Checklist antes de publicar en el foro</h3>
 <ul>
 <li>[ ] Mi aportación tiene las <strong>cinco partes</strong> de la plantilla, en orden.</li>
@@ -3662,6 +3749,7 @@ responder a otro participante&quot;, aportando algo que él no dijo.</li>
 <li>[ ] Publiqué antes del <strong>2026-08-18</strong>.</li>
 </ul>
 
+<div class="estado" data-sec="b7-checklist-antes-de-publicar-en-el-foro"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
 <details class="spoiler" id="b7-apendice-aportacion-y-replica-de-muestra-abrelo-"><summary>Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 3 min</summary><div class="cuerpo">
 <p><strong>No copies estos textos.</strong> Todo tu grupo tiene acceso al mismo material y dos
 aportaciones gemelas se detectan a simple vista. Úsalos solo para calibrar el
@@ -3821,7 +3909,7 @@ function pintaVencimientos(){
   function iniciaQuiz(f){
     var qs=f.querySelectorAll('.pregunta'),repaso=f.hasAttribute('data-repaso');
     function avance(){
-      var n=f.querySelectorAll('input:checked').length;
+      var n=f.querySelectorAll('.opcion input:checked').length;
       f.querySelector('.avance').textContent=n+' de '+qs.length+' respondidas';
       f.querySelector('.quiz-prog i').style.width=(100*n/qs.length)+'%';
     }
@@ -3829,7 +3917,8 @@ function pintaVencimientos(){
     f.querySelector('.calificar').addEventListener('click',function(){
       var bien=0;
       qs.forEach(function(q){
-        var marcada=q.querySelector('input:checked');
+        var marcada=q.querySelector('.opcion input:checked');
+        q.classList.remove('seguro-mal');
         q.querySelectorAll('.opcion').forEach(function(o){
           var i=o.querySelector('input');
           o.classList.remove('correcta','errada');
@@ -3841,7 +3930,13 @@ function pintaVencimientos(){
         if(ok) bien++;
         if(marcada) anota(q.getAttribute('data-orig')||q.id,ok);
       });
-      f.querySelector('.marcador').textContent=bien+' de '+qs.length+' correctas';
+      var segurasMal=0;
+      qs.forEach(function(q){
+        var m=q.querySelector('input:checked:not([type=checkbox])'),sg=q.querySelector('.seguro input');
+        if(m&&!m.dataset.ok&&sg&&sg.checked){segurasMal++;q.classList.add('seguro-mal');}
+      });
+      f.querySelector('.marcador').textContent=bien+' de '+qs.length+' correctas'
+        +(segurasMal?' · '+segurasMal+' fallada'+(segurasMal===1?'':'s')+' con seguridad — empieza por esa'+(segurasMal===1?'':'s'):'');
       if(!repaso){
         var previo=guardado(KEY+'mejor');
         if(!previo||bien>parseInt(previo.split('/')[0],10)) guarda(KEY+'mejor',bien+'/'+qs.length);
@@ -3852,6 +3947,7 @@ function pintaVencimientos(){
     f.querySelector('.reiniciar').addEventListener('click',function(){
       f.reset();
       f.querySelectorAll('.opcion').forEach(function(o){o.classList.remove('correcta','errada');});
+      f.querySelectorAll('.pregunta').forEach(function(q){q.classList.remove('seguro-mal');});
       f.querySelectorAll('.explicacion').forEach(function(e){e.hidden=true;});
       f.querySelector('.marcador').textContent='';
       avance();
@@ -3888,7 +3984,8 @@ function pintaVencimientos(){
         o.classList.remove('correcta','errada');
         i.checked=false;i.name=id;i.id=id+'-'+i.id.split('-').pop();l.htmlFor=i.id;
       });
-      c.querySelector('.explicacion').hidden=true;
+      c.querySelector('.explicacion').hidden=true;c.classList.remove('seguro-mal');
+      var sg=c.querySelector('.seguro input');if(sg){sg.checked=false;sg.name=id+'-seg';}
       form.appendChild(c);
     });
     form.insertAdjacentHTML('beforeend','<div class="quiz-barra">'
@@ -3901,6 +3998,79 @@ function pintaVencimientos(){
     sec.hidden=false;sec.scrollIntoView({behavior:'smooth'});
   }
   if(btn){btn.addEventListener('click',armaRepaso);pintaRepaso();}
+
+  // Estado por seccion: entendido / repasar / con mis palabras. Todo en localStorage.
+  function estados(){try{return JSON.parse(guardado(KEY+'estado'))||{};}catch(e){return {};}}
+  var cajas=d.querySelectorAll('.estado'),lista=d.getElementById('para-repasar'),rea=d.getElementById('reanudar');
+  function tituloDe(id){var h=d.getElementById(id);return h?h.textContent.trim():id;}
+  function pintaEstados(){
+    var e=estados(),rep=[],ok=0;
+    cajas.forEach(function(c){
+      var id=c.getAttribute('data-sec'),v=e[id];
+      c.querySelectorAll('button[data-v]').forEach(function(b){
+        var on=b.getAttribute('data-v')===v||(b.getAttribute('data-v')==='mias'&&guardado(KEY+'mias-'+id));
+        b.setAttribute('aria-pressed',on?'true':'false');});
+      if(v==='rep') rep.push(id); if(v==='ok') ok++;
+    });
+    if(lista){lista.hidden=!rep.length;lista.querySelector('span').innerHTML=rep.map(function(id){
+      return '<a href="#'+id+'">'+tituloDe(id)+'</a>';}).join(' · ');}
+    if(rea) rea.querySelector('.cuenta-ok').textContent=ok+' de '+cajas.length+' secciones entendidas.';
+  }
+  cajas.forEach(function(c){
+    var id=c.getAttribute('data-sec'),ta=c.querySelector('textarea');
+    var t=guardado(KEY+'mias-'+id); if(t){ta.value=t;}
+    ta.addEventListener('input',function(){if(ta.value) guarda(KEY+'mias-'+id,ta.value); else borra(KEY+'mias-'+id);});
+    c.querySelectorAll('button[data-v]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var v=b.getAttribute('data-v');
+        if(v==='mias'){ta.hidden=!ta.hidden;if(!ta.hidden) ta.focus();return;}
+        var e=estados(); if(e[id]===v) delete e[id]; else e[id]=v;
+        guarda(KEY+'estado',JSON.stringify(e)); pintaEstados();
+      });
+    });
+  });
+  pintaEstados();
+
+  // Reanudar: la ultima seccion que paso por el tercio superior de la pantalla.
+  var ultimo=guardado(KEY+'ultimo');
+  if(rea&&ultimo&&d.getElementById(ultimo)){
+    rea.hidden=false;var l=rea.querySelector('a');l.href='#'+ultimo;l.textContent=tituloDe(ultimo);
+    if(cajas.length) rea.querySelector('.cuenta-ok').hidden=false;
+  }
+  if(window.IntersectionObserver){
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting) guarda(KEY+'ultimo',e.target.id);});
+    },{rootMargin:'0px 0px -66% 0px'});
+    d.querySelectorAll('main h3[id],main details.spoiler[id]').forEach(function(h){io2.observe(h);});
+  }
+
+  // Plan con fechas: reparte las sesiones desde la primera visita hasta la vispera
+  // del vencimiento, y anade dos repasos (a los 2 dias y la vispera).
+  var pill=d.querySelector('.pill[data-iso]'),nota=d.getElementById('plan-nota'),
+      lis=d.querySelectorAll('ol.sesiones li[data-sesion]');
+  if(pill&&nota&&lis.length){
+    var iso=pill.getAttribute('data-iso'),hoy=new Date();hoy.setHours(0,0,0,0);
+    var inicio=guardado(KEY+'plan-inicio');
+    if(!inicio){inicio=hoy.toISOString().slice(0,10);guarda(KEY+'plan-inicio',inicio);}
+    var d0=new Date(inicio+'T00:00:00'),fin=new Date(iso+'T00:00:00');fin.setDate(fin.getDate()-1);
+    var dias=Math.max(0,Math.round((fin-d0)/864e5)),n=lis.length;
+    var MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    function fmt(dt){return dt.getDate()+' '+MES[dt.getMonth()];}
+    function enDias(k){var x=new Date(d0);x.setDate(x.getDate()+k);return x;}
+    if(fin<hoy){nota.textContent='El vencimiento ya pasó: usa el plan como orden, sin fechas.';}
+    else{
+      var paso=dias/Math.max(1,n),fechas=[];
+      lis.forEach(function(li,i){
+        var dt=enDias(Math.round(i*paso));fechas.push(dt);
+        var f=li.querySelector('.fecha');f.textContent=fmt(dt);
+        if(dt<hoy) li.classList.add('pasada'); else if(dt.getTime()===hoy.getTime()) li.classList.add('hoy');
+      });
+      var r1=enDias(Math.min(2,dias)),r2=fin;
+      nota.innerHTML='Fechas repartidas desde tu primera visita ('+fmt(d0)+') hasta la víspera ('
+        +fmt(fin)+'). Repaso rápido sugerido: <b>'+fmt(r1)+'</b>'+(r2>r1?' y <b>'+fmt(r2)+'</b>':'')
+        +'. Es una sugerencia; el orden importa más que el día.';
+    }
+  }
 
   var reales=d.querySelectorAll('input.real');
   function total(){
