@@ -128,7 +128,7 @@ padding:.28rem .7rem;background:var(--surface);white-space:nowrap;
 transition:color .18s ease,border-color .18s ease,background .18s ease}
 nav.saltos a:hover{border-color:var(--accent);color:var(--accent)}
 nav.saltos a.activo{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-body.solo-quiz nav.saltos a.fuera{opacity:.45}
+nav.saltos a.fuera{opacity:.45}
 .hero{display:block;margin:0 0 2rem;padding:0 0 1.9rem;position:relative}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;
 background:var(--hair);opacity:.85}
@@ -147,8 +147,12 @@ border:1px solid var(--border);color:var(--text-dim)}
 .pill.urgente b{color:var(--mal)}
 .pill.ok{background:var(--accent-soft);color:var(--accent)}
 .pill.ok b{color:var(--accent)}
-.rutas{display:grid;grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr));gap:.75rem;
-margin:1.6rem 0 0}
+ol.hitos{list-style:none;display:flex;flex-wrap:wrap;gap:.75rem;margin:1.6rem 0 0;padding:0}
+ol.hitos li{flex:1 1 13.5rem;margin:0;display:flex}
+ol.hitos li>.ruta{flex:1}
+ol.hitos .av{display:block;font-size:.72rem;color:var(--text-dim);margin-top:.4rem}
+ol.hitos li.urgente .cuenta{color:var(--mal)}
+ol.hitos li.ok .cuenta{color:var(--accent)}
 .ruta{position:relative;overflow:hidden;text-align:left;font:inherit;color:inherit;cursor:pointer;
 border:1px solid var(--border);background:var(--surface);border-radius:var(--r);
 padding:.95rem 1.05rem;box-shadow:var(--shadow);
@@ -190,12 +194,21 @@ place-items:center;font-family:var(--serif);font-size:.95rem;font-weight:600;
 background:var(--accent-soft);color:var(--accent);border:1px solid var(--border)}
 ol.sesiones .dur{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
 ol.sesiones .det{display:block;font-size:.82rem;color:var(--text-dim);line-height:1.45}
+ol.sesiones li.fuera{opacity:.5}
+h3.plan-hito{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.1em;
+text-transform:uppercase;color:var(--text-dim);margin:1.5rem 0 .6rem;scroll-margin-top:7rem}
+h3.plan-hito:first-of-type{margin-top:0}
+h3.plan-hito small{font-size:.9em;font-weight:600;color:var(--mal);text-transform:none;
+letter-spacing:.02em}
 
 section.bloque{position:relative;background:var(--surface);border:1px solid var(--border);
 border-radius:var(--r);padding:1.4rem 1.4rem 1.7rem;margin:0 0 1rem;
 box-shadow:var(--shadow);scroll-margin-top:7rem;transition:opacity .25s,filter .25s}
-body.solo-quiz section.bloque.fuera{opacity:.45;filter:saturate(.4)}
-body.solo-quiz section.bloque.fuera:hover{opacity:.95;filter:none}
+section.bloque.fuera{opacity:.45;filter:saturate(.4)}
+section.bloque.fuera:hover{opacity:.95;filter:none}
+.sec{transition:opacity .25s,filter .25s}
+.sec.fuera{opacity:.45;filter:saturate(.4)}
+.sec.fuera:hover{opacity:.95;filter:none}
 .cab{display:flex;gap:.95rem;align-items:flex-start;border-bottom:1px solid var(--border);
 padding-bottom:.95rem;margin-bottom:1.15rem}
 .cab .bn{flex:none;width:2.6rem;height:2.6rem;border-radius:999px;background:var(--accent-soft);
@@ -243,6 +256,18 @@ border:1px solid var(--border);box-shadow:var(--shadow)}
 padding:2.1rem .95rem .95rem;font:.8rem/1.55 var(--mono)}
 .caja::before{content:attr(data-lang);position:absolute;top:0;left:0;z-index:1;
 font:700 .6rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:.6rem .85rem}
+.pred-caja{margin:1.3rem 0}
+.pred-caja.hecha{border-left:3px solid var(--ok);border-radius:0 12px 12px 0;
+padding-left:.85rem}
+.pred-lab{display:block;font-size:.82rem;color:var(--text-dim)}
+.pred-mia,#prog-json{display:block;width:100%;box-sizing:border-box;margin:.35rem 0 .6rem;
+padding:.6rem .8rem;font:.88rem/1.5 var(--sans);color:var(--text);background:var(--surface);
+border:1px solid var(--border-2);border-radius:12px;resize:vertical}
+.pred-caja>details.pred{margin:0}
+a.traza{display:block;text-align:right;text-decoration:none;font:600 .68rem var(--sans);
+letter-spacing:.04em;padding:.1rem .95rem .55rem;color:#D9A567}
+a.traza:hover{text-decoration:underline}
+.estado .frase{flex-basis:100%;width:100%;margin:.5rem 0 0;font-size:.9rem}
 details.pred{margin:1.3rem 0}
 details.pred>summary{cursor:pointer;list-style:none;font:600 .8rem var(--sans);
 color:#8FBF9F;background:#1A1416;border:1px solid #2B2226;border-radius:12px;padding:.7rem .95rem}
@@ -431,12 +456,12 @@ border-radius:2px}
 <div class="acciones"><button type="button" id="tema" class="icono" aria-label="Cambiar tema">&#9790;</button></div></div>
 <nav class="saltos" aria-label="Bloques de la unidad">
 <a href="#b1">1 · Qué vas a poder hacer al terminar</a>
-<a href="#b2" class="fuera">2 · El tema</a>
+<a href="#b2">2 · El tema</a>
 <a href="#b3">3 · Trampas medidas</a>
-<a href="#b4" class="fuera">4 · Actividad A · el mapa conceptual</a>
-<a href="#b5" class="fuera">5 · Actividad B · plantear y resolver con la computadora</a>
+<a href="#b4">4 · Actividad A · el mapa conceptual</a>
+<a href="#b5">5 · Actividad B · plantear y resolver con la computadora</a>
 <a href="#b6">6 · Refuerza · el quiz que da puntos</a>
-<a href="#b7" class="fuera">7 · Comparte · el foro</a>
+<a href="#b7">7 · Comparte · el foro</a>
 </nav></header>
 <div class="wrap">
 <div class="lockup"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKgAAACTCAMAAAAtKKLoAAAA/1BMVEX///9TEzOkil5TEzNTEzNTEzNTEzNTEzNTEzNTEzOkil6kil6kil6kil6kil6kil6kil4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH5R2+AAAAQHRSTlMA/f4PL27PkrFSiXbODVAwrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK8ZcdAAABdxJREFUeNrtnOuagygMhqkhHDzf/9VuO1YLkghOd6K7D9/PWvE14UyiUlVVVVVVVf9bgfZof4Rew10pNTrzCGQc6hvaEt2DkPH3wvQk5YKKN/I5j/mSvYvT7SOje5DiI68beB/co0SX91TaFHE+rm77/lEoc//qeQfQYnteDHpgT2NuBMrY8zm+wzI9QQp0aud2km3vlCGdD/shArRtXpoHwf4zP/+AFHThbJpeDtTkR58UdGpWdVKcyfButcqD9htoM11UQX2mdpjYoE8Nl1RQr0pAxxBUxPm7iYgBdR5UwqS6iDMFHSLQWbrFm5IKYqLeSag9+cKpZgo69CFoL2tQrcpB43b/17VUly6HCFA1CzZ8WzorokAHQZOa0lUbBaq6EHSU8zycBVViPZQtXgbToK2U703xKpgGHYV8Hw3zTp0HjXzfCvX2+jegrUwlteX7HwzoKDM4ufKlJQM6yLSmE5t0DGg4z/+7iQmc2KPjQGeJZg/lbYkFbSWGe31mL9HS79RdDTp0bRc1DjBkh9tJdKQHoHP65HXTPG514qCG4Nx3jWjSHZRrLdpy1U4nTe7SxjSe6HJmCVCue2pPuLMX70f9r9w5yCyZDT0ynQAdZcZ6R09HT4C2MrMnm59kduVVtBeaOMMvQCeh1R3TmspBO6ktCLqSloP2Uvtk9KKpGHQS2yajl6HFoL3QInS/3axPgo6CO6RImbQUVHLPGajt0ULQ2KCjkjxjghOg8T5uo0QPb0w5aLw5+sdNKT3/1sWgfSN9fpOegRaATjvOSTqkwJWB7uqnxDHTblZqi0DHHafQqS3sZyYZ0GHec45KSceTQB507PecrZIKgDDxeuQIdErMKRkBsZJibmRKrSl1WB9t1+DhWD9MLYXZTMLxg/4TkxMdyszd+FTXzg2tUV2ntinXlZxnQC/lPAF6LWe8tjxQP13LuZ/BsZyDulpjCWenbqD2v2BOalp8T3MuhyJH1uwGdR9NnFHnUd1ME1FT+3ZSN9QwTN1zlO/7pu/7uR2nQd1ctwesqqqqqrqt0GKaM/tO62UC19e8358/pb+vCbYaPaswCTcqz6Yc799f0RRRmIIPNussEDm1dNR4mHa5hGdgUWbjPl2TSzddzmOA2Faiw7A880BMo/P1Eahm8reQy0dZQB2f9+XgMFsVuLRLTFIgCEck963pB94kWbAuPCnGTFanoQ0DtHMhZ1AwzLM0ka3rgpNin0ntc4y1DZMNyuWNro0iMRswaTO4PRyj93Be62dO//6AbvO7fV3XW6r/xo8/97nAbBoXva8v8vvyMC4PPqnk+nPhAwr7g/itRsb2dkC3r62L0EkLftuODk7al7e9ABKnsBg8UKe3hI5yzHGOTRH8btcfqDMLyx0ReMWAOqI0+2HXDKcmngf7TpYo2nMh3ZYO+9xAgXwPs1Hgg3Dfp1yyOsABqOOiOw1t6A3UkyC4mSZsdYHe5SLpPuRBIXBEVJ5m4mi351vSE3p9RGBwG53cHTnKZkF1EuLtmVBvF48jlq7ZOijYxz0c7UGMXpsA1ZsDfXxkiUzV3YEiDeoDj0TdPsARqMmBmjT6wzIx6WWgoUUxGtr016AYn1jivwYajNCoOFCbc/3np7i83St+A/qcktpghkw3JlPYmPzPCPguD4ie7RtQqgBHdhb6oB81jOWAyUf4GtRTA4XLd/jIJUg4emT5GhSIrAC7X28QoMBlSGg6hfdrUGWTSYTbT7nJPgy5HG1DRvp/D7pND51eVn8mmU/Rna2J7iPWZdEHo8w5UDiMejfOOSq2mL45vs8565OV2/uC3hyH8ZokeZENVBV/YsOlpUDuPsetMf36WhsoA7GCMklMBKkhmjhk77PcxxvWIWsF5drKG9QVf6YIqdgOyH/UyitmvfwmwcU7ngsZXSYlR2l2GJbsNBmFQlVwb/I7L6urn894EjrjNMvwsqixkPky2c+3aYyzZDnWMB83eN+XtkAML9RdwqqqqqqqqqqqqqoC/QMqWzjU0N4bfAAAAABJRU5ErkJggg==" alt="INFOTEC" width="168" height="147"></div>
@@ -446,30 +471,42 @@ border-radius:2px}
 <div class="unum"><small>UNIDAD</small>1</div>
 <div>
 <h1>Conceptos y formulación de problemas de optimización</h1>
-<p class="sub">Guía de estudio: siete bloques, con su tiempo estimado y los de la ruta quiz marcados.</p>
+<p class="sub">Guía de estudio: siete bloques, con su tiempo estimado.</p>
 <div class="pills">
 <span class="pill" data-iso="2026-08-18" title="Refuerza y Comparte vence el 2026-08-18.">Refuerza y Comparte · 18 de agosto · <b class="cuenta"></b></span>
 <span class="pill ok" id="mejor" hidden>Tu mejor quiz: <b></b></span>
 </div></div></div>
-<div class="rutas" role="group" aria-label="Elige tu ruta de estudio">
-<button type="button" class="ruta" data-ruta="quiz" aria-pressed="false"><span class="et">Ruta quiz</span><span class="t">1 h 10 min</span><span class="d">Bloques 1, 3, 6 — lo que da puntos</span></button>
-<button type="button" class="ruta" data-ruta="completa" aria-pressed="true"><span class="et">Ruta completa</span><span class="t">5 h 19 min</span><span class="d">Los siete bloques, para comprender y aplicar</span></button>
-</div>
+<ol class="hitos" role="group" aria-label="Elige hasta dónde estudiar">
+<li data-iso="2026-08-09"><button type="button" class="ruta" data-hito="1" aria-pressed="false" title="Actividad 1A · mapa conceptual"><span class="et">1A</span><span class="t">2 h 05 min</span><span class="d">vence 9 de agosto · <b class="cuenta"></b> · 21 secciones</span><span class="av"></span></button></li>
+<li data-iso="2026-08-16"><button type="button" class="ruta" data-hito="2" aria-pressed="false" title="Actividad 1B · plantear y resolver"><span class="et">1B</span><span class="t">+ 1 h 57 min</span><span class="d">vence 16 de agosto · <b class="cuenta"></b> · 33 secciones</span><span class="av"></span></button></li>
+<li data-iso="2026-08-18"><button type="button" class="ruta" data-hito="3" aria-pressed="false" title="Refuerza y Comparte"><span class="et">Refuerza</span><span class="t">+ 1 h 17 min</span><span class="d">vence 18 de agosto · <b class="cuenta"></b> · 45 secciones</span><span class="av"></span></button></li>
+</ol>
+<p class="nota">Cada paso incluye todo lo del anterior. Lo que no entra en el paso elegido se atenúa; puedes leerlo igual.</p>
 <details class="nota"><summary>Cómo se calculan estos tiempos, y qué no prometen</summary><p>Los calcula el generador de esta guía contando lo que hay en cada bloque, con tasas <b>provisionales</b>: 100 palabras/min de prosa nueva, 160 de repaso, 4 min por bloque de código, 1 min por bloque de salida, 2 min por figura y 1.5 min por pregunta de quiz. Son una conjetura declarada, no una medición. Miden el tiempo de <b>recorrer</b> el material: no incluyen releer lo que no cuajó, ni las lecturas del curso, ni pelearse con un error de instalación. Anota tu tiempo real en cada bloque (se guarda en este navegador, sin cuentas ni servidor) y las unidades siguientes se estimarán con <i>tu</i> tasa.</p></details>
+<details class="nota" id="progreso-io"><summary>Llevar mi progreso a otro dispositivo</summary><p>Todo se guarda en este navegador. Copia este texto y pégalo en el otro dispositivo, en esta misma casilla, y pulsa «Importar».</p><textarea id="prog-json" rows="3" aria-label="Progreso en JSON"></textarea><p><button type="button" class="calificar" id="prog-copiar">Copiar</button> <button type="button" class="reiniciar" id="prog-importar">Importar</button> <span class="nota" id="prog-msg"></span></p></details>
 <p class="nota" id="real-total"></p>
 <p class="nota" id="reanudar" hidden>Ibas en <a href="#"></a>. <span class="cuenta-ok"></span></p>
 <p class="nota" id="para-repasar" hidden>Marcadas para repasar: <span></span></p>
 <p class="repaso-cta"><button type="button" class="calificar" id="repaso-btn" hidden>Repaso rápido · 10 preguntas</button><span class="nota" id="repaso-info"></span></p>
 </section>
 <section class="plan">
-<h2>Plan de estudio · 6 sesiones de 52-55 min (ruta completa)</h2>
+<h2>Plan de estudio · 8 sesiones de 28-49 min (por hito)</h2>
+<h3 class="plan-hito" data-h="1">1A · Actividad 1A · mapa conceptual · vence 9 de agosto</h3>
 <ol class="sesiones">
-<li data-sesion="1"><span class="n">1</span><div><span class="dur">52 min</span><span class="det">desde <a href="#b1-intro">Qué vas a poder hacer al terminar</a> hasta 5. Tipos de problemas (clasificación) · 10 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="2"><span class="n">2</span><div><span class="dur">53 min</span><span class="det">desde <a href="#b2-6-minimos-maximos-local-y-global">6. Mínimos, máximos, local y global</a> hasta 1. Qué te piden, en palabras llanas · 9 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="3"><span class="n">3</span><div><span class="dur">54 min</span><span class="det">desde <a href="#b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q">2. Mapa conceptual vs. mapa mental: la diferencia que cuesta puntos</a> hasta 2. Qué se entrega exactamente y cómo se reparte · 12 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="4"><span class="n">4</span><div><span class="dur">52 min</span><span class="det">desde <a href="#b5-3-herramientas-nuevas-numpy-en-20-lineas">3. Herramientas nuevas: numpy en 20 líneas</a> hasta 6. El problema de ejemplo de esta nota y su modelo matemático · 4 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="5"><span class="n">5</span><div><span class="dur">55 min</span><span class="det">desde <a href="#b5-7-como-se-arma-el-script-los-8-bloques">7. Cómo se arma el script: los 8 bloques</a> hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 7 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="6"><span class="n">6</span><div><span class="dur">53 min</span><span class="det">desde <a href="#b6-intro">Refuerza · el quiz que da puntos</a> hasta Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 13 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="1" data-h="1"><span class="n">1</span><div><span class="dur">39 min</span><span class="det">desde <a href="#b1-intro">Qué vas a poder hacer al terminar</a> hasta 3. Todo junto, en Python · 8 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="2" data-h="1"><span class="n">2</span><div><span class="dur">42 min</span><span class="det">desde <a href="#b2-4-como-leer-una-formula-de-optimizacion">4. Cómo leer una fórmula de optimización</a> hasta 1. Qué te piden, en palabras llanas · 8 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="3" data-h="1"><span class="n">3</span><div><span class="dur">44 min</span><span class="det">desde <a href="#b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q">2. Mapa conceptual vs. mapa mental: la diferencia que cuesta puntos</a> hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 9 secciones</span></div><span class="fecha"></span></li>
+</ol>
+<h3 class="plan-hito" data-h="2">1B · Actividad 1B · plantear y resolver · vence 16 de agosto</h3>
+<ol class="sesiones">
+<li data-sesion="4" data-h="2"><span class="n">4</span><div><span class="dur">31 min</span><span class="det">desde <a href="#b5-intro">Actividad B · plantear y resolver con la computadora</a> hasta 3. Herramientas nuevas: numpy en 20 líneas · 4 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="5" data-h="2"><span class="n">5</span><div><span class="dur">41 min</span><span class="det">desde <a href="#b5-4-herramientas-nuevas-scipy-optimize-minimize">4. Herramientas nuevas: <code>scipy.optimize.minimize</code></a> hasta 7. Cómo se arma el script: los 8 bloques · 4 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="6" data-h="2"><span class="n">6</span><div><span class="dur">45 min</span><span class="det">desde <a href="#b5-8-que-resultados-reportar-y-con-que-cifras-compr">8. Qué resultados reportar y con qué cifras comprobarlos</a> hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 6 secciones</span></div><span class="fecha"></span></li>
+</ol>
+<h3 class="plan-hito" data-h="3">Refuerza · Refuerza y Comparte · vence 18 de agosto</h3>
+<ol class="sesiones">
+<li data-sesion="7" data-h="3"><span class="n">7</span><div><span class="dur">28 min</span><span class="det">desde <a href="#b3-intro">Trampas medidas</a> hasta Cómo se estudia para un quiz de esta unidad · 6 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="8" data-h="3"><span class="n">8</span><div><span class="dur">49 min</span><span class="det">desde <a href="#b6-banco-de-20-preguntas-de-practica">Banco de 20 preguntas de práctica</a> hasta Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 10 secciones</span></div><span class="fecha"></span></li>
 </ol>
 <p class="nota" id="plan-nota"></p>
 </section>
@@ -480,9 +517,12 @@ border-radius:2px}
 <h2>Qué vas a poder hacer al terminar</h2>
 <div class="meta">
 <span class="chip">6 min estimados</span>
-<span class="chip q">&#9733; da puntos</span>
+<span class="chip q" title="Actividad 1A · mapa conceptual">1A</span>
+<span class="chip q" title="Actividad 1B · plantear y resolver">1B</span>
+<span class="chip q" title="Refuerza y Comparte">&#9733; da puntos</span>
 <label class="tiempo">tu tiempo real <input class="real" type="number" min="0" step="1" inputmode="numeric" id="real-b1" name="real-b1" data-bloque="1" aria-label="tiempo real del bloque 1 en minutos"> min</label>
 </div></div></div>
+<div class="sec" data-h="1">
 <p>Esta guía junta todo el material de la Unidad 1 de Optimización en una sola
 página. Se abre con doble clic, funciona sin internet y se lee en el teléfono.
 No hace falta saber más que <strong>Python básico</strong>: variables, listas, diccionarios,
@@ -490,6 +530,8 @@ No hace falta saber más que <strong>Python básico</strong>: variables, listas,
 lo demás —numpy, la notación matemática, la idea de pendiente— se define aquí la
 primera vez que aparece, en palabras, antes de la fórmula.</p>
 
+</div>
+<div class="sec" data-h="1">
 <h3 id="b1-las-siete-cosas-que-vas-a-saber-hacer">Las siete cosas que vas a saber hacer</h3>
 <p>No son objetivos institucionales. Es la lista de lo que vas a poder hacer tú, en
 concreto, cuando cierres esta página:</p>
@@ -516,7 +558,10 @@ libros: <code>res.success == True</code> y aun así 752 pesos de error, por una 
 medible que está en el bloque 3.</li>
 </ol>
 
-<div class="estado" data-sec="b1-las-siete-cosas-que-vas-a-saber-hacer"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b1-las-siete-cosas-que-vas-a-saber-hacer"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b1-como-esta-armada-y-por-donde-entrar">Cómo está armada, y por dónde entrar</h3>
 <p>Siete bloques. Cada uno abre con su tiempo estimado y con un campo para que
 anotes cuánto tardaste de verdad.</p>
@@ -540,7 +585,10 @@ nombres entre comillas angulares son bloques de esta misma página, no archivos
 aparte.</li>
 </ul>
 
-<div class="estado" data-sec="b1-como-esta-armada-y-por-donde-entrar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b1-como-esta-armada-y-por-donde-entrar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b1-lo-que-esta-guia-no-es">Lo que esta guía no es</h3>
 <p>No es un resumen del libro ni una segunda explicación de la clase. Es material
 de trabajo, y trae dos cosas que no vas a encontrar en las lecturas: la lista de
@@ -550,15 +598,21 @@ califica solo y te explica por qué falla cada opción, no solo cuál era la bue
 <p>Tampoco es el quiz oficial ni una filtración de él. El banco del bloque 6
 declara exactamente qué mide y qué no.</p>
 
-<div class="estado" data-sec="b1-lo-que-esta-guia-no-es"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b1-lo-que-esta-guia-no-es"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
 </section>
-<section class="bloque fuera" id="b2"><div class="cab">
+<section class="bloque" id="b2"><div class="cab">
 <div class="bn" aria-hidden="true">2</div><div>
 <h2>El tema</h2>
 <div class="meta">
 <span class="chip">1 h 12 min estimados</span>
+<span class="chip q" title="Actividad 1A · mapa conceptual">1A</span>
+<span class="chip q" title="Actividad 1B · plantear y resolver">1B</span>
+<span class="chip q" title="Refuerza y Comparte">&#9733; da puntos</span>
 <label class="tiempo">tu tiempo real <input class="real" type="number" min="0" step="1" inputmode="numeric" id="real-b2" name="real-b2" data-bloque="2" aria-label="tiempo real del bloque 2 en minutos"> min</label>
 </div></div></div>
+<div class="sec" data-h="1">
 <p>Estas notas son el piso común de la materia. No dan por conocido nada de álgebra
 lineal, cálculo, estadística ni notación matemática. Cada símbolo se explica en
 palabras antes de aparecer escrito.</p>
@@ -566,6 +620,8 @@ palabras antes de aparecer escrito.</p>
 Optimization</em>, pp. 1-15; Antoniou &amp; Lu, <em>Practical Optimization</em>, pp. 1-76.</p>
 <hr />
 
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-1-que-significa-optimizar">1. Qué significa optimizar</h3>
 <p>Optimizar es <strong>elegir la mejor opción posible dentro de las que están
 permitidas</strong>.</p>
@@ -623,7 +679,11 @@ siempre hay algo que decides, algo que quieres mejorar y, a veces, límites.</p>
 </form>
 <hr />
 
-<div class="estado" data-sec="b2-1-que-significa-optimizar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-1-que-significa-optimizar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+<button type="button" data-v="cmp" aria-expanded="false" hidden>comparar con la frase de la guía</button><blockquote class="frase" hidden><b>En una frase (guía):</b> <strong>optimizar</strong> es elegir la mejor opción entre las permitidas; siempre hay algo que decides, algo que quieres mejorar y, a veces, límites.</blockquote>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-2-las-cuatro-piezas-del-vocabulario-minimo">2. Las cuatro piezas del vocabulario mínimo</h3>
 <p>Estas cuatro palabras aparecen en todo lo demás. Vale la pena aprenderlas bien.</p>
 <h4>2.1 Variables de decisión</h4>
@@ -649,7 +709,7 @@ decisiones en un número.</p>
 recibe tus decisiones y devuelve un número. Nada más.</p>
 <div class="caja codigo" data-lang="Python"><pre><code>def costo(sillas, mesas):
     return 120 * sillas + 300 * mesas
-</code></pre></div>
+</code></pre><a class="traza" href="https://pythontutor.com/visualize.html#code=def%20costo%28sillas%2C%20mesas%29%3A%0A%20%20%20%20return%20120%20%2A%20sillas%20%2B%20300%20%2A%20mesas%0A&mode=display&py=3" target="_blank" rel="noopener noreferrer" title="Abre Python Tutor (sitio externo) con este código para verlo ejecutarse línea por línea">ver paso a paso &#8599;</a></div>
 <p>Esa es una función objetivo perfectamente válida: le das la decisión y te
 devuelve el número que quieres bajar.</p>
 <p>Se escribe <code>f(x)</code>, que se lee <strong>&quot;el valor que da la regla f cuando la decisión es
@@ -741,7 +801,11 @@ factible</strong>) y la <strong>función objetivo</strong> las ordena; la mejor 
 </form>
 <hr />
 
-<div class="estado" data-sec="b2-2-las-cuatro-piezas-del-vocabulario-minimo"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-2-las-cuatro-piezas-del-vocabulario-minimo"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+<button type="button" data-v="cmp" aria-expanded="false" hidden>comparar con la frase de la guía</button><blockquote class="frase" hidden><b>En una frase (guía):</b> las <strong>restricciones</strong> definen qué opciones entran (la <strong>región factible</strong>) y la <strong>función objetivo</strong> las ordena; la mejor es la <strong>solución óptima</strong>.</blockquote>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-3-todo-junto-en-python">3. Todo junto, en Python</h3>
 <p>Este código resuelve el problema de la mochila probando todas las opciones. Es
 ejecutable tal cual y usa solo listas, <code>for</code> e <code>if</code>.</p>
@@ -764,11 +828,11 @@ for nombre, precio, capacidad in mochilas:
         mejor = (nombre, precio, capacidad)
 
 print(&quot;Mejor opcion factible:&quot;, mejor)
-</code></pre></div>
+</code></pre><a class="traza" href="https://pythontutor.com/visualize.html#code=%23%20Opciones%3A%20%28nombre%2C%20precio%20en%20pesos%2C%20capacidad%20en%20litros%29%0Amochilas%20%3D%20%5B%0A%20%20%20%20%28%22A%22%2C%20800%2C%2020%29%2C%0A%20%20%20%20%28%22B%22%2C%20950%2C%2028%29%2C%0A%20%20%20%20%28%22C%22%2C%201200%2C%2030%29%2C%0A%20%20%20%20%28%22D%22%2C%20700%2C%2015%29%2C%0A%5D%0A%0Apresupuesto%20%3D%201000%20%20%20%23%20esta%20linea%20es%20la%20RESTRICCION%0Amejor%20%3D%20None%0A%0Afor%20nombre%2C%20precio%2C%20capacidad%20in%20mochilas%3A%0A%20%20%20%20if%20precio%20%3E%20presupuesto%3A%0A%20%20%20%20%20%20%20%20continue%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20no%20es%20factible%3A%20fuera%20del%20concurso%0A%20%20%20%20%23%20capacidad%20es%20la%20FUNCION%20OBJETIVO%2C%20y%20la%20queremos%20MAXIMA%0A%20%20%20%20if%20mejor%20is%20None%20or%20capacidad%20%3E%20mejor%5B2%5D%3A%0A%20%20%20%20%20%20%20%20mejor%20%3D%20%28nombre%2C%20precio%2C%20capacidad%29%0A%0Aprint%28%22Mejor%20opcion%20factible%3A%22%2C%20mejor%29%0A&mode=display&py=3" target="_blank" rel="noopener noreferrer" title="Abre Python Tutor (sitio externo) con este código para verlo ejecutarse línea por línea">ver paso a paso &#8599;</a></div>
 <p>Salida esperada:</p>
-<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>Mejor opcion factible: (&#x27;B&#x27;, 950, 28)
+<div class="pred-caja" data-pred="b2s3-sal1"><label class="pred-lab">Antes de abrir: ¿qué imprime? Escríbelo aquí (se guarda en este navegador).<textarea class="pred-mia" rows="2"></textarea></label><details class="pred"><summary>Salida · compárala con tu predicción</summary><div class="caja salida" data-lang="salida"><pre><code>Mejor opcion factible: (&#x27;B&#x27;, 950, 28)
 </code></pre></div>
-</details>
+</details></div>
 <p>Fíjate en el mapa entre código y vocabulario:</p>
 <div class="tabla"><table><thead>
 <tr>
@@ -832,7 +896,11 @@ la mochila con un <code>for</code>, pero se rompe en cuanto las opciones son inf
 </form>
 <hr />
 
-<div class="estado" data-sec="b2-3-todo-junto-en-python"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-3-todo-junto-en-python"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+<button type="button" data-v="cmp" aria-expanded="false" hidden>comparar con la frase de la guía</button><blockquote class="frase" hidden><b>En una frase (guía):</b> la <strong>búsqueda exhaustiva</strong> prueba todas las opciones y resuelve la mochila con un <code>for</code>, pero se rompe en cuanto las opciones son infinitas.</blockquote>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-4-como-leer-una-formula-de-optimizacion">4. Cómo leer una fórmula de optimización</h3>
 <p>Los libros escriben el problema completo en tres renglones. Se ve así:</p>
 <div class="formula"><math display="block"><mrow><msub><mo>min</mo><mrow><mi>x</mi></mrow></msub><mspace width="0.278em" /><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mspace width="1em" /><mtext>sujeto&#x000A0;a</mtext><mspace width="1em" /><msub><mi>g</mi><mi>i</mi></msub><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02264;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="2em" /><msub><mi>h</mi><mi>j</mi></msub><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>0</mn></mrow></math></div>
@@ -905,7 +973,11 @@ esto</strong>, <strong>sujeto a</strong> estos límites—; búscale las cuatro 
 </form>
 <hr />
 
-<div class="estado" data-sec="b2-4-como-leer-una-formula-de-optimizacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-4-como-leer-una-formula-de-optimizacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+<button type="button" data-v="cmp" aria-expanded="false" hidden>comparar con la frase de la guía</button><blockquote class="frase" hidden><b>En una frase (guía):</b> una fórmula de optimización solo dice dos cosas —<strong>minimiza esto</strong>, <strong>sujeto a</strong> estos límites—; búscale las cuatro piezas y ya la leíste.</blockquote>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-5-tipos-de-problemas-clasificacion">5. Tipos de problemas (clasificación)</h3>
 <p>Clasificar un problema no es burocracia: <strong>el tipo determina qué método puedes
 usar</strong>. Es como saber si un archivo es CSV o JPG antes de elegir la librería.</p>
@@ -965,7 +1037,11 @@ usar.</p>
 </form>
 <hr />
 
-<div class="estado" data-sec="b2-5-tipos-de-problemas-clasificacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-5-tipos-de-problemas-clasificacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+<button type="button" data-v="cmp" aria-expanded="false" hidden>comparar con la frase de la guía</button><blockquote class="frase" hidden><b>En una frase (guía):</b> clasificar el problema —<strong>continuo o discreto</strong>, <strong>lineal o no lineal</strong>, con o sin restricciones— no es burocracia: decide qué método puedes usar.</blockquote>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-6-minimos-maximos-local-y-global">6. Mínimos, máximos, local y global</h3>
 <p>Imagina la función objetivo como <strong>un terreno con montañas y valles</strong>. Cada punto
 del terreno es una decisión posible. La altura del terreno en ese punto es el
@@ -1051,7 +1127,11 @@ el más hondo, y solo en un problema <strong>convexo</strong> basta con bajar pa
 </form>
 <hr />
 
-<div class="estado" data-sec="b2-6-minimos-maximos-local-y-global"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-6-minimos-maximos-local-y-global"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+<button type="button" data-v="cmp" aria-expanded="false" hidden>comparar con la frase de la guía</button><blockquote class="frase" hidden><b>En una frase (guía):</b> el terreno de la función tiene valles; el <strong>mínimo global</strong> es el más hondo, y solo en un problema <strong>convexo</strong> basta con bajar para llegar a él.</blockquote>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-7-resolver-en-papel-vs-resolver-con-la-computado">7. Resolver en papel vs. resolver con la computadora</h3>
 <p>Hay dos formas de encontrar el óptimo, y conviene no confundirlas.</p>
 <p><strong>Solución analítica.</strong> Se resuelve con lápiz y papel, usando reglas
@@ -1119,7 +1199,11 @@ suficientemente cerca.</p>
 </form>
 <hr />
 
-<div class="estado" data-sec="b2-7-resolver-en-papel-vs-resolver-con-la-computado"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-7-resolver-en-papel-vs-resolver-con-la-computado"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+<button type="button" data-v="cmp" aria-expanded="false" hidden>comparar con la frase de la guía</button><blockquote class="frase" hidden><b>En una frase (guía):</b> un <strong>método numérico</strong> avanza por <strong>iteraciones</strong> desde un <strong>punto inicial</strong> hasta que su <strong>criterio de paro</strong> dice que ya está suficientemente cerca.</blockquote>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-8-por-que-esto-importa-en-ciencia-de-datos">8. Por qué esto importa en ciencia de datos</h3>
 <p>Un modelo de ciencia de datos, en el fondo, es un problema de optimización. La
 traducción es directa:</p>
@@ -1179,7 +1263,11 @@ los <strong>parámetros del modelo</strong> son las variables de decisión de es
 </form>
 <hr />
 
-<div class="estado" data-sec="b2-8-por-que-esto-importa-en-ciencia-de-datos"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-8-por-que-esto-importa-en-ciencia-de-datos"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+<button type="button" data-v="cmp" aria-expanded="false" hidden>comparar con la frase de la guía</button><blockquote class="frase" hidden><b>En una frase (guía):</b> entrenar un modelo es minimizar su <strong>función de pérdida</strong>, y los <strong>parámetros del modelo</strong> son las variables de decisión de ese problema.</blockquote>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b2-9-glosario-de-bolsillo">9. Glosario de bolsillo</h3>
 <div class="tabla"><table><thead>
 <tr>
@@ -1307,16 +1395,19 @@ los <strong>parámetros del modelo</strong> son las variables de decisión de es
 </tbody>
 </table></div>
 
-<div class="estado" data-sec="b2-9-glosario-de-bolsillo"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b2-9-glosario-de-bolsillo"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
 </section>
 <section class="bloque" id="b3"><div class="cab">
 <div class="bn" aria-hidden="true">3</div><div>
 <h2>Trampas medidas</h2>
 <div class="meta">
 <span class="chip">24 min estimados</span>
-<span class="chip q">&#9733; da puntos</span>
+<span class="chip q" title="Refuerza y Comparte">&#9733; da puntos</span>
 <label class="tiempo">tu tiempo real <input class="real" type="number" min="0" step="1" inputmode="numeric" id="real-b3" name="real-b3" data-bloque="3" aria-label="tiempo real del bloque 3 en minutos"> min</label>
 </div></div></div>
+<div class="sec" data-h="3">
 <p>Dos clases de trampa, y las dos salieron de hacer el trabajo, no de leerlo.</p>
 <p>Las <strong>seis primeras</strong> son parejas de conceptos que suenan parecido y significan
 cosas distintas: son las que se disfrazan de opción plausible en un quiz de esta
@@ -1325,6 +1416,8 @@ unidad, y son el material con el que está construido el banco del bloque 6.</p>
 lo que midió la Actividad B cuando se corrió de verdad. Ahí el optimizador
 devolvió <code>éxito = True</code> y estaba equivocado por 752 pesos.</p>
 
+</div>
+<div class="sec" data-h="3">
 <h3 id="b3-las-seis-trampas-conceptuales">Las seis trampas conceptuales</h3>
 <p>Cada una trae: la confusión, la distinción en una línea, y <strong>la forma exacta en
 que se disfraza en un quiz</strong>.</p>
@@ -1518,7 +1611,10 @@ pegadas: <em>sin restricciones</em> y <em>función suave</em>.</li>
 </tbody>
 </table></div>
 
-<div class="estado" data-sec="b3-las-seis-trampas-conceptuales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b3-las-seis-trampas-conceptuales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos-">Trampa 7 · La que se midió: <code>éxito = True</code> y 752 pesos de error</h3>
 <p>Ésta no se pregunta en un quiz de conceptos y por eso casi nadie la sabe. Sale de
 correr la Actividad B de verdad. Aquí va el resumen con las cifras; la historia
@@ -1600,15 +1696,21 @@ ambos. Ninguna bandera del optimizador detecta este fallo.</li>
 </li>
 </ol>
 
-<div class="estado" data-sec="b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos-"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos-"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
 </section>
-<section class="bloque fuera" id="b4"><div class="cab">
+<section class="bloque" id="b4"><div class="cab">
 <div class="bn" aria-hidden="true">4</div><div>
 <h2>Actividad A · el mapa conceptual</h2>
 <div class="meta">
 <span class="chip">47 min estimados</span>
+<span class="chip q" title="Actividad 1A · mapa conceptual">1A</span>
+<span class="chip q" title="Actividad 1B · plantear y resolver">1B</span>
+<span class="chip q" title="Refuerza y Comparte">&#9733; da puntos</span>
 <label class="tiempo">tu tiempo real <input class="real" type="number" min="0" step="1" inputmode="numeric" id="real-b4" name="real-b4" data-bloque="4" aria-label="tiempo real del bloque 4 en minutos"> min</label>
 </div></div></div>
+<div class="sec" data-h="1">
 <p><strong>Vale 7% de la calificación final. Vence el 2026-08-09. Es individual.</strong>
 <strong>Se entrega un archivo PDF.</strong></p>
 <p>Antes de leer esto, lee «El tema». Ahí están explicados todos los conceptos
@@ -1617,6 +1719,8 @@ exactamente, cómo se conectan los conceptos entre sí, y cómo se construye un 
 conceptual que califique bien.</p>
 <hr />
 
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-1-que-te-piden-en-palabras-llanas">1. Qué te piden, en palabras llanas</h3>
 <p>Las instrucciones oficiales son cinco puntos:</p>
 <blockquote>
@@ -1650,7 +1754,10 @@ burbujas.</li>
 <p>Sobre el punto 5, ve la sección 8.</p>
 <hr />
 
-<div class="estado" data-sec="b4-1-que-te-piden-en-palabras-llanas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-1-que-te-piden-en-palabras-llanas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q">2. Mapa conceptual vs. mapa mental: la diferencia que cuesta puntos</h3>
 <p>Mucha gente entrega un mapa mental creyendo que es un mapa conceptual. No son lo
 mismo y la actividad pide el segundo.</p>
@@ -1700,7 +1807,10 @@ sección 5 te muestra uno ya armado y te dice dónde están los otros cinco.</li
 </ul>
 <hr />
 
-<div class="estado" data-sec="b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-3-que-conceptos-deben-aparecer">3. Qué conceptos deben aparecer</h3>
 <p>Estos son los conceptos fundamentales de la optimización matemática, agrupados en
 las cinco ramas que estructuran el tema. Todos están explicados en «El tema».</p>
@@ -1739,7 +1849,10 @@ mismo en la sección 4; el apéndice al final de esta nota te las da completas p
 si quieres comparar después de intentarlo.</p>
 <hr />
 
-<div class="estado" data-sec="b4-3-que-conceptos-deben-aparecer"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-3-que-conceptos-deben-aparecer"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-4-como-se-relacionan-esta-es-la-parte-importante">4. Cómo se relacionan (esta es la parte importante)</h3>
 <p>Con la convención ya explicada en la sección 2 (una proposición es un concepto
 origen + una flecha con verbo + un destino que se lee como frase) y con la lista
@@ -1811,7 +1924,10 @@ los que aparecen en el apéndice; no es obligatorio, pero hace que ese rincón d
 mapa sea tuyo.</p>
 <hr />
 
-<div class="estado" data-sec="b4-4-como-se-relacionan-esta-es-la-parte-importante"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-4-como-se-relacionan-esta-es-la-parte-importante"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-5-los-enlaces-cruzados-donde-se-gana-la-califica">5. Los enlaces cruzados (donde se gana la calificación)</h3>
 <p>Un enlace cruzado une dos ramas distintas. Demuestra comprensión, no memoria.
 Dibújalos con otro color o con línea punteada para que se distingan del resto.</p>
@@ -1831,7 +1947,10 @@ exactitud, y no pone en riesgo ninguna de las cinco instrucciones oficiales
 <p>Con tres de los seis tu mapa ya se lee como un sistema y no como una lista.</p>
 <hr />
 
-<div class="estado" data-sec="b4-5-los-enlaces-cruzados-donde-se-gana-la-califica"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-5-los-enlaces-cruzados-donde-se-gana-la-califica"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-6-ejemplo-trabajado-un-mapa-conceptual-sobre-otr">6. Ejemplo trabajado: un mapa conceptual sobre otro tema</h3>
 <p>Para que veas la <strong>forma</strong> sin copiar el <strong>contenido</strong>, aquí va un mapa
 conceptual completo sobre el <strong>ciclo del agua</strong>. Fíjate en la estructura, no en
@@ -1887,7 +2006,10 @@ definiciones va aparte).</li>
 </ul>
 <hr />
 
-<div class="estado" data-sec="b4-6-ejemplo-trabajado-un-mapa-conceptual-sobre-otr"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-6-ejemplo-trabajado-un-mapa-conceptual-sobre-otr"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-7-como-construirlo-paso-a-paso">7. Cómo construirlo, paso a paso</h3>
 <p><strong>Paso 1 — Vuelve a leer.</strong> Repasa «El tema»: con eso solo, el mapa se arma
 completo. Las lecturas oficiales de la unidad (Nocedal &amp; Wright, <em>Numerical
@@ -1952,7 +2074,10 @@ la vista previa de la herramienta. Revisa que no haya texto cortado, que se lea
 al 100% de zoom y que las flechas no se crucen encima de las etiquetas.</p>
 <hr />
 
-<div class="estado" data-sec="b4-7-como-construirlo-paso-a-paso"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-7-como-construirlo-paso-a-paso"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-8-con-que-te-van-a-calificar-la-lista-de-cotejo-">8. Con qué te van a calificar — la lista de cotejo oficial</h3>
 <p>Esta es la lista de cotejo oficial de la actividad, tal como aparece en el
 enunciado:</p>
@@ -2034,7 +2159,10 @@ dejar la entrega sin calificar.</li>
 </ul>
 <hr />
 
-<div class="estado" data-sec="b4-8-con-que-te-van-a-calificar-la-lista-de-cotejo-"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-8-con-que-te-van-a-calificar-la-lista-de-cotejo-"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <h3 id="b4-9-checklist-antes-de-entregar">9. Checklist antes de entregar</h3>
 <p>Cada elemento indica, entre corchetes, qué criterio de la lista de cotejo
 (sección 8) respalda.</p>
@@ -2084,7 +2212,10 @@ mapa cumple cada uno.</li>
 </ul>
 <hr />
 
-<div class="estado" data-sec="b4-9-checklist-antes-de-entregar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b4-9-checklist-antes-de-entregar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="1">
 <details class="spoiler" id="b4-apendice-solucion-de-referencia-abrelo-despues-d"><summary>Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 9 min</summary><div class="cuerpo">
 <p>Aquí están las 48 flechas completas del mapa —42 dentro de las ramas (A.1) más
 los 6 enlaces cruzados (A.2)—, tal como podrían quedar
@@ -2214,14 +2345,18 @@ hay cuesta que bajar.</p>
 tu mapa.</p>
 
 </div></details>
+</div>
 </section>
-<section class="bloque fuera" id="b5"><div class="cab">
+<section class="bloque" id="b5"><div class="cab">
 <div class="bn" aria-hidden="true">5</div><div>
 <h2>Actividad B · plantear y resolver con la computadora</h2>
 <div class="meta">
 <span class="chip">1 h 57 min estimados</span>
+<span class="chip q" title="Actividad 1B · plantear y resolver">1B</span>
+<span class="chip q" title="Refuerza y Comparte">&#9733; da puntos</span>
 <label class="tiempo">tu tiempo real <input class="real" type="number" min="0" step="1" inputmode="numeric" id="real-b5" name="real-b5" data-bloque="5" aria-label="tiempo real del bloque 5 en minutos"> min</label>
 </div></div></div>
+<div class="sec" data-h="2">
 <p><strong>Vale 11% de la calificación final. Vence el 2026-08-16. Es individual.</strong>
 <strong>Se entregan DOS archivos: un informe en PDF (máximo 3 cuartillas) y un archivo
 <code>.py</code> o <code>.ipynb</code>.</strong></p>
@@ -2242,6 +2377,8 @@ ejemplos inventados. Si tu versión de scipy es distinta, los últimos decimales
 pueden cambiar; el resultado no.</p>
 <hr />
 
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-1-que-te-piden-en-palabras-llanas">1. Qué te piden, en palabras llanas</h3>
 <p>Las instrucciones oficiales son ocho puntos, transcritos tal cual:</p>
 <blockquote>
@@ -2292,7 +2429,10 @@ informe que dice &quot;todo salió perfecto&quot; está incompleto.</li>
 <p>Sobre la instrucción 8, ve la sección 11.</p>
 <hr />
 
-<div class="estado" data-sec="b5-1-que-te-piden-en-palabras-llanas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-1-que-te-piden-en-palabras-llanas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-2-que-se-entrega-exactamente-y-como-se-reparte">2. Qué se entrega exactamente y cómo se reparte</h3>
 <p><strong>Son dos archivos.</strong> La instrucción 7 los nombra: el informe en PDF y el archivo
 de código (<code>.py</code> o <code>.ipynb</code>, tú eliges). Si subes solo uno, la entrega está
@@ -2393,7 +2533,10 @@ corre de arriba abajo sin depender de una celda que ejecutaste hace media hora y
 ya borraste.</p>
 <hr />
 
-<div class="estado" data-sec="b5-2-que-se-entrega-exactamente-y-como-se-reparte"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-2-que-se-entrega-exactamente-y-como-se-reparte"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-3-herramientas-nuevas-numpy-en-20-lineas">3. Herramientas nuevas: numpy en 20 líneas</h3>
 <p><code>numpy</code> es una librería para hacer cuentas con <strong>listas de números completas de
 un solo golpe</strong>, en vez de una por una con un <code>for</code>. Eso es todo lo que necesitas
@@ -2414,13 +2557,13 @@ print(np.sqrt(a))   # raiz cuadrada de CADA elemento
 print(np.sum(a))    # suma todos y devuelve UN numero
 </code></pre></div>
 <p>Salida real:</p>
-<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>[60. 40. 30.]
+<div class="pred-caja" data-pred="b5s3-sal1"><label class="pred-lab">Antes de abrir: ¿qué imprime? Escríbelo aquí (se guarda en este navegador).<textarea class="pred-mia" rows="2"></textarea></label><details class="pred"><summary>Salida · compárala con tu predicción</summary><div class="caja salida" data-lang="salida"><pre><code>[60. 40. 30.]
 [60. 40. 30.]
 [900. 400. 225.]
 [5.47722558 4.47213595 3.87298335]
 65.0
 </code></pre></div>
-</details>
+</details></div>
 <p>Compáralo con lo que harías sin numpy: <code>[x*2 for x in lista]</code>, o un <code>for</code> con un
 acumulador. Hace lo mismo. La diferencia es que scipy <strong>espera arrays</strong>, así que
 conviene hablar su idioma.</p>
@@ -2429,7 +2572,7 @@ necesita, más estas tres:</p>
 <div class="caja codigo" data-lang="Python"><pre><code>np.full(3, 33.33)          # array de 3 elementos, todos 33.33
 np.abs(a - b)              # diferencia en valor absoluto, elemento por elemento
 np.max(a)                  # el mayor elemento
-</code></pre></div>
+</code></pre><a class="traza" href="https://pythontutor.com/visualize.html#code=np.full%283%2C%2033.33%29%20%20%20%20%20%20%20%20%20%20%23%20array%20de%203%20elementos%2C%20todos%2033.33%0Anp.abs%28a%20-%20b%29%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20diferencia%20en%20valor%20absoluto%2C%20elemento%20por%20elemento%0Anp.max%28a%29%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20el%20mayor%20elemento%0A&mode=display&py=3" target="_blank" rel="noopener noreferrer" title="Abre Python Tutor (sitio externo) con este código para verlo ejecutarse línea por línea">ver paso a paso &#8599;</a></div>
 <p><strong>Un aviso que ahorra un traceback:</strong> en numpy, <code>a * b</code> con dos arrays multiplica
 elemento por elemento; <strong>no</strong> es la multiplicación de matrices del álgebra lineal
 (esa se escribe <code>a @ b</code> y en esta actividad no la vas a usar). Si te sale un
@@ -2442,16 +2585,19 @@ misma. Sin semilla, tu programa da un resultado distinto en cada corrida y el qu
 califica no puede reproducir el tuyo.</p>
 <div class="caja codigo" data-lang="Python"><pre><code>rng = np.random.default_rng(42)     # 42 es la semilla; sirve cualquier entero
 print(rng.uniform(5.0, 60.0, size=3))
-</code></pre></div>
+</code></pre><a class="traza" href="https://pythontutor.com/visualize.html#code=rng%20%3D%20np.random.default_rng%2842%29%20%20%20%20%20%23%2042%20es%20la%20semilla%3B%20sirve%20cualquier%20entero%0Aprint%28rng.uniform%285.0%2C%2060.0%2C%20size%3D3%29%29%0A&mode=display&py=3" target="_blank" rel="noopener noreferrer" title="Abre Python Tutor (sitio externo) con este código para verlo ejecutarse línea por línea">ver paso a paso &#8599;</a></div>
 <p>Salida real, y va a ser esta misma cada vez que lo corras:</p>
-<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>[47.56758267 29.13831419 52.2228856 ]
+<div class="pred-caja" data-pred="b5s3-sal2"><label class="pred-lab">Antes de abrir: ¿qué imprime? Escríbelo aquí (se guarda en este navegador).<textarea class="pred-mia" rows="2"></textarea></label><details class="pred"><summary>Salida · compárala con tu predicción</summary><div class="caja salida" data-lang="salida"><pre><code>[47.56758267 29.13831419 52.2228856 ]
 </code></pre></div>
-</details>
+</details></div>
 <p>Declara la semilla en el informe. Es la diferencia entre un resultado y una
 anécdota.</p>
 <hr />
 
-<div class="estado" data-sec="b5-3-herramientas-nuevas-numpy-en-20-lineas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-3-herramientas-nuevas-numpy-en-20-lineas"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-4-herramientas-nuevas-scipy-optimize-minimize">4. Herramientas nuevas: <code>scipy.optimize.minimize</code></h3>
 <p><code>scipy.optimize</code> es el módulo que trae los algoritmos de optimización ya
 programados. Su función principal se llama <code>minimize</code>, y hace exactamente lo que
@@ -2472,12 +2618,12 @@ print(&quot;exito       :&quot;, res.success)
 print(&quot;iteraciones :&quot;, res.nit)
 </code></pre></div>
 <p>Salida real:</p>
-<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>x encontrada: 3.0
+<div class="pred-caja" data-pred="b5s4-sal1"><label class="pred-lab">Antes de abrir: ¿qué imprime? Escríbelo aquí (se guarda en este navegador).<textarea class="pred-mia" rows="2"></textarea></label><details class="pred"><summary>Salida · compárala con tu predicción</summary><div class="caja salida" data-lang="salida"><pre><code>x encontrada: 3.0
 f minima    : 1.0
 exito       : True
 iteraciones : 2
 </code></pre></div>
-</details>
+</details></div>
 <p>Fíjate en dos detalles del ejemplo, porque son fuente de errores:</p>
 <ul>
 <li><strong>La función recibe una lista, no un número.</strong> Aunque solo haya una variable,
@@ -2487,7 +2633,7 @@ iteraciones : 2
 </ul>
 <h4>4.1 Los argumentos, uno por uno</h4>
 <div class="caja codigo" data-lang="Python"><pre><code>res = minimize(fun, x0, method=..., bounds=..., constraints=..., options=...)
-</code></pre></div>
+</code></pre><a class="traza" href="https://pythontutor.com/visualize.html#code=res%20%3D%20minimize%28fun%2C%20x0%2C%20method%3D...%2C%20bounds%3D...%2C%20constraints%3D...%2C%20options%3D...%29%0A&mode=display&py=3" target="_blank" rel="noopener noreferrer" title="Abre Python Tutor (sitio externo) con este código para verlo ejecutarse línea por línea">ver paso a paso &#8599;</a></div>
 <ul>
 <li><p><strong><code>fun</code></strong> — la <strong>función objetivo</strong>: tu <code>def</code> que recibe la lista de decisiones
 y devuelve un número. <code>minimize</code> siempre <strong>minimiza</strong>. Si tu problema es de
@@ -2519,7 +2665,7 @@ pares <code>(mínimo, máximo)</code>, uno por variable. <code>[(5.0, 60.0), (5.
 escriben como diccionarios:</p>
 <div class="caja codigo" data-lang="Python"><pre><code>{&quot;type&quot;: &quot;eq&quot;, &quot;fun&quot;: lambda x: np.sum(x) - 100.0}   # igualdad: debe dar 0
 {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 50.0 - x[0]}       # desigualdad: debe dar &gt;= 0
-</code></pre></div>
+</code></pre><a class="traza" href="https://pythontutor.com/visualize.html#code=%7B%22type%22%3A%20%22eq%22%2C%20%22fun%22%3A%20lambda%20x%3A%20np.sum%28x%29%20-%20100.0%7D%20%20%20%23%20igualdad%3A%20debe%20dar%200%0A%7B%22type%22%3A%20%22ineq%22%2C%20%22fun%22%3A%20lambda%20x%3A%2050.0%20-%20x%5B0%5D%7D%20%20%20%20%20%20%20%23%20desigualdad%3A%20debe%20dar%20%3E%3D%200%0A&mode=display&py=3" target="_blank" rel="noopener noreferrer" title="Abre Python Tutor (sitio externo) con este código para verlo ejecutarse línea por línea">ver paso a paso &#8599;</a></div>
 <p>Dos convenciones que hay que memorizar, porque scipy no avisa si las
 confundes: en <code>&quot;eq&quot;</code> la función debe valer <strong>cero</strong> cuando la restricción se
 cumple; en <code>&quot;ineq&quot;</code> debe valer <strong>cero o más</strong>. Por eso &quot;la suma debe ser 100&quot;
@@ -2582,7 +2728,10 @@ detenerse antes de tiempo por una tolerancia mal puesta. La verificación de
 verdad es la de la sección 8.</p>
 <hr />
 
-<div class="estado" data-sec="b5-4-herramientas-nuevas-scipy-optimize-minimize"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-4-herramientas-nuevas-scipy-optimize-minimize"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-5-como-elegir-y-plantear-tu-problema-el-molde-de">5. Cómo elegir y plantear tu problema — el molde de cinco preguntas</h3>
 <p>Esta es la parte que la instrucción 1 deja en tus manos. El error más común es
 elegir un problema demasiado grande y no terminarlo. El segundo más común es
@@ -2633,7 +2782,10 @@ sin restricciones, convexo o no. Ese último punto no es adorno burocrático:
 en la instrucción 4.</p>
 <hr />
 
-<div class="estado" data-sec="b5-5-como-elegir-y-plantear-tu-problema-el-molde-de"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-5-como-elegir-y-plantear-tu-problema-el-molde-de"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model">6. El problema de ejemplo de esta nota y su modelo matemático</h3>
 <p>Todo lo que sigue usa un problema concreto para que veas la forma. <strong>No lo
 copies</strong>: es material de demostración, y el apéndice trae su solución completa.
@@ -2735,7 +2887,10 @@ configuración que se usa hoy) o un segundo método de scipy. No te penaliza: es
 exactamente el bloque 7 del script.</p>
 <hr />
 
-<div class="estado" data-sec="b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-7-como-se-arma-el-script-los-8-bloques">7. Cómo se arma el script: los 8 bloques</h3>
 <p>Tu archivo <code>.py</code> (o <code>.ipynb</code>) se organiza en <strong>8 bloques</strong>, en este orden. Cada
 bloque lleva un comentario de encabezado con su número y su nombre: eso es lo que
@@ -2829,12 +2984,12 @@ def clientes(reparto):
 
 print(&quot;partes iguales :&quot;, round(clientes([33.34, 33.33, 33.33]), 4))
 print(&quot;mas al buscador:&quot;, round(clientes([60.0, 25.0, 15.0]), 4))
-</code></pre></div>
+</code></pre><a class="traza" href="https://pythontutor.com/visualize.html#code=import%20math%0A%0Acoef%20%3D%20%5B30.0%2C%2020.0%2C%2015.0%5D%0A%0Adef%20clientes%28reparto%29%3A%0A%20%20%20%20total%20%3D%200.0%0A%20%20%20%20for%20i%20in%20range%283%29%3A%0A%20%20%20%20%20%20%20%20total%20%2B%3D%20coef%5Bi%5D%20%2A%20math.sqrt%28reparto%5Bi%5D%29%0A%20%20%20%20return%20total%0A%0Aprint%28%22partes%20iguales%20%3A%22%2C%20round%28clientes%28%5B33.34%2C%2033.33%2C%2033.33%5D%29%2C%204%29%29%0Aprint%28%22mas%20al%20buscador%3A%22%2C%20round%28clientes%28%5B60.0%2C%2025.0%2C%2015.0%5D%29%2C%204%29%29%0A&mode=display&py=3" target="_blank" rel="noopener noreferrer" title="Abre Python Tutor (sitio externo) con este código para verlo ejecutarse línea por línea">ver paso a paso &#8599;</a></div>
 <p>Salida real:</p>
-<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>partes iguales : 375.2849
+<div class="pred-caja" data-pred="b5s7-sal1"><label class="pred-lab">Antes de abrir: ¿qué imprime? Escríbelo aquí (se guarda en este navegador).<textarea class="pred-mia" rows="2"></textarea></label><details class="pred"><summary>Salida · compárala con tu predicción</summary><div class="caja salida" data-lang="salida"><pre><code>partes iguales : 375.2849
 mas al buscador: 390.4738
 </code></pre></div>
-</details>
+</details></div>
 <p>Ya aprendiste algo antes de optimizar nada: mover dinero hacia el canal más
 productivo mejora el resultado (de 375.3 a 390.5), y una corazonada humana
 razonable llega <strong>cerca</strong>. Guarda ese número: en la sección 8 verás que el óptimo
@@ -2847,7 +3002,10 @@ propio script completo. <strong>Hazlo antes de abrir el apéndice</strong>: ahí
 ejemplo, entero y con su salida, para comparar contra el tuyo — no para copiarlo.</p>
 <hr />
 
-<div class="estado" data-sec="b5-7-como-se-arma-el-script-los-8-bloques"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-7-como-se-arma-el-script-los-8-bloques"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-8-que-resultados-reportar-y-con-que-cifras-compr">8. Qué resultados reportar y con qué cifras comprobarlos</h3>
 <p>La instrucción 5 dice &quot;comenta los resultados&quot; y la 7 pide una sección de
 &quot;análisis del resultado&quot;. Esto es lo que va ahí. <strong>Reportar solo el <code>res.x</code> es la
@@ -2901,7 +3059,7 @@ código y es lo primero que un revisor mira.</p>
 <p>Estos son los números que produce el script del apéndice, ejecutado de verdad en
 este entorno (Python 3.9.6, numpy 2.0.2, scipy 1.13.1, semilla 42). Si corres el
 apéndice tal cual, esto es lo que debe salirte:</p>
-<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>=== RESULTADO NUMERICO (SLSQP) ===
+<div class="pred-caja" data-pred="b5s8-sal1"><label class="pred-lab">Antes de abrir: ¿qué imprime? Escríbelo aquí (se guarda en este navegador).<textarea class="pred-mia" rows="2"></textarea></label><details class="pred"><summary>Salida · compárala con tu predicción</summary><div class="caja salida" data-lang="salida"><pre><code>=== RESULTADO NUMERICO (SLSQP) ===
 exito          : True
 iteraciones    : 11
 eval. objetivo : 44
@@ -2929,7 +3087,7 @@ mejora relativa (%)        : 4.06
 corridas fallidas          : 0
 peor desviacion (miles)    : 1.442e-04
 </code></pre></div>
-</details>
+</details></div>
 <p>Cómo se lee cada bloque, que es justo lo que va comentado en tu informe:</p>
 <ul>
 <li><strong>La solución.</strong> 59.02, 26.23 y 14.75 miles de pesos. Suma 100. El buscador se
@@ -2956,7 +3114,10 @@ reportable.</li>
 </ul>
 <hr />
 
-<div class="estado" data-sec="b5-8-que-resultados-reportar-y-con-que-cifras-compr"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-8-que-resultados-reportar-y-con-que-cifras-compr"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-9-el-analisis-critico-instruccion-6">9. El análisis crítico (instrucción 6)</h3>
 <p>La instrucción 6 hace tres preguntas: <strong>¿es eficiente?, ¿es aplicable?, ¿qué
 mejorarías?</strong> Se contestan una por una, con evidencia. Lo que sigue son las
@@ -3096,7 +3257,10 @@ pasa si cambias el punto inicial?, ¿qué pasa si aprietas o aflojas la toleranc
 respondida con una corrida y un número, es análisis crítico.</p>
 <hr />
 
-<div class="estado" data-sec="b5-9-el-analisis-critico-instruccion-6"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-9-el-analisis-critico-instruccion-6"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-10-tus-tres-decisiones-personales">10. Tus tres decisiones personales</h3>
 <p>Estas son las tres decisiones que hacen que tu entrega no se parezca a la de
 nadie más. Ninguna pone en riesgo el cumplimiento de las ocho instrucciones
@@ -3144,7 +3308,10 @@ material extra para la comparación de la instrucción 6. No es requisito y come
 espacio de las tres cuartillas.)</em></p>
 <hr />
 
-<div class="estado" data-sec="b5-10-tus-tres-decisiones-personales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-10-tus-tres-decisiones-personales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-11-con-que-te-van-a-calificar">11. Con qué te van a calificar</h3>
 <p><strong>Aviso importante y honesto: la lista de cotejo oficial de 1B no está en nuestra
 fuente.</strong> La instrucción 8 dice &quot;considera los criterios de evaluación&quot;, y en la
@@ -3166,7 +3333,10 @@ dentro del informe lo dice la tabla de cinco secciones de la sección 2. Las dos
 son recomendación de esta nota, no la rúbrica oficial.</p>
 <hr />
 
-<div class="estado" data-sec="b5-11-con-que-te-van-a-calificar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-11-con-que-te-van-a-calificar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <h3 id="b5-12-checklist-antes-de-entregar">12. Checklist antes de entregar</h3>
 <p>Cada renglón dice, entre corchetes, qué instrucción oficial (sección 1)
 respalda. Las ocho instrucciones aparecen entre corchetes al menos una vez: este
@@ -3235,7 +3405,10 @@ cumple cada criterio. [8]</li>
 </ul>
 <hr />
 
-<div class="estado" data-sec="b5-12-checklist-antes-de-entregar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b5-12-checklist-antes-de-entregar"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="2">
 <details class="spoiler" id="b5-apendice-solucion-de-referencia-abrelo-despues-d"><summary>Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 16 min</summary><div class="cuerpo">
 <p>Aquí está el script completo del problema de ejemplo, su salida real y un esqueleto
 de informe. Ábrelo <strong>solo después</strong> de haber escrito tu propia versión con la
@@ -3366,11 +3539,11 @@ print(&quot;=== ESTABILIDAD: 200 PUNTOS INICIALES ALEATORIOS (semilla 42) ===&qu
 print(&quot;corridas fallidas          :&quot;, fallos)
 print(&quot;peor desviacion (miles)    :&quot;, &quot;{:.3e}&quot;.format(peor))
 print(&quot;tiempo de las 200 (s)      :&quot;, round(t_multi, 4))
-</code></pre></div>
+</code></pre><a class="traza" href="https://pythontutor.com/visualize.html#code=%23%20----------%20BLOQUE%206%3A%20comparacion%20con%20la%20solucion%20analitica%20----------%0Ax_analitico%20%3D%20PRESUPUESTO%20%2A%20COEF%2A%2A2%20/%20np.sum%28COEF%2A%2A2%29%0Af_analitico%20%3D%20float%28np.sqrt%28PRESUPUESTO%20%2A%20np.sum%28COEF%2A%2A2%29%29%29%0Aerr_abs%20%3D%20np.abs%28res.x%20-%20x_analitico%29%0Aerr_rel_obj%20%3D%20abs%28clientes%28res.x%29%20-%20f_analitico%29%20/%20f_analitico%0A%0Aprint%28%29%0Aprint%28%22%3D%3D%3D%20COMPARACION%20CON%20LA%20SOLUCION%20ANALITICA%20%3D%3D%3D%22%29%0Afor%20nombre%2C%20a%2C%20n%20in%20zip%28CANALES%2C%20x_analitico%2C%20res.x%29%3A%0A%20%20%20%20print%28%22%20%20%7B%3A%3C9s%7D%3A%20analitico%20%7B%3A9.4f%7D%20%7C%20numerico%20%7B%3A9.4f%7D%22.format%28nombre%2C%20a%2C%20n%29%29%0Aprint%28%22error%20absoluto%20maximo%20%28miles%29%3A%22%2C%20%22%7B%3A.3e%7D%22.format%28float%28err_abs.max%28%29%29%29%29%0Aprint%28%22valor%20optimo%20analitico%20%20%20%20%20%20%20%3A%22%2C%20round%28f_analitico%2C%206%29%29%0Aprint%28%22error%20relativo%20del%20objetivo%20%20%3A%22%2C%20%22%7B%3A.3e%7D%22.format%28err_rel_obj%29%29%0A%0A%23%20----------%20BLOQUE%207%3A%20comparacion%20con%20la%20alternativa%20ingenua%20----------%0Ax_igual%20%3D%20np.full%283%2C%20PRESUPUESTO%20/%203.0%29%0Amejora%20%3D%20clientes%28res.x%29%20-%20clientes%28x_igual%29%0Aprint%28%29%0Aprint%28%22%3D%3D%3D%20COMPARACION%20CON%20EL%20REPARTO%20EN%20PARTES%20IGUALES%20%3D%3D%3D%22%29%0Aprint%28%22clientes%20con%20reparto%20igual%20%3A%22%2C%20round%28clientes%28x_igual%29%2C%204%29%29%0Aprint%28%22clientes%20con%20reparto%20optimo%3A%22%2C%20round%28clientes%28res.x%29%2C%204%29%29%0Aprint%28%22mejora%20absoluta%20%20%20%20%20%20%20%20%20%20%20%20%3A%22%2C%20round%28mejora%2C%204%29%29%0Aprint%28%22mejora%20relativa%20%28%25%29%20%20%20%20%20%20%20%20%3A%22%2C%20round%28100%20%2A%20mejora%20/%20clientes%28x_igual%29%2C%203%29%29%0A%0A%23%20----------%20BLOQUE%208%3A%20estabilidad%20ante%20el%20punto%20inicial%20----------%0Arng%20%3D%20np.random.default_rng%28SEMILLA%29%0Apeor%20%3D%200.0%0Afallos%20%3D%200%0At0%20%3D%20time.perf_counter%28%29%0Afor%20_%20in%20range%28200%29%3A%0A%20%20%20%20inicio%20%3D%20rng.uniform%28MIN_CANAL%2C%20MAX_CANAL%2C%20size%3D3%29%0A%20%20%20%20r%20%3D%20minimize%28objetivo%2C%20inicio%2C%20method%3D%22SLSQP%22%2C%20bounds%3Dlimites%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20constraints%3D%5Brestriccion_presupuesto%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20options%3D%7B%22ftol%22%3A%201e-9%2C%20%22maxiter%22%3A%20200%7D%29%0A%20%20%20%20if%20not%20r.success%3A%0A%20%20%20%20%20%20%20%20fallos%20%2B%3D%201%0A%20%20%20%20%20%20%20%20continue%0A%20%20%20%20peor%20%3D%20max%28peor%2C%20float%28np.max%28np.abs%28r.x%20-%20x_analitico%29%29%29%29%0At_multi%20%3D%20time.perf_counter%28%29%20-%20t0%0A%0Aprint%28%29%0Aprint%28%22%3D%3D%3D%20ESTABILIDAD%3A%20200%20PUNTOS%20INICIALES%20ALEATORIOS%20%28semilla%2042%29%20%3D%3D%3D%22%29%0Aprint%28%22corridas%20fallidas%20%20%20%20%20%20%20%20%20%20%3A%22%2C%20fallos%29%0Aprint%28%22peor%20desviacion%20%28miles%29%20%20%20%20%3A%22%2C%20%22%7B%3A.3e%7D%22.format%28peor%29%29%0Aprint%28%22tiempo%20de%20las%20200%20%28s%29%20%20%20%20%20%20%3A%22%2C%20round%28t_multi%2C%204%29%29%0A&mode=display&py=3" target="_blank" rel="noopener noreferrer" title="Abre Python Tutor (sitio externo) con este código para verlo ejecutarse línea por línea">ver paso a paso &#8599;</a></div>
 <h4>A.3 La salida completa, tal como sale</h4>
 <p>Guardada en el repositorio como <code>1B_codigo/salida_1B.txt</code>. Los tiempos varían
 según la máquina; todo lo demás debe coincidir dígito por dígito.</p>
-<details class="pred"><summary>Salida · ¿qué crees que imprime? Predícelo y luego ábrela</summary><div class="caja salida" data-lang="salida"><pre><code>numpy 2.0.2 | scipy 1.13.1
+<div class="pred-caja" data-pred="b5s13-sal1"><label class="pred-lab">Antes de abrir: ¿qué imprime? Escríbelo aquí (se guarda en este navegador).<textarea class="pred-mia" rows="2"></textarea></label><details class="pred"><summary>Salida · compárala con tu predicción</summary><div class="caja salida" data-lang="salida"><pre><code>numpy 2.0.2 | scipy 1.13.1
 
 === RESULTADO NUMERICO (SLSQP) ===
 exito          : True
@@ -3406,7 +3579,7 @@ corridas fallidas          : 0
 peor desviacion (miles)    : 1.442e-04
 tiempo de las 200 (s)      : 0.4093
 </code></pre></div>
-</details>
+</details></div>
 <h4>A.4 Esqueleto del informe, sección por sección</h4>
 <p>Esto <strong>no es un texto para copiar</strong>: es el molde con lo que va en cada sección y
 cuánto espacio darle. Redáctalo con tus palabras y con tu problema.</p>
@@ -3517,19 +3690,23 @@ de la tolerancia (2315.007 con <code>ftol=1e-6</code>, 170.107 con <code>1e-12</
 reproduces la variante compara con la misma <code>ftol</code>, no con el número solo.</p>
 
 </div></details>
+</div>
 </section>
 <section class="bloque" id="b6"><div class="cab">
 <div class="bn" aria-hidden="true">6</div><div>
 <h2>Refuerza · el quiz que da puntos</h2>
 <div class="meta">
 <span class="chip">40 min estimados</span>
-<span class="chip q">&#9733; da puntos</span>
+<span class="chip q" title="Refuerza y Comparte">&#9733; da puntos</span>
 <label class="tiempo">tu tiempo real <input class="real" type="number" min="0" step="1" inputmode="numeric" id="real-b6" name="real-b6" data-bloque="6" aria-label="tiempo real del bloque 6 en minutos"> min</label>
 </div></div></div>
+<div class="sec" data-h="3">
 <p><strong>Peso: 2 % de la materia, y vence el 2026-08-18.</strong> Es la actividad más barata de
 la unidad y también la más rápida: con el material ya escrito, se resuelve en una
 sesión. No inviertas en ella el esfuerzo de la Actividad B.</p>
 
+</div>
+<div class="sec" data-h="3">
 <h3 id="b6-que-te-piden-exactamente">Qué te piden exactamente</h3>
 <p>Esto es <strong>todo</strong> lo que dice la fuente oficial sobre esta actividad, palabra por
 palabra:</p>
@@ -3560,7 +3737,10 @@ ansiedad.</li>
 <em>Numerical Optimization</em>, pp. 1-15; Antoniou &amp; Lu, <em>The Optimization Problem</em>,
 en <em>Practical Optimization</em>, pp. 1-76.</p>
 
-<div class="estado" data-sec="b6-que-te-piden-exactamente"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b6-que-te-piden-exactamente"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b6-como-se-estudia-para-un-quiz-de-esta-unidad">Cómo se estudia para un quiz de esta unidad</h3>
 <p>Un quiz de opción múltiple y verdadero/falso sobre la Unidad 1 no puede pedirte
 resolver nada: la unidad es de <strong>conceptos y formulación</strong>, no de métodos (los
@@ -3589,7 +3769,10 @@ más que saber por qué otra es cierta, porque las opciones cambian y los concep
 no. Por eso cada pregunta de aquí revela su razonamiento completo al calificar,
 incluidas las opciones que descartaste.</p>
 
-<div class="estado" data-sec="b6-como-se-estudia-para-un-quiz-de-esta-unidad"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b6-como-se-estudia-para-un-quiz-de-esta-unidad"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b6-banco-de-20-preguntas-de-practica">Banco de 20 preguntas de práctica</h3>
 <p><strong>12 de opción múltiple</strong> (cuatro opciones, una sola correcta) y <strong>8 de verdadero
 o falso</strong>. Están escritas con el mismo estilo de trampa que describe el bloque 3.
@@ -3767,7 +3950,10 @@ banco, qué mide y qué no mide tu puntaje.</p>
 <div class="quiz-barra"><button type="button" class="calificar">Calificar</button><button type="button" class="reiniciar">Reiniciar</button><output class="marcador" role="status"></output></div>
 </form>
 
-<div class="estado" data-sec="b6-banco-de-20-preguntas-de-practica"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b6-banco-de-20-preguntas-de-practica"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b6-que-mide-tu-puntaje-y-que-no-mide">Qué mide tu puntaje y qué no mide</h3>
 <p>Esta escala es <strong>recomendación de esta guía, no escala oficial</strong>, y conviene leer
 antes lo que sigue, porque un 20/20 aquí promete menos de lo que parece.</p>
@@ -3837,7 +4023,10 @@ preguntas de distinción, y más fácil en las de definición, que casi no hay.<
 </tbody>
 </table></div>
 
-<div class="estado" data-sec="b6-que-mide-tu-puntaje-y-que-no-mide"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b6-que-mide-tu-puntaje-y-que-no-mide"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b6-checklist-antes-de-contestar-el-quiz">Checklist antes de contestar el quiz</h3>
 <ul>
 <li>[ ] Leí el glosario de <a class="ref" href="#b2-9-glosario-de-bolsillo">«El tema» §9</a> completo.</li>
@@ -3849,15 +4038,19 @@ era la correcta.</li>
 <li>[ ] Contesté el quiz en la plataforma antes del <strong>2026-08-18</strong>.</li>
 </ul>
 
-<div class="estado" data-sec="b6-checklist-antes-de-contestar-el-quiz"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b6-checklist-antes-de-contestar-el-quiz"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
 </section>
-<section class="bloque fuera" id="b7"><div class="cab">
+<section class="bloque" id="b7"><div class="cab">
 <div class="bn" aria-hidden="true">7</div><div>
 <h2>Comparte · el foro</h2>
 <div class="meta">
 <span class="chip">13 min estimados</span>
+<span class="chip q" title="Refuerza y Comparte">&#9733; da puntos</span>
 <label class="tiempo">tu tiempo real <input class="real" type="number" min="0" step="1" inputmode="numeric" id="real-b7" name="real-b7" data-bloque="7" aria-label="tiempo real del bloque 7 en minutos"> min</label>
 </div></div></div>
+<div class="sec" data-h="3">
 <p>El foro &quot;Comparte&quot; es la otra mitad del 2 % y <strong>vence el mismo día, 2026-08-18</strong>.
 Los criterios de calidad de este bloque son recomendación de esta guía: como se
 dijo en el bloque 6, no hay lista de cotejo oficial en <code>_fuente</code>.</p>
@@ -3870,6 +4063,8 @@ qué es importante definir claramente un problema antes de resolverlo?</p>
 <p>Son dos preguntas, y una aportación que solo conteste la primera se queda a la
 mitad.</p>
 
+</div>
+<div class="sec" data-h="3">
 <h3 id="b7-que-hace-sustantiva-una-aportacion">Qué hace sustantiva una aportación</h3>
 <p>La diferencia entre una participación que suma y una que no está casi siempre en
 lo mismo, y no es la extensión:</p>
@@ -3919,7 +4114,10 @@ cada respuesta a un compañero (recomendación, no requisito oficial). Por debaj
 de 180 no caben las cinco partes de la plantilla; por encima de 250 el foro se
 vuelve ilegible y nadie te responde.</p>
 
-<div class="estado" data-sec="b7-que-hace-sustantiva-una-aportacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b7-que-hace-sustantiva-una-aportacion"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b7-la-plantilla-de-cinco-partes">La plantilla de cinco partes</h3>
 <p>Cinco bloques, en este orden. Cada uno con su función y su extensión aproximada.</p>
 <p><strong>Parte 1 · El caso, con números (≈50 palabras).</strong> Un problema cotidiano tuyo,
@@ -3956,7 +4154,10 @@ lo es.</p>
 plantilla exactamente y la puedes usar para calibrar el tono; <strong>no la copies</strong>,
 porque tu grupo comparte este material y dos textos gemelos se notan.</p>
 
-<div class="estado" data-sec="b7-la-plantilla-de-cinco-partes"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b7-la-plantilla-de-cinco-partes"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b7-como-responder-a-otro-participante">Cómo responder a otro participante</h3>
 <p>Responder bien es más barato que aportar bien y cuenta igual. Tres movimientos,
 en este orden, en 60 a 120 palabras:</p>
@@ -3986,7 +4187,10 @@ de maestría espera.</p>
 <p>El apéndice trae una réplica de muestra construida con la jugada de
 &quot;reclasificación&quot;.</p>
 
-<div class="estado" data-sec="b7-como-responder-a-otro-participante"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b7-como-responder-a-otro-participante"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b7-tus-tres-decisiones-personales">Tus tres decisiones personales</h3>
 <p>Tres alumnos con este mismo material deben publicar tres aportaciones
 distinguibles. Estas son las tres palancas. Anótalas antes de escribir: son
@@ -4026,7 +4230,10 @@ una decisión (trampa 5 del bloque 3).</li>
 <p>Las tres son igual de válidas; la (c) es la menos usada y la que más lucimiento
 da, porque es la que un compañero puede discutir.</p>
 
-<div class="estado" data-sec="b7-tus-tres-decisiones-personales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b7-tus-tres-decisiones-personales"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <h3 id="b7-checklist-antes-de-publicar-en-el-foro">Checklist antes de publicar en el foro</h3>
 <ul>
 <li>[ ] Mi aportación tiene las <strong>cinco partes</strong> de la plantilla, en orden.</li>
@@ -4044,7 +4251,10 @@ responder a otro participante&quot;, aportando algo que él no dijo.</li>
 <li>[ ] Publiqué antes del <strong>2026-08-18</strong>.</li>
 </ul>
 
-<div class="estado" data-sec="b7-checklist-antes-de-publicar-en-el-foro"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea></div>
+<div class="estado" data-sec="b7-checklist-antes-de-publicar-en-el-foro"><button type="button" data-v="ok">&#10003; entendido</button><button type="button" data-v="rep">&#8635; repasar</button><button type="button" data-v="mias">&#9998; con mis palabras</button><textarea hidden rows="3" placeholder="Explica esta sección como se la contarías a alguien. Se guarda en este navegador."></textarea>
+</div>
+</div>
+<div class="sec" data-h="3">
 <details class="spoiler" id="b7-apendice-aportacion-y-replica-de-muestra-abrelo-"><summary>Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 3 min</summary><div class="cuerpo">
 <p><strong>No copies estos textos.</strong> Todo tu grupo tiene acceso al mismo material y dos
 aportaciones gemelas se detectan a simple vista. Úsalos solo para calibrar el
@@ -4102,6 +4312,7 @@ opinión; y la devolución es una pregunta que él puede contestar con un dato q
 solo él tiene.</p>
 
 </div></details>
+</div>
 </section>
 </main>
 <footer><p><b>Bryan Rodríguez Abarca</b> · MCDI · INFOTEC 2026-2</p><p>Sitio personal de estudio. El logotipo de INFOTEC identifica a la institución donde se cursa el programa; este sitio no es un canal oficial del centro.</p>
@@ -4174,16 +4385,50 @@ function pintaVencimientos(){
     d.querySelectorAll('section.bloque').forEach(function(s){io.observe(s);});
   }
 
-  var rutas=d.querySelectorAll('.ruta');
-  function ponRuta(r){
-    d.body.classList.toggle('solo-quiz',r==='quiz');
-    rutas.forEach(function(b){
-      b.setAttribute('aria-pressed',b.getAttribute('data-ruta')===r?'true':'false');});
-    guarda(KEY+'ruta',r);
+  // Hitos: el paso k muestra a plena tinta todo lo que hace falta para el
+  // entregable k (y lo de los anteriores); el resto se atenua, no se esconde.
+  var pasos=d.querySelectorAll('.ruta[data-hito]'),nH=pasos.length;
+  function pintaAv(){
+    var e=estados();
+    pasos.forEach(function(b){
+      var k=+b.getAttribute('data-hito'),tot=0,ok=0;
+      d.querySelectorAll('main .sec[data-h] .estado').forEach(function(c){
+        if(+c.closest('.sec').getAttribute('data-h')<=k){
+          tot++; if(e[c.getAttribute('data-sec')]==='ok') ok++;}
+      });
+      b.querySelector('.av').textContent=tot?(ok+' de '+tot+' entendidas'):'';
+    });
   }
-  rutas.forEach(function(b){
-    b.addEventListener('click',function(){ponRuta(b.getAttribute('data-ruta'));});});
-  ponRuta(guardado(KEY+'ruta')==='quiz'?'quiz':'completa');
+  function ponHito(k){
+    d.body.dataset.hito=k;
+    d.querySelectorAll('main .sec').forEach(function(s){
+      s.classList.toggle('fuera',+s.getAttribute('data-h')>k);});
+    d.querySelectorAll('main section.bloque').forEach(function(b){
+      var dentro=b.querySelector('.sec:not(.fuera)');
+      b.classList.toggle('fuera',!dentro);});
+    d.querySelectorAll('nav.saltos a').forEach(function(a){
+      var b=d.getElementById(a.getAttribute('href').slice(1));
+      a.classList.toggle('fuera',!!b&&b.classList.contains('fuera'));});
+    d.querySelectorAll('ol.sesiones li[data-h]').forEach(function(li){
+      li.classList.toggle('fuera',+li.getAttribute('data-h')>k);});
+    pasos.forEach(function(b){
+      b.setAttribute('aria-pressed',+b.getAttribute('data-hito')===k?'true':'false');});
+    guarda(KEY+'hito',k);
+    pintaAv();pintaRepaso();
+  }
+  pasos.forEach(function(b){
+    b.addEventListener('click',function(){ponHito(+b.getAttribute('data-hito'));});});
+  if(nH){
+    var gk=parseInt(guardado(KEY+'hito'),10),ini=0;
+    if(gk>=1&&gk<=nH) ini=gk;
+    else{
+      d.querySelectorAll('ol.hitos li').forEach(function(li,i){
+        var iso=li.getAttribute('data-iso');
+        if(!ini&&iso&&dias(iso)>=0) ini=i+1;});
+      if(!ini) ini=nH;
+    }
+    ponHito(ini);
+  }
 
   var caja=d.getElementById('mejor');
   function pintaMejor(){
@@ -4253,16 +4498,22 @@ function pintaVencimientos(){
   pintaMejor();
 
   var btn=d.getElementById('repaso-btn'),info=d.getElementById('repaso-info'),
-      sec=d.getElementById('repaso'),banco=d.querySelectorAll('main .pregunta');
+      sec=d.getElementById('repaso');
+  // El banco solo tiene las preguntas del paso elegido: repasar lo que todavia
+  // no toca es ruido.
+  function banco(){return [].slice.call(d.querySelectorAll('main .sec:not(.fuera) .pregunta'));}
   function pintaRepaso(){
-    if(!btn||!banco.length) return;
-    btn.hidden=false;
-    var n=Object.keys(fallas()).length;
+    if(!btn) return;
+    var b=banco();
+    btn.hidden=!b.length;
+    if(!b.length) return;
+    btn.textContent='Repaso r\u00e1pido \u00b7 '+Math.min(10,b.length)+' preguntas';
+    var f=fallas(),n=b.filter(function(q){return f[q.id];}).length;
     info.textContent=n?('Llevas '+n+' pregunta'+(n===1?'':'s')+' con fallos pendientes.'):
-      'Todas las preguntas de la unidad, barajadas.';
+      'Todas las preguntas del paso elegido, barajadas.';
   }
   function armaRepaso(){
-    var f=fallas(),lista=[].slice.call(banco);
+    var f=fallas(),lista=banco();
     for(var i=lista.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=lista[i];lista[i]=lista[j];lista[j]=t;}
     lista.sort(function(a,b){return (f[b.id]||0)-(f[a.id]||0);});
     lista=lista.slice(0,10);
@@ -4302,7 +4553,7 @@ function pintaVencimientos(){
     var e=estados(),rep=[],ok=0;
     cajas.forEach(function(c){
       var id=c.getAttribute('data-sec'),v=e[id];
-      c.querySelectorAll('button[data-v]').forEach(function(b){
+      c.querySelectorAll('button[data-v]:not([data-v=cmp])').forEach(function(b){
         var on=b.getAttribute('data-v')===v||(b.getAttribute('data-v')==='mias'&&guardado(KEY+'mias-'+id));
         b.setAttribute('aria-pressed',on?'true':'false');});
       if(v==='rep') rep.push(id); if(v==='ok') ok++;
@@ -4310,15 +4561,27 @@ function pintaVencimientos(){
     if(lista){lista.hidden=!rep.length;lista.querySelector('span').innerHTML=rep.map(function(id){
       return '<a href="#'+id+'">'+tituloDe(id)+'</a>';}).join(' · ');}
     if(rea) rea.querySelector('.cuenta-ok').textContent=ok+' de '+cajas.length+' secciones entendidas.';
+    pintaAv();
   }
   cajas.forEach(function(c){
-    var id=c.getAttribute('data-sec'),ta=c.querySelector('textarea');
+    var id=c.getAttribute('data-sec'),ta=c.querySelector('textarea'),
+        cmp=c.querySelector('button[data-v=cmp]'),frase=c.querySelector('.frase');
     var t=guardado(KEY+'mias-'+id); if(t){ta.value=t;}
     ta.addEventListener('input',function(){if(ta.value) guarda(KEY+'mias-'+id,ta.value); else borra(KEY+'mias-'+id);});
     c.querySelectorAll('button[data-v]').forEach(function(b){
       b.addEventListener('click',function(){
         var v=b.getAttribute('data-v');
-        if(v==='mias'){ta.hidden=!ta.hidden;if(!ta.hidden) ta.focus();return;}
+        // Primero con tus palabras, y solo despues la frase de la guia: comparar
+        // las dos es lo que enseña, leerla antes solo la copia.
+        if(v==='cmp'){
+          frase.hidden=!frase.hidden;
+          b.setAttribute('aria-expanded',frase.hidden?'false':'true');return;}
+        if(v==='mias'){
+          ta.hidden=!ta.hidden;
+          if(cmp) cmp.hidden=ta.hidden;
+          if(frase&&ta.hidden){frase.hidden=true;
+            if(cmp) cmp.setAttribute('aria-expanded','false');}
+          if(!ta.hidden) ta.focus();return;}
         var e=estados(); if(e[id]===v) delete e[id]; else e[id]=v;
         guarda(KEY+'estado',JSON.stringify(e)); pintaEstados();
       });
@@ -4339,32 +4602,99 @@ function pintaVencimientos(){
     d.querySelectorAll('main h3[id],main details.spoiler[id]').forEach(function(h){io2.observe(h);});
   }
 
-  // Plan con fechas: reparte las sesiones desde la primera visita hasta la vispera
-  // del vencimiento, y anade dos repasos (a los 2 dias y la vispera).
-  var pill=d.querySelector('.pill[data-iso]'),nota=d.getElementById('plan-nota'),
-      lis=d.querySelectorAll('ol.sesiones li[data-sesion]');
-  if(pill&&nota&&lis.length){
-    var iso=pill.getAttribute('data-iso'),hoy=new Date();hoy.setHours(0,0,0,0);
+  // Plan con fechas POR HITO: la ventana de cada paso va desde el vencimiento
+  // del anterior (o tu primera visita) hasta la vispera del suyo.
+  var nota=d.getElementById('plan-nota'),
+      pasosLi=[].slice.call(d.querySelectorAll('ol.hitos li'));
+  if(nota&&pasosLi.length){
+    var hoy=new Date();hoy.setHours(0,0,0,0);
     var inicio=guardado(KEY+'plan-inicio');
     if(!inicio){inicio=hoy.toISOString().slice(0,10);guarda(KEY+'plan-inicio',inicio);}
-    var d0=new Date(inicio+'T00:00:00'),fin=new Date(iso+'T00:00:00');fin.setDate(fin.getDate()-1);
-    var dias=Math.max(0,Math.round((fin-d0)/864e5)),n=lis.length;
+    var uni=d.querySelector('.pill[data-iso]'),uniISO=uni?uni.getAttribute('data-iso'):'';
     var MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
     function fmt(dt){return dt.getDate()+' '+MES[dt.getMonth()];}
-    function enDias(k){var x=new Date(d0);x.setDate(x.getDate()+k);return x;}
-    if(fin<hoy){nota.textContent='El vencimiento ya pasó: usa el plan como orden, sin fechas.';}
-    else{
-      var paso=dias/Math.max(1,n),fechas=[];
-      lis.forEach(function(li,i){
-        var dt=enDias(Math.round(i*paso));fechas.push(dt);
-        var f=li.querySelector('.fecha');f.textContent=fmt(dt);
-        if(dt<hoy) li.classList.add('pasada'); else if(dt.getTime()===hoy.getTime()) li.classList.add('hoy');
+    var d0=new Date(inicio+'T00:00:00'),cursor=d0,visperas=[],
+        conFechas=false,hubo=false;
+    pasosLi.forEach(function(li,i){
+      var k=i+1,iso=li.getAttribute('data-iso'),fin=null;
+      var ses=d.querySelectorAll('ol.sesiones li[data-h="'+k+'"]'),
+          h3=d.querySelector('h3.plan-hito[data-h="'+k+'"]');
+      if(iso){fin=new Date(iso+'T00:00:00');fin.setDate(fin.getDate()-1);}
+      else if(uniISO){var u=new Date(uniISO+'T00:00:00');u.setDate(u.getDate()-1);
+        if(u>cursor) fin=u;}
+      if(!fin) return;
+      hubo=true;
+      var sig=iso?new Date(iso+'T00:00:00'):new Date(fin);
+      if(fin<hoy){   // la ventana entera ya paso: sin fechas, solo el sello
+        ses.forEach(function(li2){li2.classList.add('pasada');});
+        if(h3&&!h3.querySelector('small')) h3.insertAdjacentHTML('beforeend',' <small>venció</small>');
+        cursor=sig>cursor?sig:cursor;return;
+      }
+      conFechas=true;
+      var ini=cursor>d0?cursor:d0;
+      if(fin<ini) fin=new Date(ini);
+      var dd=Math.max(0,Math.round((fin-ini)/864e5)),paso=dd/Math.max(1,ses.length);
+      ses.forEach(function(li2,j){
+        var dt=new Date(ini);dt.setDate(dt.getDate()+Math.round(j*paso));
+        li2.querySelector('.fecha').textContent=fmt(dt);
+        if(dt<hoy) li2.classList.add('pasada');
+        else if(dt.getTime()===hoy.getTime()) li2.classList.add('hoy');
       });
-      var r1=enDias(Math.min(2,dias)),r2=fin;
-      nota.innerHTML='Fechas repartidas desde tu primera visita ('+fmt(d0)+') hasta la víspera ('
-        +fmt(fin)+'). Repaso rápido sugerido: <b>'+fmt(r1)+'</b>'+(r2>r1?' y <b>'+fmt(r2)+'</b>':'')
-        +'. Es una sugerencia; el orden importa más que el día.';
-    }
+      visperas.push(fmt(fin));
+      cursor=sig>cursor?sig:cursor;
+    });
+    if(!conFechas) nota.textContent=hubo
+      ?'Todos los vencimientos ya pasaron: usa el plan como orden, sin fechas.'
+      :'Sin vencimientos: usa el plan como orden, sin fechas.';
+    else nota.innerHTML='Fechas desde tu primera visita ('+fmt(d0)+') hasta la víspera de cada '
+      +'vencimiento. Repaso rápido sugerido la víspera de cada hito: <b>'
+      +visperas.join('</b>, <b>')+'</b>. Es una sugerencia; el orden importa más que el día.';
+  }
+
+  // Prediccion escrita antes de abrir cada salida.
+  d.querySelectorAll('.pred-caja').forEach(function(c){
+    var k=KEY+'pred-'+c.getAttribute('data-pred'),ta=c.querySelector('.pred-mia'),
+        det=c.querySelector('details');
+    var v=guardado(k); if(v) ta.value=v;
+    ta.addEventListener('input',function(){
+      if(ta.value) guarda(k,ta.value); else borra(k);});
+    det.addEventListener('toggle',function(){
+      if(!det.open) return;
+      if(ta.value.trim()) c.classList.add('hecha');
+      else ta.placeholder='Abriste sin predecir. La próxima vez escribe algo antes: '
+        +'es lo que fija el aprendizaje.';
+    });
+  });
+
+  // Progreso portatil: todo vive en localStorage, asi que exportarlo es copiar
+  // las claves de esta materia a un JSON.
+  var pio=d.getElementById('progreso-io');
+  if(pio){
+    var pref='guia-optimizacion-',pta=d.getElementById('prog-json'),
+        pmsg=d.getElementById('prog-msg');
+    function mio(k){return k.indexOf(pref)===0||k==='guia-tema';}
+    pio.addEventListener('toggle',function(){
+      if(!pio.open) return;
+      var o={};
+      try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);
+        if(mio(k)) o[k]=localStorage.getItem(k);}}catch(e){}
+      pta.value=JSON.stringify(o);
+    });
+    d.getElementById('prog-copiar').addEventListener('click',function(){
+      if(navigator.clipboard&&navigator.clipboard.writeText)
+        navigator.clipboard.writeText(pta.value).then(function(){pmsg.textContent='Copiado.';},
+          function(){pmsg.textContent='Cópialo a mano.';});
+      else{pta.select();pmsg.textContent='Cópialo a mano.';}
+    });
+    d.getElementById('prog-importar').addEventListener('click',function(){
+      var o;
+      try{o=JSON.parse(pta.value);}catch(e){pmsg.textContent='JSON inválido';return;}
+      if(!o||typeof o!=='object'){pmsg.textContent='JSON inválido';return;}
+      var n=0;
+      Object.keys(o).forEach(function(k){if(mio(k)){guarda(k,String(o[k]));n++;}});
+      pmsg.textContent=n+' claves importadas; recarga la página';
+      setTimeout(function(){location.reload();},800);
+    });
   }
 
   var reales=d.querySelectorAll('input.real');
