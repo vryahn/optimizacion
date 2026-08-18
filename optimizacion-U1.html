@@ -183,14 +183,31 @@ details.nota[open]>summary::before{transform:rotate(90deg)}
 .plan{margin:0 0 2.4rem}
 .plan h2{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.14em;
 text-transform:uppercase;color:var(--text-dim);margin:0 0 1rem}
+details.plan>summary{cursor:pointer;list-style:none;display:flex;gap:.55rem;align-items:baseline;
+flex-wrap:wrap}
+details.plan>summary::-webkit-details-marker{display:none}
+details.plan>summary::before{content:"\203A";font-weight:700;color:var(--text-dim);
+display:inline-block;transition:transform .2s}
+details.plan[open]>summary::before{transform:rotate(90deg)}
+details.plan[open]>summary{margin-bottom:1rem}
+details.plan>summary h2{margin:0}
+details.plan>summary .nota{display:inline;background:none;border:0;border-radius:0;
+padding:0;margin:0;font-size:.76rem}
 ol.sesiones{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
-ol.sesiones li{display:flex;gap:.9rem;align-items:center;background:var(--surface);
-border:1px solid var(--border);border-radius:var(--r);padding:.8rem .95rem;
-box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-ol.sesiones li:hover{transform:translateY(-2px);border-color:var(--accent);
-box-shadow:var(--shadow-lift)}
-ol.sesiones .n{flex:none;width:2.1rem;height:2.1rem;border-radius:999px;display:grid;
-place-items:center;font-family:var(--serif);font-size:.95rem;font-weight:600;
+ol.sesiones li{background:var(--surface);border:1px solid var(--border);
+border-radius:var(--r);box-shadow:var(--shadow);
+transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+a.sesion{display:flex;gap:.9rem;align-items:center;padding:.8rem .95rem;
+text-decoration:none;color:inherit}
+ol.sesiones li:hover,ol.sesiones li:focus-within{transform:translateY(-2px);
+border-color:var(--accent);box-shadow:var(--shadow-lift)}
+ol.sesiones li.actual{border-color:var(--accent);background:var(--accent-soft)}
+ol.sesiones li.hecha .n{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+ol.sesiones li.hecha .n::after{content:"\2713";position:absolute;right:-.2rem;bottom:-.2rem;
+font-size:.62rem;line-height:1;padding:.08rem .12rem;border-radius:999px;
+background:var(--surface);border:1px solid var(--ok)}
+ol.sesiones .n{position:relative;flex:none;width:2.1rem;height:2.1rem;border-radius:999px;
+display:grid;place-items:center;font-family:var(--serif);font-size:.95rem;font-weight:600;
 background:var(--accent-soft);color:var(--accent);border:1px solid var(--border)}
 ol.sesiones .dur{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
 ol.sesiones .det{display:block;font-size:.82rem;color:var(--text-dim);line-height:1.45}
@@ -298,7 +315,6 @@ margin:.3rem 0 0 .2rem;cursor:pointer}
 ol.sesiones li .fecha{margin-left:auto;flex:none;font:600 .74rem var(--sans);color:var(--text-dim);
 white-space:nowrap}
 ol.sesiones li.hoy .fecha{color:var(--accent)}
-ol.sesiones li.pasada{opacity:.6}
 .repaso-cta{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
 .repaso-cta .nota{margin:0}
 .caja.codigo,.caja.salida{background:#1A1416;border-color:#2B2226;color:#F4F1EE}
@@ -489,27 +505,27 @@ border-radius:2px}
 <p class="nota" id="para-repasar" hidden>Marcadas para repasar: <span></span></p>
 <p class="repaso-cta"><button type="button" class="calificar" id="repaso-btn" hidden>Repaso rápido · 10 preguntas</button><span class="nota" id="repaso-info"></span></p>
 </section>
-<section class="plan">
-<h2>Plan de estudio · 8 sesiones de 28-49 min (por hito)</h2>
+<details class="plan" id="plan">
+<summary><h2>Plan de estudio · 8 sesiones de 28-49 min (por hito)</h2><span class="nota" id="plan-sig"></span></summary>
 <h3 class="plan-hito" data-h="1">1A · Actividad 1A · mapa conceptual · vence 9 de agosto</h3>
 <ol class="sesiones">
-<li data-sesion="1" data-h="1"><span class="n">1</span><div><span class="dur">39 min</span><span class="det">desde <a href="#b1-intro">Qué vas a poder hacer al terminar</a> hasta 3. Todo junto, en Python · 8 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="2" data-h="1"><span class="n">2</span><div><span class="dur">42 min</span><span class="det">desde <a href="#b2-4-como-leer-una-formula-de-optimizacion">4. Cómo leer una fórmula de optimización</a> hasta 1. Qué te piden, en palabras llanas · 8 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="3" data-h="1"><span class="n">3</span><div><span class="dur">44 min</span><span class="det">desde <a href="#b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q">2. Mapa conceptual vs. mapa mental: la diferencia que cuesta puntos</a> hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 9 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="1" data-h="1" data-secs="b1-las-siete-cosas-que-vas-a-saber-hacer b1-como-esta-armada-y-por-donde-entrar b1-lo-que-esta-guia-no-es b2-1-que-significa-optimizar b2-2-las-cuatro-piezas-del-vocabulario-minimo b2-3-todo-junto-en-python"><a class="sesion" href="#b1-intro"><span class="n">1</span><div><span class="dur">39 min</span><span class="det">desde Qué vas a poder hacer al terminar hasta 3. Todo junto, en Python · 8 secciones</span></div><span class="fecha"></span></a></li>
+<li data-sesion="2" data-h="1" data-secs="b2-4-como-leer-una-formula-de-optimizacion b2-5-tipos-de-problemas-clasificacion b2-6-minimos-maximos-local-y-global b2-7-resolver-en-papel-vs-resolver-con-la-computado b2-8-por-que-esto-importa-en-ciencia-de-datos b2-9-glosario-de-bolsillo b4-1-que-te-piden-en-palabras-llanas"><a class="sesion" href="#b2-4-como-leer-una-formula-de-optimizacion"><span class="n">2</span><div><span class="dur">42 min</span><span class="det">desde 4. Cómo leer una fórmula de optimización hasta 1. Qué te piden, en palabras llanas · 8 secciones</span></div><span class="fecha"></span></a></li>
+<li data-sesion="3" data-h="1" data-secs="b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q b4-3-que-conceptos-deben-aparecer b4-4-como-se-relacionan-esta-es-la-parte-importante b4-5-los-enlaces-cruzados-donde-se-gana-la-califica b4-6-ejemplo-trabajado-un-mapa-conceptual-sobre-otr b4-7-como-construirlo-paso-a-paso b4-8-con-que-te-van-a-calificar-la-lista-de-cotejo- b4-9-checklist-antes-de-entregar"><a class="sesion" href="#b4-2-mapa-conceptual-vs-mapa-mental-la-diferencia-q"><span class="n">3</span><div><span class="dur">44 min</span><span class="det">desde 2. Mapa conceptual vs. mapa mental: la diferencia que cuesta puntos hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 9 secciones</span></div><span class="fecha"></span></a></li>
 </ol>
 <h3 class="plan-hito" data-h="2">1B · Actividad 1B · plantear y resolver · vence 16 de agosto</h3>
 <ol class="sesiones">
-<li data-sesion="4" data-h="2"><span class="n">4</span><div><span class="dur">31 min</span><span class="det">desde <a href="#b5-intro">Actividad B · plantear y resolver con la computadora</a> hasta 3. Herramientas nuevas: numpy en 20 líneas · 4 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="5" data-h="2"><span class="n">5</span><div><span class="dur">41 min</span><span class="det">desde <a href="#b5-4-herramientas-nuevas-scipy-optimize-minimize">4. Herramientas nuevas: <code>scipy.optimize.minimize</code></a> hasta 7. Cómo se arma el script: los 8 bloques · 4 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="6" data-h="2"><span class="n">6</span><div><span class="dur">45 min</span><span class="det">desde <a href="#b5-8-que-resultados-reportar-y-con-que-cifras-compr">8. Qué resultados reportar y con qué cifras comprobarlos</a> hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 6 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="4" data-h="2" data-secs="b5-1-que-te-piden-en-palabras-llanas b5-2-que-se-entrega-exactamente-y-como-se-reparte b5-3-herramientas-nuevas-numpy-en-20-lineas"><a class="sesion" href="#b5-intro"><span class="n">4</span><div><span class="dur">31 min</span><span class="det">desde Actividad B · plantear y resolver con la computadora hasta 3. Herramientas nuevas: numpy en 20 líneas · 4 secciones</span></div><span class="fecha"></span></a></li>
+<li data-sesion="5" data-h="2" data-secs="b5-4-herramientas-nuevas-scipy-optimize-minimize b5-5-como-elegir-y-plantear-tu-problema-el-molde-de b5-6-el-problema-de-ejemplo-de-esta-nota-y-su-model b5-7-como-se-arma-el-script-los-8-bloques"><a class="sesion" href="#b5-4-herramientas-nuevas-scipy-optimize-minimize"><span class="n">5</span><div><span class="dur">41 min</span><span class="det">desde 4. Herramientas nuevas: <code>scipy.optimize.minimize</code> hasta 7. Cómo se arma el script: los 8 bloques · 4 secciones</span></div><span class="fecha"></span></a></li>
+<li data-sesion="6" data-h="2" data-secs="b5-8-que-resultados-reportar-y-con-que-cifras-compr b5-9-el-analisis-critico-instruccion-6 b5-10-tus-tres-decisiones-personales b5-11-con-que-te-van-a-calificar b5-12-checklist-antes-de-entregar"><a class="sesion" href="#b5-8-que-resultados-reportar-y-con-que-cifras-compr"><span class="n">6</span><div><span class="dur">45 min</span><span class="det">desde 8. Qué resultados reportar y con qué cifras comprobarlos hasta Apéndice · Solución de referencia — ábrelo DESPUÉS de intentarlo · 6 secciones</span></div><span class="fecha"></span></a></li>
 </ol>
 <h3 class="plan-hito" data-h="3">Refuerza · Refuerza y Comparte · vence 18 de agosto</h3>
 <ol class="sesiones">
-<li data-sesion="7" data-h="3"><span class="n">7</span><div><span class="dur">28 min</span><span class="det">desde <a href="#b3-intro">Trampas medidas</a> hasta Cómo se estudia para un quiz de esta unidad · 6 secciones</span></div><span class="fecha"></span></li>
-<li data-sesion="8" data-h="3"><span class="n">8</span><div><span class="dur">49 min</span><span class="det">desde <a href="#b6-banco-de-20-preguntas-de-practica">Banco de 20 preguntas de práctica</a> hasta Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 10 secciones</span></div><span class="fecha"></span></li>
+<li data-sesion="7" data-h="3" data-secs="b3-las-seis-trampas-conceptuales b3-trampa-7-la-que-se-midio-exito-true-y-752-pesos- b6-que-te-piden-exactamente b6-como-se-estudia-para-un-quiz-de-esta-unidad"><a class="sesion" href="#b3-intro"><span class="n">7</span><div><span class="dur">28 min</span><span class="det">desde Trampas medidas hasta Cómo se estudia para un quiz de esta unidad · 6 secciones</span></div><span class="fecha"></span></a></li>
+<li data-sesion="8" data-h="3" data-secs="b6-banco-de-20-preguntas-de-practica b6-que-mide-tu-puntaje-y-que-no-mide b6-checklist-antes-de-contestar-el-quiz b7-que-hace-sustantiva-una-aportacion b7-la-plantilla-de-cinco-partes b7-como-responder-a-otro-participante b7-tus-tres-decisiones-personales b7-checklist-antes-de-publicar-en-el-foro"><a class="sesion" href="#b6-banco-de-20-preguntas-de-practica"><span class="n">8</span><div><span class="dur">49 min</span><span class="det">desde Banco de 20 preguntas de práctica hasta Apéndice · Aportación y réplica de muestra — ábrelo DESPUÉS de intentarlo · 10 secciones</span></div><span class="fecha"></span></a></li>
 </ol>
 <p class="nota" id="plan-nota"></p>
-</section>
+</details>
 <section class="bloque" id="repaso" hidden><div class="cab"><div class="bn" aria-hidden="true">&#8635;</div><div><h2>Repaso rápido</h2><div class="meta"><span class="chip">10 preguntas de toda la unidad, primero las que has fallado, el resto al azar</span></div></div></div><div id="repaso-cuerpo"></div></section>
 <main>
 <section class="bloque" id="b1"><div class="cab">
@@ -4414,7 +4430,7 @@ function pintaVencimientos(){
     pasos.forEach(function(b){
       b.setAttribute('aria-pressed',+b.getAttribute('data-hito')===k?'true':'false');});
     guarda(KEY+'hito',k);
-    pintaAv();pintaRepaso();
+    pintaAv();pintaRepaso();pintaPlan();
   }
   pasos.forEach(function(b){
     b.addEventListener('click',function(){ponHito(+b.getAttribute('data-hito'));});});
@@ -4561,7 +4577,7 @@ function pintaVencimientos(){
     if(lista){lista.hidden=!rep.length;lista.querySelector('span').innerHTML=rep.map(function(id){
       return '<a href="#'+id+'">'+tituloDe(id)+'</a>';}).join(' · ');}
     if(rea) rea.querySelector('.cuenta-ok').textContent=ok+' de '+cajas.length+' secciones entendidas.';
-    pintaAv();
+    pintaAv();pintaPlan();
   }
   cajas.forEach(function(c){
     var id=c.getAttribute('data-sec'),ta=c.querySelector('textarea'),
@@ -4602,8 +4618,42 @@ function pintaVencimientos(){
     d.querySelectorAll('main h3[id],main details.spoiler[id]').forEach(function(h){io2.observe(h);});
   }
 
-  // Plan con fechas POR HITO: la ventana de cada paso va desde el vencimiento
-  // del anterior (o tu primera visita) hasta la vispera del suyo.
+  // El plan se abre a voluntad; el summary dice cual es la siguiente sesion.
+  var plan=d.getElementById('plan');
+  if(plan){
+    if(guardado(KEY+'plan-abierto')==='1') plan.open=true;
+    plan.addEventListener('toggle',function(){
+      guarda(KEY+'plan-abierto',plan.open?'1':'0');});
+  }
+  // Cada tarjeta es un marcador: al pulsarla queda como «actual» y se salta a
+  // la primera seccion de esa sesion.
+  function ponActual(n){
+    if(!n) return;
+    guarda(KEY+'sesion-actual',n);
+    d.querySelectorAll('ol.sesiones li[data-sesion]').forEach(function(li){
+      li.classList.toggle('actual',li.getAttribute('data-sesion')===n);});
+  }
+  d.querySelectorAll('a.sesion').forEach(function(a){
+    a.addEventListener('click',function(){
+      ponActual(a.parentNode.getAttribute('data-sesion'));});});
+  ponActual(guardado(KEY+'sesion-actual'));
+  function pintaPlan(){
+    var e=estados(),sig=null;
+    d.querySelectorAll('ol.sesiones li[data-secs]').forEach(function(li){
+      var ss=li.getAttribute('data-secs').split(' ').filter(Boolean);
+      var hecha=ss.length>0&&ss.every(function(id){return e[id]==='ok';});
+      li.classList.toggle('hecha',hecha);
+      if(!sig&&!hecha&&!li.classList.contains('fuera')) sig=li;
+    });
+    var av=d.getElementById('plan-sig');
+    if(!av) return;
+    if(!sig){av.textContent='';return;}
+    var f=sig.querySelector('.fecha').textContent;
+    av.textContent='Siguiente: sesión '+sig.getAttribute('data-sesion')+(f?' · '+f:'');
+  }
+
+  // Fechas del plan: lo que vencio no se apaga, se RECOLOCA. Las sesiones de un
+  // hito vencido se acumulan y se reparten en la ventana del siguiente hito vivo.
   var nota=d.getElementById('plan-nota'),
       pasosLi=[].slice.call(d.querySelectorAll('ol.hitos li'));
   if(nota&&pasosLi.length){
@@ -4613,11 +4663,11 @@ function pintaVencimientos(){
     var uni=d.querySelector('.pill[data-iso]'),uniISO=uni?uni.getAttribute('data-iso'):'';
     var MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
     function fmt(dt){return dt.getDate()+' '+MES[dt.getMonth()];}
-    var d0=new Date(inicio+'T00:00:00'),cursor=d0,visperas=[],
-        conFechas=false,hubo=false;
+    var d0=new Date(inicio+'T00:00:00'),cursor=d0>hoy?d0:hoy,visperas=[],
+        pend=[],pendH3=[],conFechas=false,hubo=false;
     pasosLi.forEach(function(li,i){
       var k=i+1,iso=li.getAttribute('data-iso'),fin=null;
-      var ses=d.querySelectorAll('ol.sesiones li[data-h="'+k+'"]'),
+      var ses=[].slice.call(d.querySelectorAll('ol.sesiones li[data-h="'+k+'"]')),
           h3=d.querySelector('h3.plan-hito[data-h="'+k+'"]');
       if(iso){fin=new Date(iso+'T00:00:00');fin.setDate(fin.getDate()-1);}
       else if(uniISO){var u=new Date(uniISO+'T00:00:00');u.setDate(u.getDate()-1);
@@ -4625,31 +4675,35 @@ function pintaVencimientos(){
       if(!fin) return;
       hubo=true;
       var sig=iso?new Date(iso+'T00:00:00'):new Date(fin);
-      if(fin<hoy){   // la ventana entera ya paso: sin fechas, solo el sello
-        ses.forEach(function(li2){li2.classList.add('pasada');});
+      if(fin<hoy){   // vencido: sus sesiones esperan al siguiente hito vivo
+        pend=pend.concat(ses);
         if(h3&&!h3.querySelector('small')) h3.insertAdjacentHTML('beforeend',' <small>venció</small>');
+        if(h3) pendH3.push(h3);
         cursor=sig>cursor?sig:cursor;return;
       }
       conFechas=true;
-      var ini=cursor>d0?cursor:d0;
-      if(fin<ini) fin=new Date(ini);
-      var dd=Math.max(0,Math.round((fin-ini)/864e5)),paso=dd/Math.max(1,ses.length);
-      ses.forEach(function(li2,j){
-        var dt=new Date(ini);dt.setDate(dt.getDate()+Math.round(j*paso));
+      var lista=pend.concat(ses);
+      pendH3.forEach(function(h){
+        h.querySelector('small').textContent=
+          'venció — sus sesiones se reparten antes del siguiente hito';});
+      pend=[];pendH3=[];
+      var dd=Math.max(0,Math.round((fin-cursor)/864e5)),paso=dd/Math.max(1,lista.length);
+      lista.forEach(function(li2,j){
+        var dt=new Date(cursor);dt.setDate(dt.getDate()+Math.round(j*paso));
         li2.querySelector('.fecha').textContent=fmt(dt);
-        if(dt<hoy) li2.classList.add('pasada');
-        else if(dt.getTime()===hoy.getTime()) li2.classList.add('hoy');
+        li2.classList.toggle('hoy',dt.getTime()===hoy.getTime());
       });
       visperas.push(fmt(fin));
       cursor=sig>cursor?sig:cursor;
     });
-    if(!conFechas) nota.textContent=hubo
+    if(pend.length||!conFechas) nota.textContent=hubo
       ?'Todos los vencimientos ya pasaron: usa el plan como orden, sin fechas.'
       :'Sin vencimientos: usa el plan como orden, sin fechas.';
-    else nota.innerHTML='Fechas desde tu primera visita ('+fmt(d0)+') hasta la víspera de cada '
-      +'vencimiento. Repaso rápido sugerido la víspera de cada hito: <b>'
+    else nota.innerHTML='Fechas desde hoy hasta la víspera de cada vencimiento; lo que venció '
+      +'se recoloca antes del siguiente hito. Repaso rápido sugerido la víspera de cada hito: <b>'
       +visperas.join('</b>, <b>')+'</b>. Es una sugerencia; el orden importa más que el día.';
   }
+  pintaPlan();
 
   // Prediccion escrita antes de abrir cada salida.
   d.querySelectorAll('.pred-caja').forEach(function(c){
