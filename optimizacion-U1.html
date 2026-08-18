@@ -164,6 +164,7 @@ color:var(--text-dim)}
 .ruta .t{display:block;font-family:var(--serif);font-size:1.6rem;font-weight:600;
 letter-spacing:-.02em;margin:.15rem 0 .2rem}
 .ruta .d{display:block;font-size:.78rem;color:var(--text-dim);line-height:1.45}
+.ruta .acum{display:block;font-size:.78rem;color:var(--text);line-height:1.45;margin:0 0 .2rem}
 .ruta:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:var(--accent)}
 .ruta:hover::before{opacity:1}
 .ruta[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);
@@ -493,9 +494,9 @@ border-radius:2px}
 <span class="pill ok" id="mejor" hidden>Tu mejor quiz: <b></b></span>
 </div></div></div>
 <ol class="hitos" role="group" aria-label="Elige hasta dónde estudiar">
-<li data-iso="2026-08-09"><button type="button" class="ruta" data-hito="1" aria-pressed="false" title="Actividad 1A · mapa conceptual"><span class="et">1A</span><span class="t">2 h 05 min</span><span class="d">vence 9 de agosto · <b class="cuenta"></b> · 21 secciones</span><span class="av"></span></button></li>
-<li data-iso="2026-08-16"><button type="button" class="ruta" data-hito="2" aria-pressed="false" title="Actividad 1B · plantear y resolver"><span class="et">1B</span><span class="t">+ 1 h 57 min</span><span class="d">vence 16 de agosto · <b class="cuenta"></b> · 33 secciones</span><span class="av"></span></button></li>
-<li data-iso="2026-08-18"><button type="button" class="ruta" data-hito="3" aria-pressed="false" title="Refuerza y Comparte"><span class="et">Refuerza</span><span class="t">+ 1 h 17 min</span><span class="d">vence 18 de agosto · <b class="cuenta"></b> · 45 secciones</span><span class="av"></span></button></li>
+<li data-iso="2026-08-09"><button type="button" class="ruta" data-hito="1" aria-pressed="false" title="Actividad 1A · mapa conceptual"><span class="et">1A</span><span class="t">2 h 05 min</span><span class="acum">hasta aquí: 2 h 05 min</span><span class="d">vence 9 de agosto · <b class="cuenta"></b> · 21 secciones</span><span class="av"></span></button></li>
+<li data-iso="2026-08-16"><button type="button" class="ruta" data-hito="2" aria-pressed="false" title="Actividad 1B · plantear y resolver"><span class="et">1B</span><span class="t">+ 1 h 57 min</span><span class="acum">hasta aquí: 4 h 02 min</span><span class="d">vence 16 de agosto · <b class="cuenta"></b> · 33 secciones</span><span class="av"></span></button></li>
+<li data-iso="2026-08-18"><button type="button" class="ruta" data-hito="3" aria-pressed="false" title="Refuerza y Comparte"><span class="et">Refuerza</span><span class="t">+ 1 h 17 min</span><span class="acum">hasta aquí: 5 h 19 min · unidad completa</span><span class="d">vence 18 de agosto · <b class="cuenta"></b> · 45 secciones</span><span class="av"></span></button></li>
 </ol>
 <p class="nota">Cada paso incluye todo lo del anterior. Lo que no entra en el paso elegido se atenúa; puedes leerlo igual.</p>
 <details class="nota"><summary>Cómo se calculan estos tiempos, y qué no prometen</summary><p>Los calcula el generador de esta guía contando lo que hay en cada bloque, con tasas <b>provisionales</b>: 100 palabras/min de prosa nueva, 160 de repaso, 4 min por bloque de código, 1 min por bloque de salida, 2 min por figura y 1.5 min por pregunta de quiz. Son una conjetura declarada, no una medición. Miden el tiempo de <b>recorrer</b> el material: no incluyen releer lo que no cuajó, ni las lecturas del curso, ni pelearse con un error de instalación. Anota tu tiempo real en cada bloque (se guarda en este navegador, sin cuentas ni servidor) y las unidades siguientes se estimarán con <i>tu</i> tasa.</p></details>
