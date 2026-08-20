@@ -647,6 +647,11 @@ function pintaVencimientos(){
 
   // Las secciones solo se ocultan desde aqui: sin JS se ven las dos.
   var btns=[].slice.call(d.querySelectorAll('.secbtn'));
+  // Con un solo lado disponible el selector es ruido: se oculta.
+  if(btns.filter(function(b){return !b.disabled;}).length<2){
+    var cont=d.querySelector('.secciones');
+    if(cont) cont.style.display='none';
+  }
   var KEY='guia-optimizacion-seccion',DEF='apuntes';
   function valida(s){
     for(var i=0;i<btns.length;i++)
